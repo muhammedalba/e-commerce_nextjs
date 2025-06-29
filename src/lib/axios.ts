@@ -1,18 +1,19 @@
 import axios from "axios";
-
+import Cookies from "js-cookie";
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-// غيّر الرابط حسب بيئتك
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true, // لو كنت تستخدم الكوكيز (اختياري)
+  withCredentials: true,
 });
 
 // ✅ Interceptor لإضافة Authorization header
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("accessToken"); // أو حسب التخزين المستخدم
+    const token = localStorage.getItem("accessToken");
+    const language = Cookies.get("NEXT_LOCALE") || "ar";
+    config.headers["Accept-Language"] = language;
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

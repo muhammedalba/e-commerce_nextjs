@@ -1,23 +1,23 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
+import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
 
 const FeaturedCategories = () => {
   const categories = [
-    '01.png',
-    '02.png',
-    '03.png',
-    '04.png',
-    '05.png',
-    '06.png',
-    '07.png',
-    '08.png',
-    '09.png',
-    '10.png',
+    "01.png",
+    "02.png",
+    "03.png",
+    "04.png",
+    "05.png",
+    "06.png",
+    "07.png",
+    "08.png",
+    "09.png",
+    "10.png",
   ];
 
   return (
@@ -49,8 +49,8 @@ const FeaturedCategories = () => {
                 loop={true}
                 speed={1000}
                 navigation={{
-                  nextEl: '.swiper-button-next',
-                  prevEl: '.swiper-button-prev',
+                  nextEl: ".swiper-button-next",
+                  prevEl: ".swiper-button-prev",
                 }}
                 breakpoints={{
                   0: { slidesPerView: 2, spaceBetween: 12 },
@@ -66,7 +66,10 @@ const FeaturedCategories = () => {
                   <SwiperSlide key={index}>
                     <div className="single-category-one">
                       <a href="shop-grid-sidebar.html">
-                        <img src={`/assets/images/category/${img}`} alt="category" />
+                        <img
+                          src={`/assets/images/category/${img}`}
+                          alt="category"
+                        />
                         <p>Organic Vegetable</p>
                       </a>
                     </div>

@@ -1,60 +1,60 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import { useEffect } from 'react';
+import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import { useEffect } from "react";
 
 const products = [
   {
     id: 1,
-    img: '/assets/images/grocery/08.jpg',
-    title: 'Pastine Mellin Filid Angelo 100% Di Grano Tenero',
-    pack: '500g Pack',
-    currentPrice: '$36.00',
-    previousPrice: '$36.00',
+    img: "/assets/images/grocery/08.jpg",
+    title: "Pastine Mellin Filid Angelo 100% Di Grano Tenero",
+    pack: "500g Pack",
+    currentPrice: "$36.00",
+    previousPrice: "$36.00",
   },
   {
     id: 2,
-    img: '/assets/images/grocery/09.jpg',
-    title: 'Pastine Mellin Filid Angelo 100% Di Grano Tenero',
-    pack: '500g Pack',
-    currentPrice: '$36.00',
-    previousPrice: '$36.00',
+    img: "/assets/images/grocery/09.jpg",
+    title: "Pastine Mellin Filid Angelo 100% Di Grano Tenero",
+    pack: "500g Pack",
+    currentPrice: "$36.00",
+    previousPrice: "$36.00",
   },
   {
     id: 3,
-    img: '/assets/images/grocery/10.jpg',
-    title: 'Pastine Mellin Filid Angelo 100% Di Grano Tenero',
-    pack: '500g Pack',
-    currentPrice: '$36.00',
-    previousPrice: '$36.00',
+    img: "/assets/images/grocery/10.jpg",
+    title: "Pastine Mellin Filid Angelo 100% Di Grano Tenero",
+    pack: "500g Pack",
+    currentPrice: "$36.00",
+    previousPrice: "$36.00",
   },
   {
     id: 4,
-    img: '/assets/images/grocery/11.jpg',
-    title: 'Pastine Mellin Filid Angelo 100% Di Grano Tenero',
-    pack: '500g Pack',
-    currentPrice: '$36.00',
-    previousPrice: '$36.00',
+    img: "/assets/images/grocery/11.jpg",
+    title: "Pastine Mellin Filid Angelo 100% Di Grano Tenero",
+    pack: "500g Pack",
+    currentPrice: "$36.00",
+    previousPrice: "$36.00",
   },
   {
     id: 5,
-    img: '/assets/images/grocery/12.jpg',
-    title: 'Pastine Mellin Filid Angelo 100% Di Grano Tenero',
-    pack: '500g Pack',
-    currentPrice: '$36.00',
-    previousPrice: '$36.00',
+    img: "/assets/images/grocery/12.jpg",
+    title: "Pastine Mellin Filid Angelo 100% Di Grano Tenero",
+    pack: "500g Pack",
+    currentPrice: "$36.00",
+    previousPrice: "$36.00",
   },
   {
     id: 6,
-    img: '/assets/images/grocery/13.jpg',
-    title: 'Pastine Mellin Filid Angelo 100% Di Grano Tenero',
-    pack: '500g Pack',
-    currentPrice: '$36.00',
-    previousPrice: '$36.00',
+    img: "/assets/images/grocery/13.jpg",
+    title: "Pastine Mellin Filid Angelo 100% Di Grano Tenero",
+    pack: "500g Pack",
+    currentPrice: "$36.00",
+    previousPrice: "$36.00",
   },
 ];
 
@@ -72,7 +72,9 @@ export default function CategorySlider() {
               <div className="row">
                 <div className="col-lg-12">
                   <div className="title-area-between">
-                    <h2 className="title-left mb--0">Hand Picked Products for 10% Offer</h2>
+                    <h2 className="title-left mb--0">
+                      Hand Picked Products for 10% Offer
+                    </h2>
                     <div className="next-prev-swiper-wrapper d-sm-none">
                       <div className="swiper-button-prevs">
                         <i className="fa-regular fa-chevron-left"></i>
@@ -93,8 +95,8 @@ export default function CategorySlider() {
                           <Swiper
                             modules={[Navigation]}
                             navigation={{
-                              nextEl: '.swiper-button-nexts',
-                              prevEl: '.swiper-button-prevs',
+                              nextEl: ".swiper-button-nexts",
+                              prevEl: ".swiper-button-prevs",
                             }}
                             spaceBetween={15}
                             slidesPerView={4}
@@ -126,10 +128,16 @@ export default function CategorySlider() {
                                     <a href="/shop">
                                       <h4 className="title">{item.title}</h4>
                                     </a>
-                                    <span className="availability">{item.pack}</span>
+                                    <span className="availability">
+                                      {item.pack}
+                                    </span>
                                     <div className="price-area">
-                                      <span className="current">{item.currentPrice}</span>
-                                      <div className="previous">{item.previousPrice}</div>
+                                      <span className="current">
+                                        {item.currentPrice}
+                                      </span>
+                                      <div className="previous">
+                                        {item.previousPrice}
+                                      </div>
                                     </div>
                                   </div>
                                 </div>

@@ -1,0 +1,20 @@
+{
+  "title": "Login",
+  "email": "Email",
+  "password": "Password",
+  "confirmPassword": "Confirm Password",
+  "name": "Full Name",
+  "login": "Login",
+  "register": "Register",
+  "orRegisterWith": "Or Register With",
+  "orLoginWith": "Or Login With",
+  "dontHaveAccount": "Don't have an account?",
+  "haveAccount": "Already have an account?",
+  "forgetPassword": "Forget Password?",
+  "loadingLogin": "Logging in...",
+  "loadingRegister": "Registering...",
+  "successRegister": "Registration successful!",
+  "errorRegister": "An error occurred during registration",
+  "errorLogin": "Login failed",
+  "uploadAvatar": "Drag an image here or click to choose from your device"
+}

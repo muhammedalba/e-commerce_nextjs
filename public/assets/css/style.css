@@ -43,6 +43,16 @@
 
 
 ==============================================  */
+
+
+
+
+
+/* 
+navigator-breadcrumb-wrapper
+bg_light-1
+
+*/
 /* Default  */
 @import url("https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
@@ -9992,7 +10002,7 @@ iframe {
 /*===========================
 Background Image 
 =============================*/
-.bg_image {
+/* .bg_image {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
@@ -10156,7 +10166,7 @@ Background Image
 
 .bg_image--40 {
   background-image: url(/assets/images/bg/bg-image-40.jpg);
-}
+} */
 
 /* Height and width */
 .fullscreen {
@@ -17017,9 +17027,7 @@ li.with-megamenu:hover .rts-megamenu {
   color: #fff;
 }
 
-.bg_light-1 {
-  background: #F3F4F6 !important;
-}
+
 
 .titlw-area-between-best-seller-anim {
   display: flex;
@@ -22206,17 +22214,7 @@ body.modal-open {
   margin: 7px 0;
 }
 
-.navigator-breadcrumb-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 25px;
-  padding: 20px 0;
-}
 
-.navigator-breadcrumb-wrapper .current {
-  color: #2C3C28;
-  font-weight: 500;
-}
 
 .pagination-area-main-wrappper {
   display: flex;
@@ -23646,7 +23644,7 @@ body.modal-open {
   border-radius: 20px;
   background: #FFFFFF;
   margin: auto;
-  text-align: center;
+  /* text-align: center; */
   padding: 100px 150px;
 }
 
@@ -23668,14 +23666,17 @@ body.modal-open {
   margin-bottom: 30px;
 }
 
-.registration-form {
-  text-align: left;
+.registration-form i{
+  /* text-align: left; */
 }
 
 .registration-form .input-wrapper {
   width: 100%;
-  text-align: left;
+  /* text-align: left; */
   margin-bottom: 30px;
+}
+.registration-form .input-wrapper i{
+  color: var( --color-primary);
 }
 
 .registration-form .input-wrapper:last-child {
@@ -23683,7 +23684,6 @@ body.modal-open {
 }
 
 .registration-form .input-wrapper label {
-  margin-bottom: 12px;
   font-weight: 500;
   color: #2C3C28;
 }

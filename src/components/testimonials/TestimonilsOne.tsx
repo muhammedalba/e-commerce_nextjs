@@ -48,7 +48,7 @@ const CustomerFeedback = () => {
                             <div className="top-thumbnail-area">
                               <div className="left">
                                 <img
-                                  src="assets/images/testimonial/01.png"
+                                  src="/assets/images/testimonial/01.png"
                                   alt="logo"
                                 />
                                 <div className="information">
@@ -58,7 +58,7 @@ const CustomerFeedback = () => {
                               </div>
                               <div className="right">
                                 <img
-                                  src="assets/images/testimonial/02.png"
+                                  src="/assets/images/testimonial/02.png"
                                   alt="logo"
                                 />
                               </div>
@@ -78,7 +78,7 @@ const CustomerFeedback = () => {
                             <div className="top-thumbnail-area">
                               <div className="left">
                                 <img
-                                  src="assets/images/testimonial/01.png"
+                                  src="/assets/images/testimonial/01.png"
                                   alt="logo"
                                 />
                                 <div className="information">
@@ -88,7 +88,7 @@ const CustomerFeedback = () => {
                               </div>
                               <div className="right">
                                 <img
-                                  src="assets/images/testimonial/02.png"
+                                  src="/assets/images/testimonial/02.png"
                                   alt="logo"
                                 />
                               </div>
@@ -108,7 +108,7 @@ const CustomerFeedback = () => {
                             <div className="top-thumbnail-area">
                               <div className="left">
                                 <img
-                                  src="assets/images/testimonial/01.png"
+                                  src="/assets/images/testimonial/01.png"
                                   alt="logo"
                                 />
                                 <div className="information">
@@ -118,7 +118,7 @@ const CustomerFeedback = () => {
                               </div>
                               <div className="right">
                                 <img
-                                  src="assets/images/testimonial/02.png"
+                                  src="/assets/images/testimonial/02.png"
                                   alt="logo"
                                 />
                               </div>
@@ -138,7 +138,7 @@ const CustomerFeedback = () => {
                             <div className="top-thumbnail-area">
                               <div className="left">
                                 <img
-                                  src="assets/images/testimonial/01.png"
+                                  src="/assets/images/testimonial/01.png"
                                   alt="logo"
                                 />
                                 <div className="information">
@@ -148,7 +148,7 @@ const CustomerFeedback = () => {
                               </div>
                               <div className="right">
                                 <img
-                                  src="assets/images/testimonial/02.png"
+                                  src="/assets/images/testimonial/02.png"
                                   alt="logo"
                                 />
                               </div>

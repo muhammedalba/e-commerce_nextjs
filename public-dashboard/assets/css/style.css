@@ -9998,7 +9998,7 @@ Background Image
   background-position: center center;
 }
 
-.bg_image--1 {
+/* .bg_image--1 {
   background-image: url(/assets/images/bg/bg-image-1.jpg);
 }
 
@@ -10156,7 +10156,7 @@ Background Image
 
 .bg_image--40 {
   background-image: url(/assets/images/bg/bg-image-40.jpg);
-}
+} */
 
 /* Height and width */
 .fullscreen {
@@ -15107,10 +15107,10 @@ body {
   padding: 10px 26px;
 }
 
-.ekomart_dashboard {
+/* .ekomart_dashboard {
   display: flex;
   align-items: flex-start;
-}
+} */
 
 .ekomart_dashboard .right-area-body-content {
   width: calc(100% - 273px);
