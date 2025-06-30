@@ -4,13 +4,11 @@ export async function loadMessages(locale: string) {
     import(`./${locale}/routes.json`),
     import(`./${locale}/Auth.json`),
     import(`./${locale}/HomePage.json`),
-    import(`./${locale}/Register.json`),
   ]);
    
   return {
     routes: modules[0].default,
     Auth: modules[1].default,
     HomePage: modules[2].default,
-    Register: modules[3].default,
   };}
 

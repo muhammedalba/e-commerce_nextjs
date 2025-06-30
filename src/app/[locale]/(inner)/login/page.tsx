@@ -1,46 +1,55 @@
 "use client";
+
 import { useTranslations } from "next-intl";
 import { useLogin } from "@/hooks/useLogin";
 import Cookies from "js-cookie";
-import * as Yup from "yup";
 import HeaderOne from "@/components/header/HeaderOne";
 import NavigationArea from "@/components/NavigationBreadcrumb/NavigationBreadcrumb";
 import FooterOne from "@/components/footer/FooterOne";
 import ShortService from "@/components/service/ShortService";
-import { useFormik } from "formik";
+import * as Yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 export default function Home() {
-  const { mutate: login, isPending, error } = useLogin();
   const t = useTranslations("Auth");
+  const { mutate: login, isPending, error } = useLogin();
 
   const Breadcrumbs = [
-    { label: t("login"), href: "/login", active: true },
+    { label: t("login.title"), href: "/login", active: true },
   ];
 
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
-    validationSchema: Yup.object({
-      email: Yup.string().email(t("invalidEmail")).required(t("requiredEmail")),
+  // ✅ Schema التحقق
+  const schema = Yup.object({
+    email: Yup.string()
+        .email(t("Validation.invalidEmail")) // "البريد الإلكتروني غير صالح"
+        .required(t("Validation.requiredEmail")), // "البريد الإلكتروني مطلوب"
       password: Yup.string()
-        .min(6, t("shortPassword"))
-        .max(32, t("longPassword"))
-        .required(t("requiredPassword")),
-    }),
-    onSubmit: (values) => {
-      login(values, {
-        onSuccess(data) {
-          Cookies.set("accessToken", "your_token", { expires: 7 }); 
-          console.log("تم تسجيل الدخول بنجاح", data);
-        },
-        onError(err) {
-          console.error("خطأ في تسجيل الدخول", err.message);
-        },
-      });
-    },
+        .min(6, t("Validation.shortPassword")) // "كلمة المرور قصيرة جدًا"
+        .max(32, t("Validation.longPassword")) // "كلمة المرور طويلة جدًا"
+        .required(t("Validation.requiredPassword")),
   });
+
+  // ✅ استخدام useForm
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = (values: any) => {
+    login(values, {
+      onSuccess(data) {
+        Cookies.set("accessToken", "your_token", { expires: 7 });
+        console.log("تم تسجيل الدخول بنجاح", data);
+      },
+      onError(err) {
+        console.error("خطأ في تسجيل الدخول", err.message);
+      },
+    });
+  };
 
   return (
     <div className="demo-one">
@@ -59,30 +68,24 @@ export default function Home() {
                     alt="logo"
                   />
                 </div>
-                <h3 className="title text-center">{t("title")}</h3>
-                <form
-                  onSubmit={formik.handleSubmit}
-                  className="registration-form"
-                >
+                <h3 className="title text-center">{t("login.title")}</h3>
+
+                {/* ✅ استخدام handleSubmit من RHF */}
+                <form onSubmit={handleSubmit(onSubmit)} className="registration-form">
+                  
                   <div className="input-wrapper">
                     <div className="d-flex gap-2 align-items-center mb-4">
                       <i className="fa-light fa-envelope" />
-                      <label className="" htmlFor="email">
-                        {t("email")}*
-                      </label>
+                      <label htmlFor="email">{t("email")}*</label>
                     </div>
-
                     <input
                       id="email"
-                      name="email"
                       type="email"
                       placeholder={t("email")}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.email}
+                      {...register("email")}
                     />
-                    {formik.touched.email && formik.errors.email && (
-                      <div className="text-danger">{formik.errors.email}</div>
+                    {errors.email && (
+                      <div className="text-danger">{errors.email.message}</div>
                     )}
                   </div>
 
@@ -93,17 +96,12 @@ export default function Home() {
                     </div>
                     <input
                       id="password"
-                      name="password"
                       type="password"
                       placeholder={t("password")}
-                      onChange={formik.handleChange}
-                      onBlur={formik.handleBlur}
-                      value={formik.values.password}
+                      {...register("password")}
                     />
-                    {formik.touched.password && formik.errors.password && (
-                      <div className="text-danger">
-                        {formik.errors.password}
-                      </div>
+                    {errors.password && (
+                      <div className="text-danger">{errors.password.message}</div>
                     )}
                   </div>
 
@@ -112,42 +110,40 @@ export default function Home() {
                     type="submit"
                     disabled={isPending}
                   >
-                    {isPending ? t("loadingLogin") : t("login")}
+                    {isPending ? t("login.loadingLogin") : t("login.title")}
                   </button>
 
                   <div className="another-way-to-registration">
                     <div className="registradion-top-text">
-                      <span>{t("orRegisterWith")}</span>
+                      <span>{t("login.orLoginWith")}</span>
                     </div>
                     <div className="login-with-brand">
                       <a href="#" className="single">
                         <img src="/assets/images/form/google.svg" alt="login" />
                       </a>
                       <a href="#" className="single">
-                        <img
-                          src="/assets/images/form/facebook.svg"
-                          alt="login"
-                        />
+                        <img src="/assets/images/form/facebook.svg" alt="login" />
                       </a>
                     </div>
                     <div className="d-flex flex-column">
                       <p className="pb-2 mb-1">
-                        {t("dontHaveAccount")}{" "}
-                        <a href="/register">{t("goRegister")}</a>
+                        {t("login.dontHaveAccount")}{" "}
+                        <a href="/register">{t("login.goRegister")}</a>
                       </p>
                       <p className="mt-0">
-                        {t("forgotPassword")}{" "}
-                        <a href="/register">{t("forgotPassword")}</a>
+                        {t("login.forgotPassword")}{" "}
+                        <a href="/register">{t("login.forgotPassword")}</a>
                       </p>
                     </div>
                   </div>
 
                   {error && (
-                    <p className="login-error-message text-danger w-100 ">
-                      {error.message || t("errorLogin")}
+                    <p className="login-error-message text-danger w-100">
+                      {error.message || t("login.errorLogin")}
                     </p>
                   )}
                 </form>
+
               </div>
             </div>
           </div>

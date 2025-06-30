@@ -24,9 +24,9 @@ export default function NavigationArea({ breadcrumbs }: NavigationAreaProps) {
                   <span key={index}>
                     <a href="/">{t("home")}</a>
                     <i
-                      className={`fa-regular fa-chevron-${
+                      className={`fa-regular mx-4 fa-chevron-${
                         locale == "ar" ? "left" : "right"
-                      } mx-4`}
+                      } `}
                     />
                     <a
                       className={item.active ? "current" : ""}

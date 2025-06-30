@@ -1,69 +1,92 @@
 "use client";
-
-import { useState } from "react";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { useMutation } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
+import axios from "@/lib/axios";
+import { useMutation } from "@tanstack/react-query";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import { useDropzone } from "react-dropzone";
+import { useState } from "react";
 
 import HeaderOne from "@/components/header/HeaderOne";
 import FooterOne from "@/components/footer/FooterOne";
 import ShortService from "@/components/service/ShortService";
-import axios from "@/lib/axios";
+import NavigationArea from "@/components/NavigationBreadcrumb/NavigationBreadcrumb";
+
+interface FormData {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  avatar: File | null;
+}
 
 export default function Register() {
-  const  t  = useTranslations("Register");
-
+  const t = useTranslations("Auth");
+  const Breadcrumbs = [
+    { label: t("register.title"), href: "/register", active: true },
+  ];
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const [avatarLoading, setAvatarLoading] = useState(false);
-  const [dragActive, setDragActive] = useState(false);
+
+  const schema = Yup.object().shape({
+    name: Yup.string()
+      .required(t("Validation.requiredName")) // مثلاً: "الاسم مطلوب"
+      .min(6, t("Validation.shortName")) // بدل "short" غير واضح، تصبح: "الاسم قصير جدًا"
+      .max(32, t("Validation.longName")), // بدل "long": "الاسم طويل جدًا"
+    email: Yup.string()
+      .email(t("Validation.invalidEmail")) // "البريد الإلكتروني غير صالح"
+      .required(t("Validation.requiredEmail")), // "البريد الإلكتروني مطلوب"
+    password: Yup.string()
+      .min(6, t("Validation.shortPassword")) // "كلمة المرور قصيرة جدًا"
+      .max(32, t("Validation.longPassword")) // "كلمة المرور طويلة جدًا"
+      .required(t("Validation.requiredPassword")), // "كلمة المرور مطلوبة"
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref("password")], t("Validation.passwordMismatch")) // "تأكيد كلمة المرور لا يطابق"
+      .required(t("Validation.requiredConfirmPassword")), // "تأكيد كلمة المرور مطلوب"
+    avatar: Yup.mixed<File>()
+      .test("fileType", t("Validation.invalidAvatarType"), (value) =>
+        value instanceof File
+          ? ["image/jpeg", "image/png", "image/webp"].includes(value.type)
+          : value === null
+      )
+      .nullable()
+      .default(null),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      avatar: null,
+    },
+  });
 
   const { mutate, isPending, isError, error, isSuccess } = useMutation({
     mutationFn: async (data: FormData) => {
-      const res = await axios.post("/auth/register", data, {
+      const formData = new FormData();
+      formData.append("name", data.name);
+      formData.append("email", data.email);
+      formData.append("password", data.password);
+      formData.append("confirmPassword", data.confirmPassword);
+      if (data.avatar) formData.append("avatar", data.avatar);
+      const res = await axios.post("/auth/register", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       return res.data;
     },
   });
 
-  const formik = useFormik({
-    initialValues: {
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      avatar: null as File | null,
-    },
-    validationSchema: Yup.object({
-      name: Yup.string().required(t("requiredName")),
-      email: Yup.string().email(t("invalidEmail")).required(t("requiredEmail")),
-      password: Yup.string()
-        .min(6, t("shortPassword"))
-        .required(t("requiredPassword")),
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref("password")], t("passwordMismatch"))
-        .required(t("requiredConfirmPassword")),
-      avatar: Yup.mixed()
-        .test("fileType", t("invalidAvatarType"), (value) =>
-          value instanceof File
-            ? ["image/jpeg", "image/png", "image/webp"].includes(value.type)
-            : true
-        )
-        .nullable(),
-    }),
-    onSubmit: (values) => {
-      const formData = new FormData();
-      formData.append("name", values.name);
-      formData.append("email", values.email);
-      formData.append("password", values.password);
-      if (values.avatar) formData.append("avatar", values.avatar);
-      mutate(formData);
-    },
-  });
-
   const handleAvatarChange = (file: File) => {
-    formik.setFieldValue("avatar", file);
+    setValue("avatar", file, { shouldValidate: true });
     setAvatarLoading(true);
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -73,189 +96,203 @@ export default function Register() {
     reader.readAsDataURL(file);
   };
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragActive(false);
-    const file = e.dataTransfer.files?.[0];
+  const onDrop = (acceptedFiles: File[]) => {
+    const file = acceptedFiles[0];
     if (file && file.type.startsWith("image/")) {
       handleAvatarChange(file);
     }
   };
 
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: {
+      "image/*": [".jpeg", ".jpg", ".png", ".webp"],
+    },
+    multiple: false,
+  });
+
   return (
     <div className="demo-one">
       <HeaderOne />
-
-      <div className="rts-navigation-area-breadcrumb bg_light-1">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="navigator-breadcrumb-wrapper">
-                <a href="/">home</a>
-                <i className="fa-regular fa-chevron-right" />
-                <a className="current" href="/register">
-                  {t("title")}
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <NavigationArea breadcrumbs={Breadcrumbs} />
 
       <div className="rts-register-area rts-section-gap bg_light-1">
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-lg-8">
               <div className="registration-wrapper-1 text-center">
-                <div className="mb-4">
-                  {avatarLoading ? (
-                    <div className="spinner-border text-primary" role="status">
-                      <span className="visually-hidden">Loading...</span>
-                    </div>
-                  ) : (
-                    <img
-                      src={avatarPreview || "/assets/images/logo/fav.png"}
-                      alt="avatar"
-                      width={160}
-                      height={160}
-                      style={{
-                        objectFit: "cover",
-                        borderRadius: "50%",
-                        border: "2px solid #ccc",
-                      }}
-                    />
-                  )}
+                <div className="d-flex flex-column align-items-center">
+                  <img
+                    src={"/assets/images/logo/fav.png"}
+                    alt="avatar"
+                    width={160}
+                    height={160}
+                    style={{
+                      objectFit: "cover",
+                      borderRadius: "50%",
+                      border: "2px solid #ccc",
+                    }}
+                  />
+                  <h3 className="title mb-4">{t("register.title")}</h3>
                 </div>
 
-                <h3 className="title">{t("title")}</h3>
-
                 <form
-                  onSubmit={formik.handleSubmit}
+                  onSubmit={handleSubmit((data) => mutate(data))}
                   className="registration-form mt-4 text-start"
                 >
                   <div className="input-wrapper mb-3">
-                    <label htmlFor="name">{t("name")}*</label>
+                    <div className="d-flex gap-2 align-items-center mb-4">
+                      <i className="fa-regular fa-user" />
+                      <label htmlFor="name">{t("name")}*</label>
+                    </div>
                     <input
                       id="name"
                       type="text"
-                      {...formik.getFieldProps("name")}
+                      {...register("name")}
                       className="form-control"
                     />
-                    {formik.touched.name && formik.errors.name && (
+                    {errors.name && (
                       <div className="text-danger mt-1">
-                        {formik.errors.name}
+                        {errors.name.message}
                       </div>
                     )}
                   </div>
 
                   <div className="input-wrapper mb-3">
-                    <label htmlFor="email">{t("email")}*</label>
+                    <div className="d-flex gap-2 align-items-center mb-4">
+                      <i className="fa-regular fa-envelope" />
+                      <label htmlFor="email">{t("email")}*</label>
+                    </div>
                     <input
                       id="email"
                       type="email"
-                      {...formik.getFieldProps("email")}
+                      {...register("email")}
                       className="form-control"
                     />
-                    {formik.touched.email && formik.errors.email && (
+                    {errors.email && (
                       <div className="text-danger mt-1">
-                        {formik.errors.email}
+                        {errors.email.message}
                       </div>
                     )}
                   </div>
 
                   <div className="input-wrapper mb-3">
-                    <label htmlFor="password">{t("password")}*</label>
+                    <div className="d-flex gap-2 align-items-center mb-4">
+                      <i className="fa-solid fa-lock" />
+                      <label htmlFor="password">{t("password")}*</label>
+                    </div>
                     <input
                       id="password"
                       type="password"
-                      {...formik.getFieldProps("password")}
+                      {...register("password")}
                       className="form-control"
                     />
-                    {formik.touched.password && formik.errors.password && (
+                    {errors.password && (
                       <div className="text-danger mt-1">
-                        {formik.errors.password}
+                        {errors.password.message}
                       </div>
                     )}
                   </div>
 
                   <div className="input-wrapper mb-3">
-                    <label htmlFor="confirmPassword">
-                      {t("confirmPassword")}*
-                    </label>
+                    <div className="d-flex gap-2 align-items-center mb-4">
+                      <i className="fa-solid fa-lock-keyhole" />
+                      <label htmlFor="confirmPassword">
+                        {t("confirmPassword")}*
+                      </label>
+                    </div>
                     <input
                       id="confirmPassword"
                       type="password"
-                      {...formik.getFieldProps("confirmPassword")}
+                      {...register("confirmPassword")}
                       className="form-control"
                     />
-                    {formik.touched.confirmPassword &&
-                      formik.errors.confirmPassword && (
-                        <div className="text-danger mt-1">
-                          {formik.errors.confirmPassword}
-                        </div>
-                      )}
+                    {errors.confirmPassword && (
+                      <div className="text-danger mt-1">
+                        {errors.confirmPassword.message}
+                      </div>
+                    )}
                   </div>
 
+                  {/* ✅ Dropzone for Avatar */}
                   <div
-                    className={" text-center mb-4 p-5"}
-                    onDragOver={(e) => {
-                      e.preventDefault();
-                      setDragActive(true);
-                    }}
-                    onDragLeave={() => setDragActive(false)}
-                    onDrop={handleDrop}
+                    {...getRootProps()}
+                    className="text-center mb-4 p-4"
                     style={{
                       border: "2px dashed #ccc",
                       borderRadius: "12px",
                       cursor: "pointer",
+                      backgroundColor: isDragActive ? "#f5f5f5" : "transparent",
                     }}
-                    onClick={() =>
-                      document
-                        .querySelector<HTMLInputElement>("#avatar")
-                        ?.click()
-                    }
                   >
-                    <p className=" m-0" style={{ color: "#555" }}>
-                      {t("avatarUpload")}
-                    </p>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      id="avatar"
-                      className="d-none"
-                      placeholder={t("avatarUpload")}
-                      title={t("avatarUpload")}
-                      onChange={(e) => {
-                        const file = e.currentTarget.files?.[0];
-                        if (file) {
-                          handleAvatarChange(file);
-                        }
-                      }}
-                    />
-                  </div>
+                    <input {...getInputProps()} />
+                    {avatarLoading ? (
+                      <div
+                        className="spinner-border text-primary"
+                        role="status"
+                      >
+                        <span className="visually-hidden">Loading...</span>
+                      </div>
+                    ) : avatarPreview ? (
+                      <>
+                        <img
+                          src={avatarPreview}
+                          alt="avatar preview"
+                          width={300}
+                          height={160}
+                        />
+                      </>
+                    ) : (
+                      <p className="m-0" style={{ color: "#555" }}>
+                        {t("register.uploadAvatar")}
+                      </p>
+                    )}
 
+                    {errors.avatar && (
+                      <div className="text-danger mt-2">
+                        {errors?.avatar?.message}
+                      </div>
+                    )}
+                  </div>
+                  {avatarPreview && (
+                    <button
+                      type="button"
+                      className="btn btn-sm btn-outline-danger d-block mx-auto my-3"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setAvatarPreview(null);
+                        setValue("avatar", null, { shouldValidate: true });
+                      }}
+                    >
+                      <i className="fa-regular fa-xmark" />
+                      {t("register.removeAvatar") }
+                    </button>
+                  )}
                   <button
                     className="rts-btn btn-primary w-100"
                     type="submit"
                     disabled={isPending}
                   >
-                    {isPending ? t("loadingRegister") : t("register")}
+                    {isPending
+                      ? t("register.loadingRegister")
+                      : t("register.title")}
                   </button>
 
                   {isSuccess && (
-                    <p className="text-success mt-3">{t("successRegister")}</p>
+                    <p className="text-success mt-3">
+                      {t("register.successRegister")}
+                    </p>
                   )}
                   {isError && (
                     <p className="text-danger mt-3">
                       {(error as any)?.response?.data?.message ||
-                        t("errorRegister")}
+                        t("register.errorRegister")}
                     </p>
                   )}
 
                   <div className="another-way-to-registration mt-4 text-center">
                     <div className="registradion-top-text">
-                      <span>{t("orRegisterWith")}</span>
+                      <span>{t("register.orRegisterWith")}</span>
                     </div>
                     <div className="login-with-brand d-flex justify-content-center gap-3 mt-3">
                       <a href="#" className="single">
@@ -272,7 +309,8 @@ export default function Register() {
                       </a>
                     </div>
                     <p className="mt-3">
-                      {t("haveAccount")} <a href="/login">{t("goLogin")}</a>
+                      {t("register.haveAccount")}{" "}
+                      <a href="/login">{t("register.goLogin")}</a>
                     </p>
                   </div>
                 </form>
