@@ -11,8 +11,6 @@ const axiosInstance = axios.create({
 
 export default axiosInstance;
 
-// 📁 services/api.ts
-import axiosInstance from "./axiosInstance";
 
 // ✅ Auth
 export const login = (data: { email: string; password: string }) =>
