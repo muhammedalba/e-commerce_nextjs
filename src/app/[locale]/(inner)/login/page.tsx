@@ -1,5 +1,4 @@
 "use client";
-
 import { useTranslations } from "next-intl";
 import { useLogin } from "@/hooks/useLogin";
 import Cookies from "js-cookie";
@@ -12,8 +11,8 @@ import { useFormik } from "formik";
 
 export default function Home() {
   const { mutate: login, isPending, error } = useLogin();
-
   const t = useTranslations("Auth");
+
   const Breadcrumbs = [
     { label: t("login"), href: "/login", active: true },
   ];
