@@ -7,7 +7,12 @@ interface LoginCredentials {
 }
 
 interface LoginResponse {
-  token: string;
+  message: string;
+  data: {
+    avatar: string;
+    name: string;
+    role: string;
+  };
 }
 
 export function useLogin() {
@@ -15,6 +20,6 @@ export function useLogin() {
     mutationFn: async (credentials: LoginCredentials) => {
       const response = await login(credentials);
       return response.data as LoginResponse;
-    }
+    },
   });
 }

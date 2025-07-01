@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+
 import "./globals.css";
 import "../../../public/assets/css/bootstrap.min.css";
 import "../../../public/assets/css/plugins.css";
 import "../../../public/assets/css/style.css";
+import "../../../public/assets/css/newStyle.css";
 // import "../../styles/scss/style.scss";
+
 
 import { CartProvider } from "../../components/header/CartContext";
 import { WishlistProvider } from "../../components/header/WishlistContext";
@@ -54,6 +57,7 @@ export default async function RootLayout({
     notFound();
   }
   const messages = await getMessages({ locale });
+
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>

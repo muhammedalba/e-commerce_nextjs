@@ -1,3 +1,4 @@
+
 import { useTranslations } from "next-intl";
 import Cookies from "js-cookie";
 type Breadcrumb = {
@@ -12,7 +13,7 @@ interface NavigationAreaProps {
 
 export default function NavigationArea({ breadcrumbs }: NavigationAreaProps) {
   const t = useTranslations("routes");
-  const locale = Cookies.get("NEXT_LOCALE");
+  const locale = Cookies.get("NEXT_LOCALE")||"ar";
   return (
     <>
       <div className="bg_light-1 navigator-breadcrumb-wrapper ">

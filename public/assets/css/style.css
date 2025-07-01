@@ -23660,11 +23660,11 @@ body.modal-open {
   }
 }
 
-.registration-wrapper-1 .logo-area img {
-  max-width: 57px;
+/* .registration-wrapper-1 .logo-area img {
+  max-width: 150px;
   margin: auto;
   margin-bottom: 30px;
-}
+} */
 
 .registration-form i{
   /* text-align: left; */

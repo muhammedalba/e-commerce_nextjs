@@ -3,11 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useCart } from "@/components/header/CartContext";
 import { useCompare } from "@/components/header/CompareContext";
 import { useWishlist } from "@/components/header/WishlistContext";
-import Link from "next/link";
 import CompareModal from "@/components/modal/CompareModal";
 import ProductDetails from "@/components/modal/ProductDetails";
 
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 interface BlogGridMainProps {
