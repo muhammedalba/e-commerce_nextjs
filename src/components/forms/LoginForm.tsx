@@ -86,7 +86,7 @@ export default function LoginForm() {
           goLoginText={t("login.goRegister")}
           forgotPassword={t("login.forgotPassword")}
           forgetText={t("login.resetLink")}
-          forgetLink='forgot-password'
+          forgetLink='forgotPassword'
           authLink="register"
         />
       </motion.div>

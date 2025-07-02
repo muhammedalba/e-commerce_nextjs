@@ -28,7 +28,7 @@ axiosInstance.interceptors.response.use(
       error?.response?.data.messages ||
       "حدث خطأ في الاتصال بالخادم";
     // console.error("Axios error:", error.response?.data || error);
-    console.log("message",message);
+    console.log("message",error);
     
     return Promise.reject(new Error(message));
   }

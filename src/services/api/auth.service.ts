@@ -8,4 +8,7 @@ export const register = (data: FormData) =>
 
 export const logout = () => axiosInstance.post("/auth/logout");
 
+export const forgotPassword = async (data: { email: string }) =>
+  await axiosInstance.post("/auth/forgot-password", data);
+
 export const getProfile = () => axiosInstance.get("/auth/profile");

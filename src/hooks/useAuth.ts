@@ -1,11 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
-import { login, register } from "@/services/api/auth.service";
+import { forgotPassword, login, register } from "@/services/api/auth.service";
 
 interface LoginCredentials {
   email: string;
   password: string;
 }
-
+interface forgotCredentials {
+  email: string;
+}
 interface LoginResponse {
   message: string;
   data: {
@@ -14,7 +16,6 @@ interface LoginResponse {
     role: string;
   };
 }
-
 
 interface RegisterResponse {
   message: string;
@@ -37,6 +38,15 @@ export function useRegister() {
   return useMutation<RegisterResponse, Error, FormData>({
     mutationFn: async (data: FormData) => {
       const response = await register(data);
+      return response.data as RegisterResponse;
+    },
+  });
+}
+// Register
+export function useForgotPassword() {
+  return useMutation<RegisterResponse, Error, forgotCredentials>({
+    mutationFn: async (data: forgotCredentials) => {
+      const response = await forgotPassword(data);
       return response.data as RegisterResponse;
     },
   });
