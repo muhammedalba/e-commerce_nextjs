@@ -1,14 +1,11 @@
-import api from "@/lib/axios";
+import axiosInstance from "@/lib/axios";
 
-export const login = async (credentials: { email: string; password: string }) =>
-  await api.post("/auth/login", credentials);
+export const login = async (data: { email: string; password: string }) =>
+  await axiosInstance.post("/auth/login", data);
 
-export const register = (data: {
-  name: string;
-  email: string;
-  password: string;
-}) => api.post("/auth/register", data);
+export const register = (data: FormData) =>
+  axiosInstance.post("/auth/register", data);
 
-export const logout = () => api.post("/auth/logout");
+export const logout = () => axiosInstance.post("/auth/logout");
 
-export const getProfile = () => api.get("/auth/profile");
+export const getProfile = () => axiosInstance.get("/auth/profile");

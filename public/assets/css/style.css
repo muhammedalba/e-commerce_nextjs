@@ -23639,13 +23639,12 @@ body.modal-open {
   height: 40px;
 }
 
-.registration-wrapper-1 {
+/* .registration-wrapper-1 {
   max-width: 800px;
   border-radius: 20px;
   background: #FFFFFF;
   margin: auto;
-  /* text-align: center; */
-  padding: 100px 150px;
+  padding:  100px;
 }
 
 @media only screen and (max-width: 767px) {
@@ -23658,7 +23657,7 @@ body.modal-open {
   .registration-wrapper-1 {
     padding: 40px 15px;
   }
-}
+} */
 
 /* .registration-wrapper-1 .logo-area img {
   max-width: 150px;

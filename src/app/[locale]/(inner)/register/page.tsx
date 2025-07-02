@@ -1,22 +1,12 @@
 "use client";
 import { useTranslations } from "next-intl";
-import axios from "@/lib/axios";
-import { useMutation } from "@tanstack/react-query";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { useDropzone } from "react-dropzone";
-import { useState } from "react";
-import Cookies from "js-cookie";
 import HeaderOne from "@/components/header/HeaderOne";
 import FooterOne from "@/components/footer/FooterOne";
 import ShortService from "@/components/service/ShortService";
 import NavigationArea from "@/components/NavigationBreadcrumb/NavigationBreadcrumb";
 import Image from "next/image";
-import { Link } from "@/i18n/navigation";
 import RegisterForm from "@/components/forms/RegisterForm";
-
-
+import { motion } from "framer-motion";
 
 export default function Register() {
   const t = useTranslations("Auth");
@@ -38,15 +28,24 @@ export default function Register() {
           <div className="row justify-content-center">
             <div className="col-lg-8">
               <div className="registration-wrapper-1 ">
-                <div className="d-flex flex-column align-items-center">
-                  <Image
-                    src={"/assets/images/logo/fav.png"}
-                    alt="avatar"
-                    width={160}
-                    height={160}
-                  />
-                  <h3 className="title my-4">{t("register.title")}</h3>
-                </div>
+                <motion.div
+                  className="input-wrapper mb-3"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.2 }}
+                  exit={{ opacity: 0 }}
+                >
+                  <div className="d-flex flex-column align-items-center">
+                    <Image
+                      src="/assets/images/logo/fav.png"
+                      alt="logo"
+                      width={150}
+                      height={150}
+                      priority
+                    />
+                    <h3 className="title my-4">{t("register.title")}</h3>
+                  </div>
+                </motion.div>
                 <RegisterForm />
               </div>
             </div>

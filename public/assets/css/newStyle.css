@@ -1,6 +1,25 @@
-.registration-wrapper-1 .logo-area img {
+/* .registration-wrapper-1 .logo-area img {
       max-width: 150px;
-      max-height: 150px;
+      height: auto;
       margin: auto;
       margin-bottom: 30px;
+} */
+ .registration-wrapper-1 {
+  max-width: 800px;
+  border-radius: 20px;
+  background: #FFFFFF;
+  margin: auto;
+  padding:  100px;
+}
+
+@media only screen and (max-width: 767px) {
+  .registration-wrapper-1 {
+    padding: 80px 50px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .registration-wrapper-1 {
+    padding: 40px 15px;
+  }
 }
