@@ -4,7 +4,7 @@ import FooterOne from "@/components/footer/FooterOne";
 import ShortService from "@/components/service/ShortService";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import MyStepper from "@/components/common/MyStepper";
+import ForgotPasswordForm from "@/components/forms/ForgetPassForm";
 
 
 
@@ -25,7 +25,7 @@ export default function ForgotPassword() {
           <div className="row">
             <div className="col-lg-12">
               <div className="registration-wrapper-1">
-                <MyStepper activeStep={3} />
+             
                 <div className="logo-area mb--0 text-center">
                   <Image
                     width={150}
@@ -39,6 +39,7 @@ export default function ForgotPassword() {
                 <h3 className="title text-center">
                   {t("forgotPassword.title")}
                 </h3>
+              <ForgotPasswordForm/>
               </div>
             </div>
           </div>

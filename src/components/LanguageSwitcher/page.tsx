@@ -16,7 +16,7 @@ export default function LanguageToggle() {
   const currentLocale = pathname.split("/")[1];
 
   const handleLocaleChange = (newLocale: string) => {
-    localStorage.setItem("language", newLocale);
+
     if (newLocale === currentLocale) return;
     // replace leChange
     const newPath = pathname.replace(`/${currentLocale}`, `/${newLocale}`);

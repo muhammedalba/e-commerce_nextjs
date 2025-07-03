@@ -8,12 +8,8 @@ const axiosInstance = axios.create({
 // ✅ Interceptor لإضافة Authorization header
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("accessToken");
     const language = Cookies.get("NEXT_LOCALE") || "ar";
     config.headers["Accept-Language"] = language;
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
     return config;
   },
   (error) => Promise.reject(error)

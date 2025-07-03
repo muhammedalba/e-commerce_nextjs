@@ -12,3 +12,11 @@ export const forgotPassword = async (data: { email: string }) =>
   await axiosInstance.post("/auth/forgot-password", data);
 
 export const getProfile = () => axiosInstance.get("/auth/profile");
+
+export const verifyCode = async (data: { resetCode: string }) =>
+  await axiosInstance.post("/auth/verify-Pass-Reset-Code", data);
+
+export const resetPassword = async (data: {
+  email: string;
+  password: string;
+}) => await axiosInstance.patch("/auth/reset-password", data);

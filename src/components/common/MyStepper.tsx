@@ -5,21 +5,23 @@ import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
 import CustomStepIcon from "./CustomStepIcon";
 import CustomStepConnector from "./CustomStepConnector";
-import Cookies from "js-cookie";
-
-const steps = ["التحقق من البريد", "رمز التحقق", "كلمة المرور الجديدة"];
+import { useLocale, useTranslations } from "next-intl"; 
 
 interface SteppersProps {
   activeStep: number;
 }
 
 export default function MyStepper({ activeStep }: SteppersProps) {
-  const locale = Cookies.get("NEXT_LOCALE");
-  console.log(locale);
-  
+  const locale = useLocale();
+const t = useTranslations("Auth.steps");
   const direction = locale === "ar" ? "rtl" : "ltr";
+const steps = [
+    t("verifyEmail"),
+    t("code"),
+    t("newPassword")
+  ];
   return (
-    <div className="mb-4">
+    <div className="mb-5 ">
       <Stepper
         connector={<CustomStepConnector direction={direction} />}
         activeStep={activeStep}
@@ -30,23 +32,23 @@ export default function MyStepper({ activeStep }: SteppersProps) {
             <StepLabel
               slots={{ stepIcon: CustomStepIcon }}
               sx={{
-                direction: "rtl",
+                direction: direction,
                 "& .MuiStepLabel-label": {
                   fontSize: "1.9rem",
                   fontWeight: "bold",
-                  color: activeStep >= index ? "#000" : "#999", // أزرق نشط أو رمادي
+                  color: activeStep >= index ? "#000" : "#999",
                 },
                 "& .MuiStepIcon-root.Mui-completed": {
                   color: "green",
-                  fontSize: "3rem", // لون الأيقونة المكتملة
+                  fontSize: "3rem",
                 },
                 "& .MuiStepIcon-root.Mui-active": {
                   color: "#1565c0",
-                  fontSize: "3rem", // لون الأيقونة النشطة
+                  fontSize: "3rem",
                 },
                 "& .MuiStepIcon-root": {
                   color: "#999",
-                  fontSize: "3rem", // لون الأيقونة النشطة
+                  fontSize: "3rem",
                 },
               }}
             >
