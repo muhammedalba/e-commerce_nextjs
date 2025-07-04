@@ -45,9 +45,9 @@ export default function LanguageToggle() {
         <a>{currentLocale.toUpperCase()}</a>
         <ul className="category-sub-menu">{languageList}</ul>
       </li>
-      <li>
+      {/* <li>
         <a href="/trackorder">Track Order</a>
-      </li>
+      </li> */}
     </ul>
   );
 }

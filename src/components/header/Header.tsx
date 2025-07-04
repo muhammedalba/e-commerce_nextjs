@@ -8,10 +8,12 @@ import Sidebar from "./Sidebar";
 import BackToTop from "@/components/common/BackToTop";
 import { useCompare } from "@/components/header/CompareContext";
 import { useRouter } from "next/navigation";
-import { Link } from "@/i18n/navigation";
-import LanguageToggle from "../LanguageSwitcher/page";
 
-function HeaderOne() {
+import LanguageToggle from "../LanguageSwitcher/page";
+import Link from "next/link";
+import Image from "next/image";
+
+function Header() {
   const { compareItems } = useCompare();
 
   // Countdown setup
@@ -175,7 +177,7 @@ function HeaderOne() {
                   <div className="contact-number-area">
                     <p>
                       Need help? Call Us:{" "}
-                      <a href="tel:+4733378901">+258 3268 21485</a>
+                      <Link href="tel:+4733378901">+258 3268 21485</Link>
                     </p>
                   </div>
                 </div>
@@ -193,13 +195,13 @@ function HeaderOne() {
                   <div className="nav-sm-left">
                     <ul className="nav-h_top">
                       <li>
-                        <a href="/about">About Us</a>
+                        <Link href="/about">About Us</Link>
                       </li>
                       <li>
-                        <a href="/account">My Account</a>
+                        <Link href="/account">My Account</Link>
                       </li>
                       <li>
-                        <a href="/wishlist">Wishlist</a>
+                        <Link href="/wishlist">Wishlist</Link>
                       </li>
                     </ul>
                     <p className="para">
@@ -219,13 +221,16 @@ function HeaderOne() {
             <div className="row">
               <div className="col-lg-12">
                 <div className="logo-search-category-wrapper">
-                  <a href="/" className="logo-area">
-                    <img
-                      src="/assets/images/logo/logo-01.svg"
+                  <Link href="/" className="logo-area">
+                    <Image
+                    width={50}
+                    height={50}
+                      src="/assets/images/logo/fav.png"
+                      // src="/assets/images/logo/logo-01.svg"
                       alt="logo-main"
-                      className="logo"
+                      // className="logo"
                     />
-                  </a>
+                  </Link>
                   <div className="category-search-wrapper">
                     <div className="category-btn category-hover-header">
                       <img
@@ -335,17 +340,17 @@ function HeaderOne() {
                     </div>
                   </div>
                   <div className="accont-wishlist-cart-area-header">
-                    <a href="/account" className="btn-border-only account">
+                    <Link href="/account" className="btn-border-only account">
                       <i className="fa-light fa-user" />
                       <span>Account</span>
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       href="/shop-compare"
                       className="btn-border-only account compare-number"
                     >
                       <i className="fa-regular fa-code-compare" />
                       <span className="number">{compareItems.length}</span>
-                    </a>
+                    </Link>
                     <WishList />
                     <Cart />
                   </div>
@@ -364,4 +369,4 @@ function HeaderOne() {
   );
 }
 
-export default HeaderOne;
+export default Header;

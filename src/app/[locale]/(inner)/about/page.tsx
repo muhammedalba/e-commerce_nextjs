@@ -1,5 +1,4 @@
-
-import HeaderOne from "@/components/header/HeaderOne";
+import Header from "@/components/header/Header";
 import AboutBanner from "@/components/banner/AboutBanner";
 import CounterOne from "@/components/counterup/CounterOne";
 import AboutOne from "@/components/about/AboutOne";
@@ -11,21 +10,18 @@ import ShortService from "@/components/service/ShortService";
 import FooterOne from "@/components/footer/FooterOne";
 
 export default function Home() {
-    return (
-        <div className="demo-one">
-            <HeaderOne />
-            <AboutBanner />
-            <CounterOne/>
-            <AboutOne/>
-            <Team/>
-            <ServiceOne/>
-            <TestimonilsOne/>
-            <ShortService/>
+  return (
+    <div className="demo-one">
+      <Header />
+      <AboutBanner />
+      <CounterOne />
+      <AboutOne />
+      <Team />
+      <ServiceOne />
+      <TestimonilsOne />
+      <ShortService />
 
-
-
-            <FooterOne />
-
-        </div>
-    );
+      <FooterOne />
+    </div>
+  );
 }

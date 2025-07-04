@@ -1,6 +1,6 @@
 "use client";
 import { useTranslations } from "next-intl";
-import HeaderOne from "@/components/header/HeaderOne";
+import Header from "@/components/header/Header";
 import FooterOne from "@/components/footer/FooterOne";
 import ShortService from "@/components/service/ShortService";
 import NavigationArea from "@/components/NavigationBreadcrumb/NavigationBreadcrumb";
@@ -20,7 +20,7 @@ export default function Register() {
   // console.log(decodeURIComponent(avatar));
   return (
     <div className="demo-one">
-      <HeaderOne />
+      <Header />
       <NavigationArea breadcrumbs={Breadcrumbs} />
 
       <div className="rts-register-area rts-section-gap bg_light-1">

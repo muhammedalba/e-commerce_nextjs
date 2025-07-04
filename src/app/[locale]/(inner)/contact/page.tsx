@@ -1,11 +1,11 @@
-import HeaderOne from "@/components/header/HeaderOne";
+import Header from "@/components/header/Header";
 import ShortService from "@/components/service/ShortService";
 import FooterOne from "@/components/footer/FooterOne";
 
 export default function Home() {
   return (
     <div className="demo-one">
-      <HeaderOne />
+      <Header />
 
       <>
         {/* rts contact main wrapper */}

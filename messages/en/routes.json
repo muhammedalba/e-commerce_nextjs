@@ -1,11 +1,13 @@
 {
       "home": "Home",
+      "products": "Products",
+      "cart": "Cart",
+      "checkout": "Checkout ",
+      "about": "About Us",
+      "services": "Services",
+      "contact": "contact",
+      "profile": "my profile",
       "login": "Login",
       "register": "Register",
-      "about": "About Us",
-      "contact": "contact",
-      "services": "Services",
-      "products": "Products",
-      "removeAvatar": "remove image ",
       "dashboard": " dashboard"
 }

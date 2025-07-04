@@ -1,4 +1,4 @@
-import HeaderOne from "@/components/header/HeaderOne";
+import Header from "@/components/header/Header";
 import NavigationArea from "@/components/NavigationBreadcrumb/NavigationBreadcrumb";
 import FooterOne from "@/components/footer/FooterOne";
 import ShortService from "@/components/service/ShortService";
@@ -14,7 +14,7 @@ export default function ForgotPassword() {
 
   return (
     <div className="">
-      <HeaderOne />
+      <Header />
       <NavigationArea breadcrumbs={Breadcrumbs} />
 
       <div className="bg_light-1 py-5">

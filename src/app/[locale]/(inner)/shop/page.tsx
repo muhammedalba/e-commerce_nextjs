@@ -1,5 +1,5 @@
 "use client";
-import HeaderOne from "@/components/header/HeaderOne";
+import Header from "@/components/header/Header";
 import { useState, Suspense } from "react";
 import ShopMain from "./ShopMain";
 import ShopMainList from "./ShopMainList";
@@ -441,7 +441,7 @@ function ShopContent() {
 export default function Home() {
   return (
     <>
-      <HeaderOne />
+      <Header />
       <Suspense
         fallback={
           <div className="text-center py-20">

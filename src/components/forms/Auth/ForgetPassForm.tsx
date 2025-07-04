@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
@@ -22,29 +22,42 @@ export default function ForgotPasswordForm() {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
 
-  const { mutate: forgotPassword, isPending: isSendingCode } = useForgotPassword();
+  const { mutate: forgotPassword, isPending: isSendingCode } =
+    useForgotPassword();
   const { mutate: verifyCode, isPending: isVerifying } = useVerifyCode();
   const { mutate: resetPassword, isPending: isResetting } = useResetPassword();
 
-  const handleEmailSubmit = useCallback((data: { email: string }) => {
-    forgotPassword(data, {
-      onSuccess(data, variables) {
-        setEmail(variables.email);
-        toast.success(data.message);
-        setStep(1);
-        setError("");
-      },
-      onError(err) {
-        setError(err.message || t("login.errorLogin"));
-        toast.error(err.message || t("login.errorLogin"));
-      },
-    });
-  }, [forgotPassword, t]);
+  useEffect(() => {
+    const handlePopState = () => {
+      router.replace("/login");
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [router]);
 
-  const handleCodeSubmit = useCallback((data: { resetCode: string }) => {
-    verifyCode(
-      { resetCode: data.resetCode },
-      {
+  const handleEmailSubmit = useCallback(
+    (data: { email: string }) => {
+      forgotPassword(data, {
+        onSuccess(data, variables) {
+          setEmail(variables.email);
+          toast.success(data.message);
+          setStep(1);
+          setError("");
+        },
+        onError(err) {
+          setError(err.message || t("login.errorLogin"));
+          toast.error(err.message || t("login.errorLogin"));
+        },
+      });
+    },
+    [forgotPassword, t]
+  );
+
+  const handleCodeSubmit = useCallback(
+    (data: { resetCode: string }) => {
+      verifyCode(data, {
         onSuccess(data) {
           toast.success(data.message);
           setStep(2);
@@ -54,25 +67,32 @@ export default function ForgotPasswordForm() {
           setError(err.message || t("login.errorLogin"));
           toast.error(err.message || t("login.errorLogin"));
         },
-      }
-    );
-  }, [verifyCode, t]);
+      });
+    },
+    [verifyCode, t]
+  );
 
-  const handleResetPassword = useCallback((data: { email: string; password: string }) => {
-    resetPassword(
-      { email: data.email, password: data.password },
-      {
-        onSuccess(data) {
-          toast.success(data.message);
-          router.replace("/login");
+  const handleResetPassword = useCallback(
+    (data: { email: string; password: string }) => {
+      resetPassword(
+        {
+          email: data.email,
+          password: data.password,
         },
-        onError(err) {
-          setError(err.message || t("login.errorLogin"));
-          toast.error(err.message || t("login.errorLogin"));
-        },
-      }
-    );
-  }, [resetPassword, router, t]);
+        {
+          onSuccess(data) {
+            toast.success(data.message);
+            router.replace("/login");
+          },
+          onError(err) {
+            setError(err.message || t("login.errorLogin"));
+            toast.error(err.message || t("login.errorLogin"));
+          },
+        }
+      );
+    },
+    [resetPassword, router, t]
+  );
 
   const stepProps = useMemo(() => {
     return {
@@ -101,13 +121,23 @@ export default function ForgotPasswordForm() {
         label: t("forgotPassword.changePassword"),
         loadingLabel: t("forgotPassword.changingPassword"),
         error,
-        passwordLabel: t("password"),
+        passwordLabel: t("steps.newPassword"),
         emailLabel: `${t("email")}*`,
         confirmPasswordLabel: t("confirmPassword"),
         t,
       },
     };
-  }, [handleEmailSubmit, handleCodeSubmit, handleResetPassword, email, error, isSendingCode, isVerifying, isResetting, t]);
+  }, [
+    handleEmailSubmit,
+    handleCodeSubmit,
+    handleResetPassword,
+    email,
+    error,
+    isSendingCode,
+    isVerifying,
+    isResetting,
+    t,
+  ]);
 
   return (
     <>

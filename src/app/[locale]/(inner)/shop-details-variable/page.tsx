@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import HeaderOne from "@/components/header/HeaderOne";
+import Header from "@/components/header/Header";
 import ShortService from "@/components/service/ShortService";
 import RelatedProduct from "@/components/product/RelatedProduct";
 import FooterOne from "@/components/footer/FooterOne";
@@ -56,7 +56,7 @@ export default function Home() {
 
   return (
     <div>
-      <HeaderOne />
+      <Header />
 
       <>
         <div className="rts-navigation-area-breadcrumb bg_light-1">

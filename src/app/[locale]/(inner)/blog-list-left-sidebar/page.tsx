@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import HeaderOne from "@/components/header/HeaderOne";
+import Header from "@/components/header/Header";
 import ShortService from "@/components/service/ShortService";
 import FooterOne from "@/components/footer/FooterOne";
 import BlogListMain from "./BlogListMain";
@@ -27,7 +27,7 @@ export default function BlogGridPage() {
   return (
     <div className="demo-one">
       {/* Header */}
-      <HeaderOne />
+      <Header />
 
       {/* Breadcrumb Area */}
       <div className="rts-navigation-area-breadcrumb bg_light-1">

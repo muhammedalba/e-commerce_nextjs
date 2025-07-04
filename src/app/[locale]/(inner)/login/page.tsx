@@ -1,12 +1,10 @@
-import HeaderOne from "@/components/header/HeaderOne";
+import Header from "@/components/header/Header";
 import NavigationArea from "@/components/NavigationBreadcrumb/NavigationBreadcrumb";
 import FooterOne from "@/components/footer/FooterOne";
 import ShortService from "@/components/service/ShortService";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import LoginForm from "@/components/forms/Auth/LoginForm";
-
-
 
 export default function LoginPage() {
   const t = useTranslations("Auth");
@@ -16,7 +14,7 @@ export default function LoginPage() {
 
   return (
     <div className="">
-      <HeaderOne />
+      <Header />
       <NavigationArea breadcrumbs={Breadcrumbs} />
       <div className="bg_light-1 py-5">
         <div className="container">
@@ -27,7 +25,7 @@ export default function LoginPage() {
                   <Image
                     width={150}
                     height={150}
-                    priority 
+                    priority
                     className="mb--10"
                     src="/assets/images/logo/fav.png"
                     alt="logo"

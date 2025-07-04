@@ -19,7 +19,7 @@ export type LoginFormData = z.infer<ReturnType<typeof loginSchema>>;
 export type LoginCredentials = LoginFormData;
 export type ForgotCredentials = ForgetPasswordForm;
 export type VerifyCodeCredentials = VerifyCodeForm;
-export type ResetPasswordCredentials = ResetPasswordForm;
+export type ResetPasswordCredentials = LoginFormData;
 
 // ------------------------------
 // Props مشتركة بين المكونات

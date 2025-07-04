@@ -1,6 +1,6 @@
 import BannerOne from "@/components/banner/BannerOne";
 import FeatureOne from "@/components/feature/FeatureOne";
-import HeaderOne from "@/components/header/HeaderOne";
+import Header from "@/components/header/Header";
 import DiscountProduct from "@/components/product/DiscountProduct";
 import FeatureProduct from "@/components/product/FeatureProduct";
 import WeeklyBestSelling from "@/components/product/WeeklyBestSelling";
@@ -26,7 +26,7 @@ export default async function Home() {
     <WishlistProvider>
       <CartProvider>
         <div className="demo-one">
-          <HeaderOne />
+          <Header />
           <ToastContainer position="top-right" autoClose={3000} />
           <BannerOne />
           <FeatureOne />

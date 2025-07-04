@@ -1,47 +1,29 @@
 "use client";
+import { useTranslations } from "next-intl";
+import Link from "next/link";
 import React from "react";
+import LanguageToggle from "../LanguageSwitcher/page";
 function NavItem() {
+  const t = useTranslations("routes");
+
+  // const name = decodeURIComponent(Cookies.get("name") || "none");
+  // const avatar = decodeURIComponent(Cookies.get("avatar") || "none");
+  // console.log(decodeURIComponent(name));
+  // console.log(decodeURIComponent(avatar));
   return (
     <div>
-      <nav>
-        <ul className="parent-nav">
+      <nav className="parent-nav d-flex align-items-center flex-row w-100 justify-content-between">
+        <ul>
           <li className="parent has-dropdown">
-            <a className="nav-link" href="#">
-              Home
-            </a>
-            <ul className="submenu">
-              <li>
-                <a className="sub-b" href="/">
-                  Home One
-                </a>
-              </li>
-              <li>
-                <a className="sub-b" href="/index-two">
-                  Home Two
-                </a>
-              </li>
-              <li>
-                <a className="sub-b" href="/index-three">
-                  Home Three
-                </a>
-              </li>
-              <li>
-                <a className="sub-b" href="/index-four">
-                  Home Four
-                </a>
-              </li>
-              <li>
-                <a className="sub-b" href="/index-five">
-                  Home Five
-                </a>
-              </li>
-            </ul>
+            <Link className="nav-link" href="/">
+              <i className="fa-light fa-house  mx-2"></i> {t("home")}
+            </Link>
           </li>
           <li className="parent">
-            <a href="/about">About</a>
+            <Link href="/about"> {t("about")}</Link>
           </li>
           <li className="parent with-megamenu">
-            <a href="#">Shop</a>
+            <Link href="#"> {t("home")}</Link>
             <div className="rts-megamenu">
               <div className="wrapper">
                 <div className="row align-items-center">
@@ -52,20 +34,22 @@ function NavItem() {
                         <p className="title">Shop Layout</p>
                         <ul>
                           <li>
-                            <a href="/shop">Shop Grid Sidebar</a>
+                            <Link href="/shop">Shop Grid Sidebar</Link>
                           </li>
                           <li>
-                            <a href="/shop-list-sidebar">Shop list Sidebar</a>
+                            <Link href="/shop-list-sidebar">
+                              Shop list Sidebar
+                            </Link>
                           </li>
                           <li>
-                            <a href="/shop-grid-top-filter">
+                            <Link href="/shop-grid-top-filter">
                               Shop Top Filter Grid
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a href="/shop-list-top-filter">
+                            <Link href="/shop-list-top-filter">
                               Shop Top Filter List
-                            </a>
+                            </Link>
                           </li>
                         </ul>
                       </div>
@@ -75,30 +59,30 @@ function NavItem() {
                         <p className="title">Shop Details</p>
                         <ul>
                           <li>
-                            <a
+                            <Link
                               className="sub-b"
                               href="/shop/firebase-business-makes-your-profit"
                             >
                               Shop Details
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a className="sub-b" href="/shop-details-2">
+                            <Link className="sub-b" href="/shop-details-2">
                               Shop Details V2
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a
+                            <Link
                               className="sub-b"
                               href="/shop-details-right-sidebar"
                             >
                               Shop Details V3
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a className="sub-b" href="/shop-details-4">
+                            <Link className="sub-b" href="/shop-details-4">
                               Shop Details V4
-                            </a>
+                            </Link>
                           </li>
                         </ul>
                       </div>
@@ -108,19 +92,25 @@ function NavItem() {
                         <p className="title">Product Feature</p>
                         <ul>
                           <li>
-                            <a className="sub-b" href="/shop-details-variable">
+                            <Link
+                              className="sub-b"
+                              href="/shop-details-variable"
+                            >
                               Variable product
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a className="sub-b" href="/shop-details-affiliats">
+                            <Link
+                              className="sub-b"
+                              href="/shop-details-affiliats"
+                            >
                               Affiliate product
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a className="sub-b" href="/shop-compare">
+                            <Link className="sub-b" href="/shop-compare">
                               Shop Compare
-                            </a>
+                            </Link>
                           </li>
                         </ul>
                       </div>
@@ -130,19 +120,19 @@ function NavItem() {
                         <p className="title">Shop Others</p>
                         <ul>
                           <li>
-                            <a className="sub-b" href="/cart">
+                            <Link className="sub-b" href="/cart">
                               Cart
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a className="sub-b" href="/checkout">
+                            <Link className="sub-b" href="/checkout">
                               Checkout
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a className="sub-b" href="/trackorder">
+                            <Link className="sub-b" href="/trackorder">
                               Track Order
-                            </a>
+                            </Link>
                           </li>
                         </ul>
                       </div>
@@ -150,147 +140,155 @@ function NavItem() {
                     </div>
                   </div>
                   <div className="col-lg-4">
-                    <a href="/shop" className="feature-add-megamenu-area">
+                    <Link href="/shop" className="feature-add-megamenu-area">
                       <img
                         src="/assets/images/feature/05.jpg"
                         alt="feature_product"
                       />
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
             </div>
           </li>
           <li className="parent has-dropdown">
-            <a className="nav-link" href="#">
-              Vendors
-            </a>
+            <Link className="nav-link" href="#">
+              Vendor
+            </Link>
             <ul className="submenu">
               <li>
-                <a className="sub-b" href="/vendor-list">
+                <Link className="sub-b" href="/vendor-list">
                   Vendor List
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="sub-b" href="/vendor-grid">
+                <Link className="sub-b" href="/vendor-grid">
                   Vendor Grid
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="sub-b" href="/vendor-details">
+                <Link className="sub-b" href="/vendor-details">
                   Vendor Details
-                </a>
+                </Link>
               </li>
             </ul>
           </li>
           <li className="parent has-dropdown">
-            <a className="nav-link" href="#">
+            <Link className="nav-link" href="#">
               Pages
-            </a>
+            </Link>
             <ul className="submenu">
               <li>
-                <a className="sub-b" href="/dashboard">
+                <Link className="sub-b" href="/dashboard">
                   Dashboard
                   <span className="badge">( New )</span>
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="sub-b" href="/about">
+                <Link className="sub-b" href="/about">
                   About
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="sub-b" href="/store">
+                <Link className="sub-b" href="/store">
                   Store
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="sub-b" href="/faq">
+                <Link className="sub-b" href="/faq">
                   Faq's
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="sub-b" href="/invoice">
+                <Link className="sub-b" href="/invoice">
                   Invoice
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="sub-b" href="/contact">
+                <Link className="sub-b" href="/contact">
                   Contact
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="sub-b" href="/register">
+                <Link className="sub-b" href="/register">
                   Register
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="sub-b" href="/login">
+                <Link className="sub-b" href="/login">
                   Login
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="sub-b" href="/privacy-policy">
+                <Link className="sub-b" href="/privacy-policy">
                   Privacy Policy
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="sub-b" href="/cookies-policy">
+                <Link className="sub-b" href="/cookies-policy">
                   Cookies Policy
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="sub-b" href="/terms-condition">
+                <Link className="sub-b" href="/terms-condition">
                   Terms &amp; Condition
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="sub-b" href="/404">
+                <Link className="sub-b" href="/404">
                   Error
-                </a>
+                </Link>
               </li>
             </ul>
           </li>
           <li className="parent has-dropdown">
-            <a className="nav-link" href="#">
-              Blog
-            </a>
+            <Link className="nav-link" href="#">
+              {t("home")}
+            </Link>
             <ul className="submenu">
               <li>
-                <a className="sub-b" href="/blog">
+                <Link className="sub-b" href="/blog">
                   Blog
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="sub-b" href="/blog-list-left-sidebar">
+                <Link className="sub-b" href="/blog-list-left-sidebar">
                   Blog List Left Sidebar
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="sub-b" href="/blog-list-right-sidebar">
+                <Link className="sub-b" href="/blog-list-right-sidebar">
                   Blog List Right Sidebar
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   className="sub-b"
                   href="/blog/details-profitable-business-makes-your-profit"
                 >
                   Blog Details
-                </a>
+                </Link>
               </li>
             </ul>
           </li>
           <li className="parents">
-            <a target="_blank" href="/dashboard">
-              Dashboard
+            <Link target="_blank" href="/dashboard">
               <span className="badge">New</span>
-            </a>
+              <i className="fa-sharp fa-light fa-panel-fire mx-2"></i>
+              {t("dashboard")}
+            </Link>
           </li>
           <li className="parent">
-            <a href="/contact">Contact</a>
+            <Link href="/contact">
+              <i className="fa-light fa-headset fs-2xl mx-2"></i>
+
+              {t("contact")}
+            </Link>
           </li>
         </ul>
+        {/* <div className="nav-sm-left"> */}
+        <LanguageToggle />
+        {/* </div> */}
       </nav>
     </div>
   );

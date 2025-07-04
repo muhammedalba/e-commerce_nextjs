@@ -1,7 +1,7 @@
 import React from "react";
+
 import { motion } from "framer-motion";
 import { SubmitButtonProps } from "@/types/ui/SubmitButton.types";
-
 
 export default function SubmitButton({
   loading,
@@ -19,13 +19,10 @@ export default function SubmitButton({
     >
       <button
         type="submit"
-        className={className}
+        className={` ${className} ${loading ? "opacity-75" : ""}`}
         disabled={loading}
-        aria-busy={loading}
-        style={{
-          opacity: loading ? 0.7 : 1,
-          cursor: loading ? "not-allowed" : "pointer",
-        }}
+        aria-busy={loading ? "true" : "false"}
+        aria-label={label}
       >
         {loading ? loadingLabel || "..." : label}
       </button>
