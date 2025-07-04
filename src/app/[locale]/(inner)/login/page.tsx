@@ -4,7 +4,8 @@ import FooterOne from "@/components/footer/FooterOne";
 import ShortService from "@/components/service/ShortService";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import LoginForm from "@/components/forms/LoginForm";
+import LoginForm from "@/components/forms/Auth/LoginForm";
+
 
 
 export default function LoginPage() {

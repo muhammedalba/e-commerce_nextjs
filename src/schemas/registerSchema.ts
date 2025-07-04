@@ -9,8 +9,8 @@ export const registerSchema = (t: any) =>
           required_error: t("Validation.requiredName"),
           invalid_type_error: t("Validation.requiredName"),
         })
-      //   .min(6, t("Validation.shortName"))
-      //   .max(32, t("Validation.longName"))
+        .min(6, t("Validation.shortName"))
+        .max(32, t("Validation.longName"))
      , email: z
         .string({
           required_error: t("Validation.requiredEmail"),

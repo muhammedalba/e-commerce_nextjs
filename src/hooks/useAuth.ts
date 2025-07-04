@@ -7,75 +7,55 @@ import {
   resetPassword,
 } from "@/services/api/auth.service";
 
-interface LoginCredentials {
-  email: string;
-  password: string;
-}
-interface forgotCredentials {
-  email: string;
-}
-interface verifyCodeCredentials {
-  resetCode: string;
-}
-interface LoginResponse {
-  message: string;
-  data: {
-    avatar: string;
-    name: string;
-    role: string;
-  };
+import type {
+  LoginCredentials,
+  ForgotCredentials,
+  VerifyCodeCredentials,
+  ResetPasswordCredentials,
+  AuthResponse,
+} from "@/types/auth";
+
+export function useLogin() {
+  return useMutation<AuthResponse, Error, LoginCredentials>({
+    mutationFn: async (data) => {
+      const response = await login(data);
+      return response.data;
+    },
+  });
 }
 
-interface RegisterResponse {
-  message: string;
-  data: {
-    avatar: string;
-    name: string;
-    role: string;
-  };
-}
-export function useLogin() {
-  return useMutation<LoginResponse, Error, LoginCredentials>({
-    mutationFn: async (data: LoginCredentials) => {
-      const response = await login(data);
-      return response.data as LoginResponse;
-    },
-  });
-}
-// Register
 export function useRegister() {
-  return useMutation<RegisterResponse, Error, FormData>({
-    mutationFn: async (data: FormData) => {
+  return useMutation<AuthResponse, Error, FormData>({
+    mutationFn: async (data) => {
       const response = await register(data);
-      return response.data as RegisterResponse;
+      return response.data;
     },
   });
 }
-//
+
 export function useForgotPassword() {
-  return useMutation<RegisterResponse, Error, forgotCredentials>({
-    mutationFn: async (data: forgotCredentials) => {
+  return useMutation<AuthResponse, Error, ForgotCredentials>({
+    mutationFn: async (data) => {
       const response = await forgotPassword(data);
-      return response.data as RegisterResponse;
+      return response.data;
     },
   });
 }
-//   useVerifyCode,
 
 export function useVerifyCode() {
-  return useMutation<RegisterResponse, Error, verifyCodeCredentials>({
-    mutationFn: async (data: verifyCodeCredentials) => {
+  return useMutation<AuthResponse, Error, VerifyCodeCredentials>({
+    mutationFn: async (data) => {
       const response = await verifyCode(data);
-      return response.data as RegisterResponse;
+      return response.data;
     },
   });
 }
-// useResetPassword,
+
 export function useResetPassword() {
-  return useMutation<LoginResponse, Error, LoginCredentials>({
-    mutationFn: async (data: LoginCredentials) => {
+  return useMutation<AuthResponse, Error, ResetPasswordCredentials>({
+    mutationFn: async (data) => {
       const response = await resetPassword(data);
-      return response.data as LoginResponse;
+      return response.data;
     },
   });
 }

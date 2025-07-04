@@ -8,19 +8,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
-import InputError from "../common/InputError";
 import { loginSchema } from "@/schemas/loginSchema";
-import Link from "next/link";
-import FormInput from "./FormInput";
-import SubmitButton from "./SubmitButton";
+import FormInput from "../FormInput";
+import SubmitButton from "../SubmitButton";
+import InputError from "@/components/common/InputError";
 import SocialAuthButtons from "./SocialAuthButtons";
+import { useMemo } from "react";
 
 export default function LoginForm() {
   const t = useTranslations("Auth");
   const { mutate: login, isPending, error, isSuccess } = useLogin();
   const router = useRouter();
 
-  const schema = loginSchema(t);
+  const schema = useMemo(() => loginSchema(t), [t]);
 
   type FormData = z.infer<typeof schema>;
 
@@ -70,7 +70,7 @@ export default function LoginForm() {
         loadingLabel={t("login.loadingLogin")}
         className="rts-btn btn-primary my-3 w-100"
       />
-      <InputError id="form-error" message={error ? error.message : undefined} />
+      <InputError id="form-error" message={error?.message ?? undefined} />
 
       {/* تسجيل بطرق أخرى */}
       <motion.div
@@ -86,7 +86,7 @@ export default function LoginForm() {
           goLoginText={t("login.goRegister")}
           forgotPassword={t("login.forgotPassword")}
           forgetText={t("login.resetLink")}
-          forgetLink='forgotPassword'
+          forgetLink="forgotPassword"
           authLink="register"
         />
       </motion.div>

@@ -1,16 +1,8 @@
 import React from "react";
 import InputError from "../common/InputError";
-import { UseFormRegisterReturn } from "react-hook-form";
-import { motion } from "framer-motion";
 
-interface FormInputProps {
-  id: string;
-  label: string;
-  iconClass: string;
-  type?: string;
-  error?: string;
-  register: UseFormRegisterReturn;
-}
+import { motion } from "framer-motion";
+import { FormInputProps } from "@/types/ui/FormInputProps.types";
 
 export default function FormInput({
   id,
@@ -19,6 +11,7 @@ export default function FormInput({
   type = "text",
   error,
   register,
+  disabled = false,
 }: FormInputProps) {
   return (
     <motion.div
@@ -38,6 +31,7 @@ export default function FormInput({
         {...register}
         className={`form-control ${error ? "is-invalid" : ""}`}
         aria-describedby={`${id}-error`}
+        disabled={disabled}
       />
       <InputError id={`${id}-error`} message={error} />
     </motion.div>

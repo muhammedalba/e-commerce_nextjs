@@ -5,7 +5,7 @@ import FooterOne from "@/components/footer/FooterOne";
 import ShortService from "@/components/service/ShortService";
 import NavigationArea from "@/components/NavigationBreadcrumb/NavigationBreadcrumb";
 import Image from "next/image";
-import RegisterForm from "@/components/forms/RegisterForm";
+import RegisterForm from "@/components/forms/Auth/RegisterForm";
 import { motion } from "framer-motion";
 
 export default function Register() {
