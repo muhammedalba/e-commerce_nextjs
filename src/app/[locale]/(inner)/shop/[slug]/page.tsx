@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import Header from "@/components/header/Header";
 import ShortService from "@/components/service/ShortService";
@@ -7,49 +6,31 @@ import RelatedProduct from "@/components/product/RelatedProduct";
 import FooterOne from "@/components/footer/FooterOne";
 import Product from "@/data/Product.json";
 import { useParams } from "next/navigation";
+import Form from "react-bootstrap/Form";
 
-import { useCart } from "@/components/header/CartContext";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+export default function Home() {
+  const [selectedSize, setSelectedSize] = useState("01 Miter");
+  const [selectedWeight, setSelectedWeight] = useState("5 kg");
 
-const CompareElements: React.FC = () => {
-  const { slug } = useParams(); // Get the slug from URL parameters
-  const blogPost = Product.find((post) => post.slug === slug);
+  const sizeOptions = ["01 Miter", "1 miter", "2 miter", "3 miter", "5 miter"];
+  const weightOptions = ["5 kg", "5kg", "7kg", "10kg", "15kg"];
 
-  if (!blogPost) {
-    return <div>Post not found Man!</div>;
-  }
-
-  const { addToCart } = useCart();
-  const [added, setAdded] = useState(false);
-
-  const handleAdd = () => {
-    addToCart({
-      id: Date.now(),
-      image: `/assets/images/grocery/${blogPost.bannerImg}`,
-      title: blogPost.title ?? "Default Product Title",
-      price: parseFloat(blogPost.price ?? "0"),
-      quantity: 1,
-      active: true,
-    });
-    setAdded(true);
-    toast("Successfully Added To Cart!");
-    setTimeout(() => setAdded(false), 5000);
-  };
-
+  // tab
   const [activeTab, setActiveTab] = useState<string>("tab1");
+
+  // modal
   type ModalType = "one" | "two" | "three" | null;
   const [activeModal, setActiveModal] = useState<ModalType>(null);
   const handleClose = () => setActiveModal(null);
 
   const [activeImage, setActiveImage] = useState(
-    `/assets/images/grocery/${blogPost.bannerImg}`
+    `/assets/images/grocery/01.jpg`
   );
   const thumbnails = [
     {
       id: "one",
-      src: `/assets/images/grocery/${blogPost.bannerImg}`,
-      alt: blogPost.title,
+      src: `/assets/images/grocery/01.jpg`,
+      alt: "alamin bali",
     },
     {
       id: "two",
@@ -76,27 +57,29 @@ const CompareElements: React.FC = () => {
   return (
     <div>
       <Header />
-      <div className="rts-navigation-area-breadcrumb bg_light-1">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="navigator-breadcrumb-wrapper">
-                <a href="/">Home</a>
-                <i className="fa-regular fa-chevron-right" />
-                <a className="current" href="#">
-                  Vendor Details
-                </a>
+
+      <>
+        <div className="rts-navigation-area-breadcrumb bg_light-1">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-12">
+                <div className="navigator-breadcrumb-wrapper">
+                  <a href="/">Home</a>
+                  <i className="fa-regular fa-chevron-right" />
+                  <a className="current" href="#">
+                    Vendor Details
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="section-seperator bg_light-1">
-        <div className="container">
-          <hr className="section-seperator" />
+        <div className="section-seperator bg_light-1">
+          <div className="container">
+            <hr className="section-seperator" />
+          </div>
         </div>
-      </div>
+      </>
 
       <div className="rts-chop-details-area rts-section-gap bg_light-1">
         <div className="container">
@@ -111,16 +94,17 @@ const CompareElements: React.FC = () => {
                           <div className="cursor" />
                           <div className="thumb-wrapper one filterd-items figure">
                             <div className="product-thumb">
-                              <img src={activeImage} alt={blogPost.title} />
+                              <img src={activeImage} alt="image" />
                             </div>
                           </div>
                           <div className="product-thumb-filter-group">
-                            {thumbnails.map((thumb) => (
+                            {thumbnails.map((thumb, index) => (
                               <div
                                 key={thumb.id}
                                 className={`thumb-filter filter-btn ${
                                   activeImage === thumb.src ? "active" : ""
                                 }`}
+                                data-show={`.${thumb.id}`}
                                 onClick={() => setActiveImage(thumb.src)}
                                 style={{ cursor: "pointer" }}
                               >
@@ -129,7 +113,6 @@ const CompareElements: React.FC = () => {
                             ))}
                           </div>
                         </div>
-
                         <div className="contents">
                           <div className="product-status">
                             <span className="product-catagory">Dress</span>
@@ -146,29 +129,52 @@ const CompareElements: React.FC = () => {
                               <span>10 Reviews</span>
                             </div>
                           </div>
-                          <h2 className="product-title">{blogPost.title}</h2>
+                          <h2 className="product-title">
+                            Priyoshop has brought to you the Hijab 3 Pieces
+                            Combo Pack
+                          </h2>
                           <p className="mt--20 mb--20">
                             Priyoshop has brought to you the Hijab 3 Pieces
-                            Combo Pack PS23...
+                            Combo Pack PS23. It is a completely modern design
+                            and you feel comfortable to put on this hijab. Buy
+                            it at the best price.
                           </p>
                           <span
                             className="product-price mb--15 d-block"
                             style={{ color: "#DC2626", fontWeight: 600 }}
                           >
-                            ${blogPost.price}
+                            {" "}
+                            $35
                             <span className="old-price ml--15">$69.35</span>
                           </span>
-
+                          <div className="variable-product-type mb--15">
+                            {/* Size Select */}
+                            <div className="single-select">
+                              <span className="label">Size</span>
+                              <Form.Select aria-label="01 Miter">
+                                <option>01 Miter</option>
+                                <option value="1">03 Miter</option>
+                                <option value="2">02 Miter</option>
+                                <option value="3">05 Miter</option>
+                              </Form.Select>
+                            </div>
+                            {/* Size Select */}
+                            <div className="single-select">
+                              <span className="label">Weight</span>
+                              <Form.Select aria-label="01 Kg">
+                                <option>01 Kg</option>
+                                <option value="1">02 Kg</option>
+                                <option value="2">03Kg</option>
+                                <option value="3">04 Kg</option>
+                              </Form.Select>
+                            </div>
+                          </div>
                           <div className="product-bottom-action">
                             <a
                               href="#"
                               className="rts-btn btn-primary radious-sm with-icon"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                handleAdd();
-                              }}
                             >
-                              <div className="btn-text">Add to Cart</div>
+                              <div className="btn-text">Add To Cart</div>
                               <div className="arrow-icon">
                                 <i className="fa-regular fa-cart-shopping" />
                               </div>
@@ -176,30 +182,58 @@ const CompareElements: React.FC = () => {
                                 <i className="fa-regular fa-cart-shopping" />
                               </div>
                             </a>
+                            {/* <a href="javascript:void(0);" class="rts-btn btn-primary ml--20"><i class="fa-light fa-heart"></i></a> */}
                           </div>
-
                           <div className="product-uniques">
                             <span className="sku product-unipue mb--10">
-                              <strong>SKU:</strong> BO1D0MX8SJ
+                              <span
+                                style={{ fontWeight: 400, marginRight: 10 }}
+                              >
+                                SKU:{" "}
+                              </span>{" "}
+                              BO1D0MX8SJ
                             </span>
                             <span className="catagorys product-unipue mb--10">
-                              <strong>Categories:</strong> T-Shirts, Tops, Mens
+                              <span
+                                style={{ fontWeight: 400, marginRight: 10 }}
+                              >
+                                Categories:{" "}
+                              </span>{" "}
+                              T-Shirts, Tops, Mens
                             </span>
                             <span className="tags product-unipue mb--10">
-                              <strong>Tags:</strong> fashion, t-shirts, Men
+                              <span
+                                style={{ fontWeight: 400, marginRight: 10 }}
+                              >
+                                Tags:{" "}
+                              </span>{" "}
+                              fashion, t-shirts, Men
                             </span>
                             <span className="tags product-unipue mb--10">
-                              <strong>LIFE:</strong> 6 Months
+                              <span
+                                style={{ fontWeight: 400, marginRight: 10 }}
+                              >
+                                LIFE::{" "}
+                              </span>{" "}
+                              6 Months
                             </span>
                             <span className="tags product-unipue mb--10">
-                              <strong>Type:</strong> original
+                              <span
+                                style={{ fontWeight: 400, marginRight: 10 }}
+                              >
+                                Type:{" "}
+                              </span>{" "}
+                              original
                             </span>
                             <span className="tags product-unipue mb--10">
-                              <strong>Category:</strong> Beverages, Dairy &
-                              Bakery
+                              <span
+                                style={{ fontWeight: 400, marginRight: 10 }}
+                              >
+                                Category:{" "}
+                              </span>{" "}
+                              Beverages, Dairy &amp; Bakery
                             </span>
                           </div>
-
                           <div className="share-option-shop-details">
                             <div className="single-share-option">
                               <div className="icon">
@@ -543,7 +577,7 @@ const CompareElements: React.FC = () => {
                   </div>
                 </div>
               </div>
-
+                            {/* sid bar */}
               <div className="col-xl-3 col-lg-4 col-md-12 offset-xl-1  rts-sticky-column-item">
                 <div className="theiaStickySidebar">
                   <div className="shop-sight-sticky-sidevbar mb--20">
@@ -585,17 +619,149 @@ const CompareElements: React.FC = () => {
                   </div>
                 </div>
               </div>
+              {/* sid bar */}
+              <div className="col-xl-3 col-lg-4 col-md-12 offset-xl-1  rts-sticky-column-item">
+                <div className="sidebar-filter-main shop-single-area-filter">
+                  <div className="single-filter-box">
+                    <h5 className="title">Widget Price Filter</h5>
+                    <div className="filterbox-body">
+                      <form action="#" className="price-input-area">
+                        <div className="half-input-wrapper">
+                          <div className="single">
+                            <label htmlFor="min">Min price</label>
+                            <input id="min" type="text" defaultValue={0} />
+                          </div>
+                          <div className="single">
+                            <label htmlFor="max">Max price</label>
+                            <input id="max" type="text" defaultValue={150} />
+                          </div>
+                        </div>
+                        <input type="range" className="range" />
+                        <div className="filter-value-min-max">
+                          <span>Price: $10 — $90</span>
+                          <button className="rts-btn btn-primary">
+                            Filter
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <div className="single-filter-box">
+                    <h5 className="title">Product Categories</h5>
+                    <div className="filterbox-body">
+                      <div className="category-wrapper">
+                        {/* single category */}
+                        <div className="single-category">
+                          <input id="cat1" type="checkbox" />
+                          <label htmlFor="cat1">Beverages</label>
+                        </div>
+                        {/* single category end */}
+                        {/* single category */}
+                        <div className="single-category">
+                          <input id="cat2" type="checkbox" />
+                          <label htmlFor="cat2">Biscuits &amp; Snacks</label>
+                        </div>
+                        {/* single category end */}
+                        {/* single category */}
+                        <div className="single-category">
+                          <input id="cat3" type="checkbox" />
+                          <label htmlFor="cat3">Breads &amp; Bakery</label>
+                        </div>
+                        {/* single category end */}
+                        {/* single category */}
+                        <div className="single-category">
+                          <input id="cat4" type="checkbox" />
+                          <label htmlFor="cat4">Breakfast &amp; Dairy</label>
+                        </div>
+                        {/* single category end */}
+                        {/* single category */}
+                        <div className="single-category with-more">
+                          <input id="cat5" type="checkbox" />
+                          <label htmlFor="cat5">Frozen Foods</label>
+                        </div>
+                        {/* single category end */}
+                        {/* single category */}
+                        <div className="single-category">
+                          <input id="cat6" type="checkbox" />
+                          <label htmlFor="cat6">Fruits &amp; Vegetables</label>
+                        </div>
+                        {/* single category end */}
+                        {/* single category */}
+                        <div className="single-category with-more">
+                          <input id="cat7" type="checkbox" />
+                          <label htmlFor="cat7">Grocery &amp; Staples</label>
+                        </div>
+                        {/* single category end */}
+                        {/* single category */}
+                        <div className="single-category">
+                          <input id="cat8" type="checkbox" />
+                          <label htmlFor="cat8">Household Needs</label>
+                        </div>
+                        {/* single category end */}
+                        {/* single category */}
+                        <div className="single-category">
+                          <input id="cat10" type="checkbox" />
+                          <label htmlFor="cat10">Meats &amp; Seafood</label>
+                        </div>
+                        {/* single category end */}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="single-filter-box">
+                    <h5 className="title">Product Status</h5>
+                    <div className="filterbox-body">
+                      <div className="category-wrapper">
+                        {/* single category */}
+                        <div className="single-category">
+                          <input id="cat11" type="checkbox" />
+                          <label htmlFor="cat11">In Stock</label>
+                        </div>
+                        {/* single category end */}
+                        {/* single category */}
+                        <div className="single-category">
+                          <input id="cat12" type="checkbox" />
+                          <label htmlFor="cat12">On Sale</label>
+                        </div>
+                        {/* single category end */}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="single-filter-box">
+                    <h5 className="title">Select Brands</h5>
+                    <div className="filterbox-body">
+                      <div className="category-wrapper">
+                        {/* single category */}
+                        <div className="single-category">
+                          <input id="cat13" type="checkbox" />
+                          <label htmlFor="cat13">Frito Lay</label>
+                        </div>
+                        {/* single category end */}
+                        {/* single category */}
+                        <div className="single-category">
+                          <input id="cat14" type="checkbox" />
+                          <label htmlFor="cat14">Nespresso</label>
+                        </div>
+                        {/* single category end */}
+                        {/* single category */}
+                        <div className="single-category">
+                          <input id="cat17" type="checkbox" />
+                          <label htmlFor="cat17">Welch's</label>
+                        </div>
+                        {/* single category end */}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <RelatedProduct />
+
       <ShortService />
       <FooterOne />
-      <ToastContainer />
     </div>
   );
-};
-
-export default CompareElements;
+}

@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import LanguageToggle from "../LanguageSwitcher/page";
 import Link from "next/link";
 import Image from "next/image";
+import TopPar from "./TopPar";
 
 function Header() {
   const { compareItems } = useCompare();
@@ -159,35 +160,9 @@ function Header() {
   return (
     <>
       <div className="rts-header-one-area-one">
-        {/* top bar */}
-        <div className="header-top-area">
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-12">
-                <div className="bwtween-area-header-top">
-                  <div className="discount-area">
-                    <p className="disc">
-                      FREE delivery &amp; 40% Discount for next 3 orders! Place
-                      your 1st order in.
-                    </p>
-                    <div className="countdown">
-                      <div className="countDown">10/05/2025 10:20:00</div>
-                    </div>
-                  </div>
-                  <div className="contact-number-area">
-                    <p>
-                      Need help? Call Us:{" "}
-                      <Link href="tel:+4733378901">+258 3268 21485</Link>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
+        <TopPar />
         {/* mid bar */}
-        <div className="header-mid-one-wrapper">
+        {/* <div className="header-mid-one-wrapper">
           <div className="container">
             <div className="row">
               <div className="col-lg-12">
@@ -213,18 +188,18 @@ function Header() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* logo + search */}
-        <div className="search-header-area-main">
+        <div className="search-header-area-main py-3">
           <div className="container">
             <div className="row">
               <div className="col-lg-12">
                 <div className="logo-search-category-wrapper">
                   <Link href="/" className="logo-area">
                     <Image
-                    width={50}
-                    height={50}
+                      width={50}
+                      height={50}
                       src="/assets/images/logo/fav.png"
                       // src="/assets/images/logo/logo-01.svg"
                       alt="logo-main"
@@ -313,7 +288,7 @@ function Header() {
                       >
                         <path d="..." fill="#1F1F25" />
                       </svg> */}
-                     
+
                       <svg
                         width={17}
                         height={16}
@@ -321,9 +296,8 @@ function Header() {
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
                       >
-                         <path d="M2 2 H15 V14 H2 Z" fill="#1F1F25" />
+                        <path d="M2 2 H15 V14 H2 Z" fill="#1F1F25" />
                       </svg>
-
                     </div>
                     <div className="menu-btn" id="menu-btn">
                       <svg
@@ -342,7 +316,7 @@ function Header() {
                   <div className="accont-wishlist-cart-area-header">
                     <Link href="/account" className="btn-border-only account">
                       <i className="fa-light fa-user" />
-                      <span>Account</span>
+                      {/* <span>Account</span> */}
                     </Link>
                     <Link
                       href="/shop-compare"

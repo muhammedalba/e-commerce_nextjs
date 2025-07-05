@@ -22,7 +22,7 @@ const WishList: React.FC = () => {
     return (
         <div className="btn-border-only cart category-hover-header">
             <i className="fa-regular fa-heart" />
-            <span className="text">Wishlist</span>
+            {/* <span className="text">Wishlist</span> */}
             <span className="number">{wishlistItems.length}</span>
 
             <div className="category-sub-menu card-number-show">

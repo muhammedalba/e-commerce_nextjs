@@ -165,7 +165,54 @@ function ShopContent() {
         <div className="container">
           <div className="row g-0">
             {/* Sidebar */}
-            <div className="col-xl-3 col-lg-12 pr--70 pr_lg--10 pr_sm--10 pr_md--5 rts-sticky-column-item">
+            <div className="nice-select-area-wrapper-and-button">
+              <div className="nice-select-wrapper-1">
+                <div className="single-select">
+                  <select>
+                    <option data-display="All Categories">
+                      All Categories
+                    </option>
+                    <option value={1}>Some option</option>
+                    <option value={2}>Another option</option>
+                    <option value={3}>A disabled option</option>
+                    <option value={4}>Potato</option>
+                  </select>
+                </div>
+                <div className="single-select">
+                  <select>
+                    <option data-display="All Brands">All Brands</option>
+                    <option value={1}>Some option</option>
+                    <option value={2}>Another option</option>
+                    <option value={3}>A disabled option</option>
+                    <option value={4}>Potato</option>
+                  </select>
+                </div>
+                <div className="single-select">
+                  <select>
+                    <option data-display="All Size">All Size </option>
+                    <option value={1}>Some option</option>
+                    <option value={2}>Another option</option>
+                    <option value={3}>A disabled option</option>
+                    <option value={4}>Potato</option>
+                  </select>
+                </div>
+                <div className="single-select">
+                  <select>
+                    <option data-display="All Weight">All Weight</option>
+                    <option value={1}>Some option</option>
+                    <option value={2}>Another option</option>
+                    <option value={3}>A disabled option</option>
+                    <option value={4}>Potato</option>
+                  </select>
+                </div>
+              </div>
+              <div className="button-area">
+                <button className="rts-btn">Filter</button>
+                <button className="rts-btn">Reset Filter</button>
+              </div>
+            </div>
+            {/* Sidebar */}
+            <div className="d-none d-md-flex col-xl-3 col-lg-12 pr--70 pr_lg--10 pr_sm--10 pr_md--5 rts-sticky-column-item">
               <div className="sidebar-filter-main theiaStickySidebar">
                 {/* Price Filter */}
                 <div className="single-filter-box">

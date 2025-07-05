@@ -40,7 +40,7 @@ export default function LanguageToggle() {
   );
 
   return (
-    <ul className="nav-h_top language">
+    <ul className="nav-h_top language px-1">
       <li className="category-hover-header language-hover">
         <a>{currentLocale.toUpperCase()}</a>
         <ul className="category-sub-menu">{languageList}</ul>

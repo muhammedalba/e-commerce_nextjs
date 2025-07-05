@@ -18745,12 +18745,11 @@ edit .quantity-edit button {
 .side-bar button.close-icon-menu {
   max-width: max-content;
   margin-right: auto;
-  margin-left: auto;
-  margin-top: -50px;
+  margin-left: -44px;
+  margin-top: 3px;
   position: absolute;
   height: 45px;
   width: 45px;
-  background: var(--color-primary);
   display: flex;
   align-items: center;
   justify-content: center;

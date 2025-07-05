@@ -21,7 +21,7 @@ const CartDropdown: React.FC = () => {
   return (
     <div className="btn-border-only cart category-hover-header">
       <i className="fa-sharp fa-regular fa-cart-shopping" />
-      <span className="text">Cart</span>
+      {/* <span className="text">Cart</span> */}
       <span className="number">{activeItems.length}</span>
 
       <div className="category-sub-menu card-number-show">

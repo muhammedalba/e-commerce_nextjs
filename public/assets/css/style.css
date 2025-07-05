@@ -48,6 +48,8 @@
 
 
 
+
+
 /* 
 navigator-breadcrumb-wrapper
 bg_light-1
@@ -9318,8 +9320,8 @@ img {
   -ms-interpolation-mode: bicubic;
   border: 0;
   vertical-align: middle;
-  max-width: 100%;
-  height: auto;
+  /* max-width: 100%;
+  height: auto; */
 }
 
 svg:not(:root) {
@@ -15215,17 +15217,7 @@ body.sal-disabled [data-sal|=flip] {
   padding: 10px 0;
 }
 
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-  .header-top-area {
-    display: none;
-  }
-}
 
-@media only screen and (max-width: 767px) {
-  .header-top-area {
-    display: none;
-  }
-}
 
 .header-top-area p.disc {
   margin: 0;
@@ -15416,7 +15408,7 @@ body.sal-disabled [data-sal|=flip] {
 }
 
 .search-header-area-main {
-  padding: 31px 0;
+  padding: 15px 0;
   border-top: 1px solid #E2E2E2;
 }
 
@@ -16734,10 +16726,7 @@ li.has-dropdown:hover .submenu {
   transition: clip 1.8s linear, opacity 0.2s linear;
 }
 
-li.category-hover-header.language-hover a {
-  position: relative !important;
-  padding-right: 13px !important;
-}
+
 
 li.category-hover-header.language-hover::after {
   content: "\f078";
@@ -16957,11 +16946,6 @@ li.with-megamenu:hover .rts-megamenu {
   margin: auto;
 }
 
-.countdown .countDown {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
 
 @media only screen and (max-width: 479px) {
   .countdown .countDown {
@@ -23665,7 +23649,7 @@ body.modal-open {
   margin-bottom: 30px;
 } */
 
-.registration-form i{
+.registration-form i {
   /* text-align: left; */
 }
 
@@ -23674,8 +23658,9 @@ body.modal-open {
   /* text-align: left; */
   margin-bottom: 30px;
 }
-.registration-form .input-wrapper i{
-  color: var( --color-primary);
+
+.registration-form .input-wrapper i {
+  color: var(--color-primary);
 }
 
 .registration-form .input-wrapper:last-child {
@@ -25208,16 +25193,9 @@ body.modal-open {
   overflow-y: auto;
 }
 
-.side-bar button.close-icon-menu {
-  max-width: max-content;
-  margin-right: auto;
-  margin-left: -53px;
-  margin-top: 0;
-  position: absolute;
-}
+
 
 .side-bar button.close-icon-menu i {
-  color: #ffffff;
   height: 50px;
   width: 50px;
   border-radius: 0;
@@ -25227,7 +25205,7 @@ body.modal-open {
   margin-left: 14px;
   margin-top: -53px;
   font-size: 27px;
-  background: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .search-input-area-menu {
@@ -25538,20 +25516,7 @@ body.modal-open {
   border-bottom: 1px solid #f3f3f3;
 }
 
-.mobile-menu-main nav ul li.has-droupdown::after {
-  position: absolute;
-  content: "\f078";
-  font-family: "Font Awesome 6 pro" !important;
-  font-size: 16px;
-  right: 0;
-  font-weight: 400;
-  top: 5px;
-  padding: 8px 13px;
-  color: #fff;
-  background: var(--color-primary) !important;
-  pointer-events: none;
-  cursor: pointer;
-}
+
 
 .mobile-menu-main nav ul li.has-droupdown.mm-active::after {
   content: "\f077";
@@ -28482,7 +28447,7 @@ header.header-three .sub-dropdown .submenu.third-lvl.base {
   }
 
   .logo img {
-    max-width: 150px;
+    /* max-width: 150px; */
   }
 
   .invoice-location {

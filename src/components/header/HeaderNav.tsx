@@ -2,7 +2,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import Nav from "./Nav";
-
+import LanguageToggle from "../LanguageSwitcher/page";
+import Image from "next/image";
 function ComponentName() {
   // header sticky
   const [isSticky, setIsSticky] = useState(false);
@@ -48,7 +49,7 @@ function ComponentName() {
           <div className="row">
             <div className="col-lg-12">
               <div className="nav-and-btn-wrapper">
-                <div className="nav-area w-100">
+                <div className="nav-area container">
                   <Nav />
                 </div>
                 {/* button-area */}
@@ -66,11 +67,14 @@ function ComponentName() {
             </div>
             <div className="col-lg-12">
               <div className="logo-search-category-wrapper after-md-device-header">
-                <a href="index" className="logo-area">
-                  <img
-                    src="/assets/images/logo/logo-01.svg"
+                <a href="/" className="logo-area">
+                  <Image
+                    src="/assets/images/logo/fav.png"
+                    // src="/assets/images/logo/logo-01.svg"
                     alt="logo-main"
                     className="logo"
+                    width={50}
+                    height={50}
                   />
                 </a>
                 <div className="category-search-wrapper">
@@ -169,11 +173,9 @@ function ComponentName() {
                   <div className="accont-wishlist-cart-area-header">
                     <a href="/account" className="btn-border-only account">
                       <i className="fa-light fa-user" />
-
                     </a>
                     <a href="/wishlist" className="btn-border-only wishlist">
                       <i className="fa-regular fa-heart" />
-                      Wishlist
                     </a>
                     <div className="btn-border-only cart category-hover-header">
                       <i className="fa-sharp fa-regular fa-cart-shopping" />
@@ -288,6 +290,7 @@ function ComponentName() {
                     </div>
                   </div>
                   <div className="actions-area">
+                 
                     <div
                       className="search-btn"
                       id="search"
@@ -305,6 +308,10 @@ function ComponentName() {
                           fill="#1F1F25"
                         />
                       </svg>
+                    </div>
+                    <div className="actions-area w-auto px-3">
+                       <LanguageToggle/>
+
                     </div>
                     <div className="menu-btn" onClick={handleMenuClick}>
                       <svg
