@@ -6,7 +6,7 @@ import CategoryBb from './CategoryBb';
 const BannerOne = () => {
 
     return (
-        <div className="background-light-gray-color rts-section-gap bg_light-1 pt_sm--20">
+        <div className="background-light-gray-color rts-section-gap bg_light-1 pt_sm--20 overflow-hidden">
             {/* rts banner area start */}
             <div className="rts-banner-area-one mb--30">
                 <div className="container">

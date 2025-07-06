@@ -4,9 +4,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "../../../public/assets/css/bootstrap.min.css";
 import "../../../public/assets/css/plugins.css";
-import "../../../public/assets/css/style.css";
-import "../../../public/assets/css/newStyle.css";
-// import "../../styles/scss/style.scss";
+// import "../../../public/assets/css/style.css";
+// import "../../../public/assets/css/newStyle.css";
+import "../../styles/scss/style.scss";
 
 
 import { CartProvider } from "../../components/header/CartContext";

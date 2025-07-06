@@ -1,5 +1,8 @@
 // banenr area start
-
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  display: none;
+}
 .bg_one-banner {
   background-image: url(/assets/images/banner/01.webp);
 }
@@ -367,6 +370,7 @@
   position: relative;
   z-index: 1;
 }
+
 .rts-banner-area-one {
   position: relative;
   .swiper-button-next,

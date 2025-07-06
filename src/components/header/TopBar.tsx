@@ -28,30 +28,23 @@ function formatTimeArabic(ms: number) {
   return `${icon} باقي: ${days} ${dayLabel} ${time}`;
 }
 
-function TopPar() {
+function TopBar() {
+  const locale = Cookies.get("NEXT_LOCALE") || "ar";
   const [timeLeft, setTimeLeft] = useState(
     Math.max(0, countdownTarget.getTime() - Date.now())
   );
-
-  const locale = Cookies.get("NEXT_LOCALE") || "ar";
-
-  // حركة النص: 
-  // للعربية: من 100% (خارج اليمين) إلى -100% (خارج اليسار)
-  // للغات أخرى: العكس
-  const animationX =
-    locale === "ar" ? ["100%", "-100%"] : ["-100%", "100%"];
-
   const [isHovered, setIsHovered] = useState(false);
+  const animationX = locale === "ar" ? ["100%", "-100%"] : ["-100%", "100%"];
+  const isUrgent = timeLeft <= 3600 * 1000;
+
 
   useEffect(() => {
     const interval = setInterval(() => {
       setTimeLeft(Math.max(0, countdownTarget.getTime() - Date.now()));
     }, 1000);
-
     return () => clearInterval(interval);
   }, []);
 
-  const isUrgent = timeLeft <= 3600 * 1000;
 
   const messages = useMemo(
     () => [
@@ -64,7 +57,7 @@ function TopPar() {
   );
 
   return (
-    <div className="header-top-area py-2">
+    <div className={`header-top-area py-2 sticky-top  z-50 w-100 overflow-hidden`}>
       <div className="container">
         <div className="d-flex align-items-center justify-content-between">
           <div
@@ -137,4 +130,4 @@ function TopPar() {
   );
 }
 
-export default TopPar;
+export default TopBar;

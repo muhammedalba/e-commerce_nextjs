@@ -2,14 +2,10 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import React from "react";
-import LanguageToggle from "../LanguageSwitcher/page";
+import LanguageToggle from "../LanguageSwitcher/LanguageToggle";
 function NavItem() {
   const t = useTranslations("routes");
 
-  // const name = decodeURIComponent(Cookies.get("name") || "none");
-  // const avatar = decodeURIComponent(Cookies.get("avatar") || "none");
-  // console.log(decodeURIComponent(name));
-  // console.log(decodeURIComponent(avatar));
   return (
     <div>
       <nav className="parent-nav d-flex align-items-center flex-row w-100 justify-content-between">
@@ -78,7 +74,6 @@ function NavItem() {
                   Terms &amp; Condition
                 </Link>
               </li>
-
             </ul>
           </li>
           <li className="parents">

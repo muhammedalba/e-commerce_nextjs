@@ -4,7 +4,7 @@ import { Geist, Geist_Mono, Tajawal } from "next/font/google";
 import "../../../../public-dashboard/assets/css/table.css";
 import "../../../../public-dashboard/assets/css/style.css";
 
-// import "../../styles/dashboard/scss/style.scss";
+import "../../styles/dashboard/scss/style.scss";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
