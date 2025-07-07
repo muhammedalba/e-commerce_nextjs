@@ -5,6 +5,7 @@ import {
   register,
   verifyCode,
   resetPassword,
+  logout,
 } from "@/services/api/auth.service";
 
 import type {
@@ -58,4 +59,13 @@ export function useResetPassword() {
       return response.data;
     },
   });
+
+
 }
+export function useLogout() {
+  return useMutation<AuthResponse, Error>({
+    mutationFn: async () => {
+      const response = await logout();
+      return response.data;
+    },
+  });}
