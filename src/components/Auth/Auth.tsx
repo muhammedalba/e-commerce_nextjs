@@ -13,25 +13,20 @@ const AuthComponent = () => {
   const { mutate: logout, error } = useLogout();
 
   const [name, setName] = useState<string | null>(null);
-  const [avatar, setAvatar] = useState<string | null>(null);
 
   useEffect(() => {
     const cookieName = decodeURIComponent(Cookies.get("name") || "none");
-    const cookieAvatar = decodeURIComponent(Cookies.get("avatar") || "none");
     setName(cookieName);
-    setAvatar(cookieAvatar);
   }, []);
 
 
   const handleLogout = useCallback(() => {
     logout(undefined, {
       onSuccess() {
-        console.log("Logout successful");
         toast.success("Logout successful");
         // router.replace("/");
       },
       onError(err) {
-        console.log("Logout successful");
         const message = err.message || t("login.errorLogin");
         toast.error(message);
       },
@@ -83,7 +78,6 @@ const AuthComponent = () => {
   );
 };
 
-// ✅ تغليف المكون بـ React.memo لمنع إعادة الرندر غير الضروري
 const Auth = memo(AuthComponent);
 
 export default Auth;

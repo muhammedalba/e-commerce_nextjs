@@ -78,16 +78,26 @@ li.category-hover-header.language-hover {
   &::after {
     content: "\f078";
     position: absolute;
-    right: -15px;
+    right: -8px;
     top: 50%;
     font-size: 12px;
     transform: translateY(-50%);
     font-family: var(--font-three);
   }
   &:hover {
-    color: white;
-    &::after {
-      color: white;
+    color: var(--color-heading-1) !important;
+    background-color: inherit !important;
+    // &::after {
+    //   color: var(--color-primary);
+    // }
+  }
+
+  li {
+    &:hover {
+      background: var(--color-primary);
+    }
+    &:hover button {
+      color: white !important;
     }
   }
 }

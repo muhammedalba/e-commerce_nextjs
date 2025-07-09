@@ -90,7 +90,7 @@
     }
     button{
         position: absolute;
-        right: 10px;
+        inset-inline-end: 10px;
         top: 50%;
         max-width: max-content;
         transform: translateY(-50%);
@@ -111,7 +111,7 @@
                 border-radius: 3px;
                 font-weight: 600;
                 color: #2C3C28;
-                &[aria-selected="true"]{
+                &.active{
                     background: var(--color-primary);
                     color: #fff;
                 }
@@ -168,4 +168,11 @@
             }
         }
     }
+}
+.mm-collapse {
+  display: none;
+}
+
+ul.submenu.mm-collapse.mm-show {
+  display: block;
 }

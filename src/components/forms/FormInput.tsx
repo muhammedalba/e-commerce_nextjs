@@ -21,9 +21,9 @@ export default function FormInput({
       transition={{ duration: 0.2 }}
       exit={{ opacity: 0 }}
     >
-      <div className="d-flex gap-2 align-items-center mb-4">
+      <div className="d-flex gap-3 align-items-center mb-4">
         <i className={iconClass} />
-        <label htmlFor={id}>{label}</label>
+        <label className="m-0" htmlFor={id}>{label}</label>
       </div>
       <input
         id={id}

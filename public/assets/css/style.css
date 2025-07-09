@@ -18360,7 +18360,7 @@ li.with-megamenu:hover .rts-megamenu {
 
 @media only screen and (max-width: 767px) {
   .btn-border-only.account {
-    display: none;
+    /* display: none; */
   }
 }
 

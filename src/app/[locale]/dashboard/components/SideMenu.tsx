@@ -146,7 +146,7 @@ const SidebarMenu = () => {
                     <li key={subIndex}>
                       <Link
                         href={sub.href}
-                        className={`mobile-menu-link ${
+                        className={`mobile-menu-link px-5 ${
                           isActive ? "active" : ""
                         }`}
                       >

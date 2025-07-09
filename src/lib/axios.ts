@@ -12,8 +12,6 @@ axiosInstance.interceptors.request.use(
     const token = Cookies.get("access_token");
     const language = Cookies.get("NEXT_LOCALE") || "ar";
     config.headers["Accept-Language"] = language;
-    console.log("language", token);
-    
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }

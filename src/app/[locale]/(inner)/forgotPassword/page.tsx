@@ -24,12 +24,11 @@ export default function ForgotPassword() {
               <div className="registration-wrapper-1">
                 <div className="logo-area mb--0 text-center">
                   <Image
+                    src="/assets/images/logo/fav.png"
+                    alt="logo"
                     width={150}
                     height={150}
                     priority
-                    className="mb--10"
-                    src="/assets/images/logo/fav.png"
-                    alt="logo"
                   />
                 </div>
                 <h3 className="title text-center">

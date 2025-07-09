@@ -13,7 +13,6 @@ import Auth from "../Auth/Auth";
 function MidBar() {
   const { compareItems } = useCompare();
 
-
   // Countdown setup
   useEffect(() => {
     const countDownElements =
@@ -166,6 +165,7 @@ function MidBar() {
                   src="/assets/images/logo/fav.png"
                   // src="/assets/images/logo/logo-01.svg"
                   alt="logo-main"
+                  priority
                   // className="logo"
                 />
               </Link>
@@ -277,7 +277,7 @@ function MidBar() {
                 </div>
               </div>
               <div className="accont-wishlist-cart-area-header">
-                <Auth/>
+                <Auth />
                 <Link
                   href="/shop-compare"
                   className="btn-border-only account compare-number"

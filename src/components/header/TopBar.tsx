@@ -1,11 +1,12 @@
 "use client";
-
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useEffect, useState, useMemo } from "react";
 import Cookies from "js-cookie";
-
-const countdownTarget = new Date("2025-07-01T23:59:59");
+// const Countdown = dynamic(() => import("@/components/Countdown"), {
+//   ssr: false,
+// });
+const countdownTarget = new Date("2025-08-01T23:59:59");
 
 function formatTimeArabic(ms: number) {
   const totalSeconds = Math.floor(ms / 1000);
@@ -37,14 +38,12 @@ function TopBar() {
   const animationX = locale === "ar" ? ["100%", "-100%"] : ["-100%", "100%"];
   const isUrgent = timeLeft <= 3600 * 1000;
 
-
   useEffect(() => {
     const interval = setInterval(() => {
       setTimeLeft(Math.max(0, countdownTarget.getTime() - Date.now()));
     }, 1000);
     return () => clearInterval(interval);
   }, []);
-
 
   const messages = useMemo(
     () => [
@@ -57,11 +56,13 @@ function TopBar() {
   );
 
   return (
-    <div className={`header-top-area py-2 sticky-top  z-50 w-100 overflow-hidden`}>
+    <div
+      className={`header-top-area py-2 sticky-top transition z-50 w-100 overflow-hidden`}
+    >
       <div className="container">
         <div className="d-flex align-items-center justify-content-between">
           <div
-            className="overflow-hidden flex-grow-1 me-3"
+            className=" flex-grow-1 me-3"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >

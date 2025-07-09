@@ -1,6 +1,6 @@
 import api from "@/lib/axios";
 
-export const getAllCategories = () => api.get("/categories");
+export const getAllCategories = (page: number, limit: number) => api.get(`/categories?page=${page}&limit=${limit}`);
 
 export const getCategoryById = (id: string) => api.get(`/categories/${id}`);
 
