@@ -8,7 +8,9 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "e-commerce-nestjs-g12u.onrender.com",
+        hostname:
+          process.env.NEXT_PUBLIC_HOSTNAME_URL ??
+          "e-commerce-nestjs-g12u.onrender.com",
         port: "",
         pathname: "/uploads/**",
       },
