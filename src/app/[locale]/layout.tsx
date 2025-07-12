@@ -13,7 +13,7 @@ import { CartProvider } from "../../components/header/CartContext";
 import { WishlistProvider } from "../../components/header/WishlistContext";
 import { CompareProvider } from "../../components/header/CompareContext";
 
-import "react-toastify/dist/ReactToastify.css";
+// import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import { getMessages } from "next-intl/server";
 

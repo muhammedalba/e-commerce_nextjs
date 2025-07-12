@@ -1,6 +1,12 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from 'react';
 
 interface CartItem {
   id: number;
@@ -16,6 +22,7 @@ interface CartContextProps {
   addToCart: (item: CartItem) => void;
   addToWishlist: (item: CartItem) => void;
   removeFromCart: (id: number) => void;
+  removeFromWishlist: (id: number) => void;
   updateItemQuantity: (id: number, quantity: number) => void;
   isCartLoaded: boolean;
 }
@@ -32,7 +39,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartLoaded, setIsCartLoaded] = useState(false);
 
-  // Load from localStorage on first mount
+  // Load cart from localStorage on mount
   useEffect(() => {
     const storedCart = localStorage.getItem('cart');
     if (storedCart) {
@@ -46,15 +53,18 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     setIsCartLoaded(true);
   }, []);
 
-  // Save to localStorage whenever cart changes
+  // Save to localStorage with debounce
   useEffect(() => {
-    if (isCartLoaded) {
+    if (!isCartLoaded) return;
+    const timeout = setTimeout(() => {
       localStorage.setItem('cart', JSON.stringify(cartItems));
-    }
+    }, 300); // delay write for performance
+
+    return () => clearTimeout(timeout);
   }, [cartItems, isCartLoaded]);
 
-  // Add item to cart (active: true)
-  const addToCart = (item: CartItem) => {
+  // Add item to cart
+  const addToCart = useCallback((item: CartItem) => {
     setCartItems((prev) => {
       const existing = prev.find((i) => i.id === item.id && i.active === true);
       if (existing) {
@@ -64,13 +74,13 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
             : i
         );
       } else {
-        return [...prev, item];
+        return [...prev, { ...item, active: true }];
       }
     });
-  };
+  }, []);
 
-  // Add item to wishlist (active: false)
-  const addToWishlist = (item: CartItem) => {
+  // Add item to wishlist
+  const addToWishlist = useCallback((item: CartItem) => {
     setCartItems((prev) => {
       const existing = prev.find((i) => i.id === item.id && i.active === false);
       if (existing) {
@@ -80,24 +90,33 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
             : i
         );
       } else {
-        return [...prev, item];
+        return [...prev, { ...item, active: false }];
       }
     });
-  };
+  }, []);
 
-  // Remove item by ID
-  const removeFromCart = (id: number) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
-  };
+  // Remove from cart only (active: true)
+  const removeFromCart = useCallback((id: number) => {
+    setCartItems((prev) =>
+      prev.filter((item) => !(item.id === id && item.active === true))
+    );
+  }, []);
 
-  // Update quantity (cart or wishlist)
-  const updateItemQuantity = (id: number, quantity: number) => {
+  // Remove from wishlist only (active: false)
+  const removeFromWishlist = useCallback((id: number) => {
+    setCartItems((prev) =>
+      prev.filter((item) => !(item.id === id && item.active === false))
+    );
+  }, []);
+
+  // Update quantity
+  const updateItemQuantity = useCallback((id: number, quantity: number) => {
     setCartItems((prev) =>
       prev.map((item) =>
         item.id === id ? { ...item, quantity: Math.max(1, quantity) } : item
       )
     );
-  };
+  }, []);
 
   return (
     <CartContext.Provider
@@ -106,6 +125,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         addToCart,
         addToWishlist,
         removeFromCart,
+        removeFromWishlist,
         updateItemQuantity,
         isCartLoaded,
       }}

@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 // const Countdown = dynamic(() => import("@/components/Countdown"), {
 //   ssr: false,
 // });
-const countdownTarget = new Date("2025-08-01T23:59:59");
+const countdownTarget = new Date("2025-05-01T23:59:59");
 
 function formatTimeArabic(ms: number) {
   const totalSeconds = Math.floor(ms / 1000);

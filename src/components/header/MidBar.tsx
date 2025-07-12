@@ -2,84 +2,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CategoryMenu from "./CategoryMenu";
 import { useCompare } from "./CompareContext";
-import Cart from "./Cart";
 import WishList from "./WishList";
 
 import Auth from "../Auth/Auth";
+import CartDropdown from "./Cart";
 
 function MidBar() {
   const { compareItems } = useCompare();
-
-  // Countdown setup
-  useEffect(() => {
-    const countDownElements =
-      document.querySelectorAll<HTMLElement>(".countDown");
-    const endDates: Date[] = [];
-
-    countDownElements.forEach((el) => {
-      const match = el.innerText.match(
-        /([0-9]{1,2})\/([0-9]{1,2})\/([0-9]{4}) ([0-9]{2}):([0-9]{2}):([0-9]{2})/
-      );
-      if (!match) return;
-
-      const end = new Date(
-        +match[3],
-        +match[1] - 1,
-        +match[2],
-        +match[4],
-        +match[5],
-        +match[6]
-      );
-      if (end > new Date()) {
-        endDates.push(end);
-        const next = calcTime(end.getTime() - new Date().getTime());
-        el.innerHTML = renderDisplay(next);
-      } else {
-        el.innerHTML = `<p class="end">Sorry, your session has expired.</p>`;
-      }
-    });
-
-    const interval = setInterval(() => {
-      countDownElements.forEach((el, i) => {
-        const end = endDates[i];
-        if (!end) return;
-        const now = new Date();
-        const diff = end.getTime() - now.getTime();
-
-        if (diff <= 0) {
-          el.innerHTML = `<p class="end">Sorry, your session has expired.</p>`;
-        } else {
-          const next = calcTime(diff);
-          el.innerHTML = renderDisplay(next);
-        }
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const calcTime = (milliseconds: number) => {
-    const secondsTotal = Math.floor(milliseconds / 1000);
-    const days = Math.floor(secondsTotal / 86400);
-    const hours = Math.floor((secondsTotal % 86400) / 3600);
-    const minutes = Math.floor((secondsTotal % 3600) / 60);
-    const seconds = secondsTotal % 60;
-    return [days, hours, minutes, seconds].map((v) =>
-      v.toString().padStart(2, "0")
-    );
-  };
-
-  const renderDisplay = (timeArr: string[]) => {
-    return timeArr
-      .map(
-        (item) =>
-          `<div class='container'><div class='a'><div>${item}</div></div></div>`
-      )
-      .join("");
-  };
 
   const router = useRouter();
   const [searchTerm, setSearchTerm] = useState("");
@@ -154,10 +86,10 @@ function MidBar() {
   };
   return (
     <div className="search-header-area-main py-3">
-      <div className="container">
+      <div className="container ">
         <div className="row">
-          <div className="col-lg-12">
-            <div className="logo-search-category-wrapper">
+          <div className="col-lg-12 ">
+            <div className="logo-search-category-wrapper ">
               <Link href="/" className="logo-area">
                 <Image
                   width={50}
@@ -242,16 +174,6 @@ function MidBar() {
               </div>
               <div className="actions-area">
                 <div className="search-btn" id="searchs">
-                  {/* <svg
-                        width={17}
-                        height={16}
-                        viewBox="0 0 17 16"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path d="..." fill="#1F1F25" />
-                      </svg> */}
-
                   <svg
                     width={17}
                     height={16}
@@ -286,7 +208,7 @@ function MidBar() {
                   <span className="number">{compareItems.length}</span>
                 </Link>
                 <WishList />
-                <Cart />
+                <CartDropdown />
               </div>
             </div>
           </div>

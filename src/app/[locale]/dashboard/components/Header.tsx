@@ -1,6 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import Languages from "./languages";
 
 interface HeaderProps {
   onToggleSidebar: () => void;
@@ -274,18 +275,8 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
                 fill="#083A5E"
               />
             </svg>
-            <div
-              className="user_information_main_wrapper slide-down__click language-area"
-              style={{ display: activePopup === "language" ? "block" : "none" }}
-            >
-              <ul className="select-language-area">
-                {languages.map((lang) => (
-                  <li key={lang}>
-                    <a href="#">{lang}</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <Languages activePopup={activePopup} />
+
           </div>
 
           {/* User Profile */}

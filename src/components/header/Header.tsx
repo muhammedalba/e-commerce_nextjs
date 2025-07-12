@@ -10,7 +10,7 @@ import dynamic from "next/dynamic";
 function Header() {
   return (
     <>
-        {/* <TopPar /> */}
+        <TopPar />
       <div dir="ltr" className="">
         {/* mid bar logo + search */}
         <MidBar />

@@ -349,8 +349,10 @@ a.over_link {
     &.card-number-show {
       right: 0 !important;
       left: auto;
-      padding: 56px;
+      padding: 2rem;
       min-width: 522px;
+      max-height: 400px;
+      overflow-y: auto;
       @media #{$sm-layout} {
         right: -100px !important;
       }
