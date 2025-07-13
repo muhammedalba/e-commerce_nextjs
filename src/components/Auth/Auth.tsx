@@ -17,6 +17,7 @@ const AuthComponent = () => {
   useEffect(() => {
     const cookieName = decodeURIComponent(Cookies.get("name") || "none");
     setName(cookieName);
+    console.log("Cookie name:", cookieName);
   }, []);
 
 

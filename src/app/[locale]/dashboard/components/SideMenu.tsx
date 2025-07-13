@@ -14,32 +14,24 @@ const menuItems: MenuItem[] = [
   {
     title: "Dashboard",
     icon: "/assets/images-dashboard/icons/01.svg",
-    children: [
-      { title: "Main Demo", href: "/dashboard" },
-      { title: "Coming Soon", href: "#" },
-    ],
+    children: [{ title: "Main Demo", href: "/dashboard" }],
   },
   {
-    title: "Order",
+    title: "Orders",
     icon: "/assets/images-dashboard/icons/09.svg",
     children: [
-      { title: "Order", href: "/dashboard/order" },
+      { title: "Orders", href: "/dashboard/order" },
       { title: "Order Details", href: "/dashboard/order-details" },
     ],
   },
   {
-    title: "Product",
+    title: "Products",
     icon: "/assets/images-dashboard/icons/02.svg",
     children: [
-      { title: "Product List", href: "/dashboard/product-list" },
+      { title: "Products List", href: "/dashboard/product-list" },
       { title: "Add Product", href: "/dashboard/add-product" },
     ],
-    // children: [{ title: "Add Product", href: "/dashboard/add-product" }],
   },
-  // {
-  //   title: "Add Product",
-  //   icon: "/assets/images-dashboard/icons/03.svg",
-  // },
   {
     title: "Vendor",
     icon: "/assets/images-dashboard/icons/04.svg",
@@ -61,9 +53,12 @@ const menuItems: MenuItem[] = [
     href: "/dashboard/review",
   },
   {
-    title: "Brand",
+    title: "Brands",
     icon: "/assets/images-dashboard/icons/16.svg",
-    href: "/dashboard/brand",
+    children: [
+      { title: "brands", href: "/dashboard/brand" },
+      { title: "brand details", href: "#" },
+    ],
   },
   {
     title: "Payment",

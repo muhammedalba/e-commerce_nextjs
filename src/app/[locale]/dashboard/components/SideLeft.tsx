@@ -2,6 +2,7 @@
 "use client";
 import Image from "next/image";
 import SideMenu from "./SideMenu";
+import Link from "next/link";
 
 interface SideLeftProps {
   collapsed: boolean;
@@ -10,14 +11,14 @@ interface SideLeftProps {
 function SideLeft({ collapsed }: SideLeftProps) {
   return (
     <div className={`sidebar_left ${collapsed ? "collapsed" : ""}`}>
-      <a href="/dashboard" className="logo">
+      <Link href="/dashboard" className="logo m-auto">
         <Image
-          src="/assets/images-dashboard/logo/logo.svg"
+          src="/assets/images-dashboard/logo/fav.png"
           alt="logo"
-          width={131}
-          height={32}
+          width={100}
+          height={100}
         />
-      </a>
+      </Link>
       <SideMenu />
     </div>
   );
