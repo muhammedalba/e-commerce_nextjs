@@ -16,10 +16,12 @@ const AuthComponent = () => {
 
   useEffect(() => {
     const cookieName = decodeURIComponent(Cookies.get("name") || "none");
+    const localStorageName = localStorage.getItem("name") || "none";
+
     setName(cookieName);
     console.log("Cookie name:", cookieName);
+    console.log("localStorage name:", localStorageName);
   }, []);
-
 
   const handleLogout = useCallback(() => {
     logout(undefined, {

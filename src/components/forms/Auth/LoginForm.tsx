@@ -36,6 +36,8 @@ export default function LoginForm() {
     login(values, {
       onSuccess(data) {
         toast.success(data.message);
+        localStorage.setItem("name", data.data.name);
+        localStorage.setItem("avatar", data.data.avatar);
         router.replace("/");
       },
       onError(err) {

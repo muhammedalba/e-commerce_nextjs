@@ -22,7 +22,6 @@ export default function RegisterForm() {
 
   const schema = useMemo(() => registerSchema(t), [t]);
 
-
   const {
     register,
     handleSubmit,
@@ -35,7 +34,7 @@ export default function RegisterForm() {
       email: "",
       password: "",
       confirmPassword: "",
-      avatar: null, 
+      avatar: null,
     },
   });
 
@@ -51,6 +50,8 @@ export default function RegisterForm() {
       Register(formData, {
         onSuccess(data) {
           toast.success(data.message);
+          localStorage.setItem("name", data.data.name);
+          localStorage.setItem("avatar", data.data.avatar);
           router.replace("/");
         },
         onError(err) {
