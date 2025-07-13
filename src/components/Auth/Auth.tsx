@@ -6,19 +6,25 @@ import { useLogout } from "@/hooks/useAuth";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "use-intl";
+import Cooky from "universal-cookie";
 
 const AuthComponent = () => {
   const t = useTranslations("Auth");
   const router = useRouter();
+  const cokky = new Cooky();
   const { mutate: logout, error } = useLogout();
 
   const [name, setName] = useState<string | null>(null);
 
   useEffect(() => {
+    const name = cokky.get("name");
     const cookieName = decodeURIComponent(Cookies.get("name") || "none");
     const localStorageName = localStorage.getItem("name") || "none";
 
-    setName(cookieName);
+    // setName(cookieName);
+    // setName(localStorageName);
+    setName(name);
+    console.log("cokky name:", name);
     console.log("Cookie name:", cookieName);
     console.log("localStorage name:", localStorageName);
   }, []);
@@ -27,7 +33,7 @@ const AuthComponent = () => {
     logout(undefined, {
       onSuccess() {
         toast.success("Logout successful");
-        // router.replace("/");
+        router.replace("/");
       },
       onError(err) {
         const message = err.message || t("login.errorLogin");
