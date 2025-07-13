@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname:
           process.env.NEXT_PUBLIC_HOSTNAME_URL ??
-          "e-commerce-nestjs-g12u.onrender.com",
+          "e-commerce-nestjs-g12u.onrender.com/api/v1",
         port: "",
         pathname: "/uploads/**",
       },

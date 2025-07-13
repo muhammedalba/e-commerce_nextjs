@@ -1,7 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import Languages from "./languages";
+import Languages from "./Languages";
 
 interface HeaderProps {
   onToggleSidebar: () => void;
