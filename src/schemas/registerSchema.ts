@@ -3,32 +3,26 @@ import { z } from "zod";
 export const registerSchema = (t: any) =>
   z
     .object({
-      name:
-       z
-        .string({
-          required_error: t("Validation.requiredName"),
-          invalid_type_error: t("Validation.requiredName"),
-        })
+      name: z
+        .string({ message: t("Validation.requiredName") })
+        .min(1, t("Validation.requiredName"))
         .min(6, t("Validation.shortName"))
-        .max(32, t("Validation.longName"))
-     , email: z
-        .string({
-          required_error: t("Validation.requiredEmail"),
-          invalid_type_error: t("Validation.invalidEmail"),
-        })
+        .max(32, t("Validation.longName")),
+      email: z
+        .string({ message: t("Validation.requiredEmail") })
+        .min(1, t("Validation.requiredEmail"))
         .email(t("Validation.invalidEmail")),
       password: z
-        .string({
-          required_error: t("Validation.requiredPassword"),
-          invalid_type_error: t("Validation.requiredPassword"),
-        })
+        .string({ message: t("Validation.requiredPassword") })
+        .min(1, t("Validation.requiredPassword"))
         .min(6, t("Validation.shortPassword"))
         .max(32, t("Validation.longPassword")),
-      confirmPassword: z.string({
-        required_error: t("Validation.requiredConfirmPassword"),
-      }),
+      confirmPassword: z
+        .string({ message: t("Validation.requiredConfirmPassword") })
+        .min(1, t("Validation.requiredConfirmPassword")),
       avatar: z
         .any()
+        .optional()
         .refine(
           (file) =>
             file === null ||
@@ -46,4 +40,4 @@ export const registerSchema = (t: any) =>
       path: ["confirmPassword"],
     });
 
-export type LoginFormData = z.infer<ReturnType<typeof registerSchema>>;
+export type RegisterFormData = z.infer<ReturnType<typeof registerSchema>>;

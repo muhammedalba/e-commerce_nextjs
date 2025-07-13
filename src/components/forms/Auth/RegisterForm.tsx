@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { useMemo, useState, useCallback } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { registerSchema } from "@/schemas/registerSchema";
+import { RegisterFormData, registerSchema } from "@/schemas/registerSchema";
 import { useRegister } from "@/hooks/useAuth";
 import FormInput from "../FormInput";
 import SubmitButton from "../SubmitButton";
@@ -14,7 +14,6 @@ import AvatarDropzone from "../AvatarDropzone";
 import InputError from "../../common/InputError";
 import { motion } from "framer-motion";
 import SocialAuthButtons from "./SocialAuthButtons";
-import z from "zod";
 
 export default function RegisterForm() {
   const t = useTranslations("Auth");
@@ -22,21 +21,21 @@ export default function RegisterForm() {
   const { mutate: Register, isPending, error, isSuccess } = useRegister();
 
   const schema = useMemo(() => registerSchema(t), [t]);
-  type RegisterFormData = z.infer<typeof schema>;
+
 
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm<RegisterFormData>({
+  } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
       name: "",
       email: "",
       password: "",
       confirmPassword: "",
-      avatar: null,
+      avatar: null, 
     },
   });
 
