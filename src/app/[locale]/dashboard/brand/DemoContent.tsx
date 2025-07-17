@@ -1,6 +1,18 @@
+"use client";
+import { useGetAllBrands } from "@/hooks/useBrands";
+import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 function DemoContent() {
+  const { data, isError, error, isSuccess } = useGetAllBrands(1, 10, "dasas");
+  if (isError) return <p>حدث خطأ: {String(error)}</p>;
+  const brands = data?.data ?? [];
+  // console.log("Brands Data:", brands);
+  // console.log(error, "Error brands:");
+
+  if (!brands.length && isSuccess) return <p>لا توجد علامات تجارية متاحة.</p>;
+
   return (
     <div>
       <div className="body-root-inner">
@@ -29,162 +41,28 @@ function DemoContent() {
             {/* rts brand area start */}
             <div className="rts-brtand-area-main">
               <div className="row g-4">
-                <div className="col-lg-3 col-md-4 col-sm-6 col-12">
-                  <div className="single-brand-area-start">
-                    <div className="logo">
-                      <img
-                        src="/assets/images-dashboard/brand/01.png"
-                        alt="brand"
-                      />
+                {brands.map((brand) => (
+                  <div
+                    key={brand._id}
+                    className="col-lg-3 col-md-4 col-sm-6 col-12"
+                  >
+                    <div className="single-brand-area-start">
+                      <div className="logo">
+                        <Image
+                          width={150}
+                          height={150}
+                          property="image"
+                          src={brand.image}
+                          alt={brand.name}
+                          className="img-fluid"
+                        />
+                      </div>
+                      <p className="item">
+                        <Link href={brand.name}>{brand.name}</Link>
+                      </p>
                     </div>
-                    <p className="item">
-                      <a href="#">206 Items</a>
-                    </p>
                   </div>
-                </div>
-                <div className="col-lg-3 col-md-4 col-sm-6 col-12">
-                  <div className="single-brand-area-start">
-                    <div className="logo">
-                      <img
-                        src="/assets/images-dashboard/brand/08.png"
-                        alt="brand"
-                      />
-                    </div>
-                    <p className="item">
-                      <a href="#">105 Items</a>
-                    </p>
-                  </div>
-                </div>
-                <div className="col-lg-3 col-md-4 col-sm-6 col-12">
-                  <div className="single-brand-area-start">
-                    <div className="logo">
-                      <img
-                        src="/assets/images-dashboard/brand/09.png"
-                        alt="brand"
-                      />
-                    </div>
-                    <p className="item">
-                      <a href="#">26 Items</a>
-                    </p>
-                  </div>
-                </div>
-                <div className="col-lg-3 col-md-4 col-sm-6 col-12">
-                  <div className="single-brand-area-start">
-                    <div className="logo">
-                      <img
-                        src="/assets/images-dashboard/brand/10.png"
-                        alt="brand"
-                      />
-                    </div>
-                    <p className="item">
-                      <a href="#">99 Items</a>
-                    </p>
-                  </div>
-                </div>
-                <div className="col-lg-3 col-md-4 col-sm-6 col-12">
-                  <div className="single-brand-area-start">
-                    <div className="logo">
-                      <img
-                        src="/assets/images-dashboard/brand/11.png"
-                        alt="brand"
-                      />
-                    </div>
-                    <p className="item">
-                      <a href="#">26 Items</a>
-                    </p>
-                  </div>
-                </div>
-                <div className="col-lg-3 col-md-4 col-sm-6 col-12">
-                  <div className="single-brand-area-start">
-                    <div className="logo">
-                      <img
-                        src="/assets/images-dashboard/brand/09.png"
-                        alt="brand"
-                      />
-                    </div>
-                    <p className="item">
-                      <a href="#">52 Items</a>
-                    </p>
-                  </div>
-                </div>
-                <div className="col-lg-3 col-md-4 col-sm-6 col-12">
-                  <div className="single-brand-area-start">
-                    <div className="logo">
-                      <img
-                        src="/assets/images-dashboard/brand/01.png"
-                        alt="brand"
-                      />
-                    </div>
-                    <p className="item">
-                      <a href="#">26 Items</a>
-                    </p>
-                  </div>
-                </div>
-                <div className="col-lg-3 col-md-4 col-sm-6 col-12">
-                  <div className="single-brand-area-start">
-                    <div className="logo">
-                      <img
-                        src="/assets/images-dashboard/brand/09.png"
-                        alt="brand"
-                      />
-                    </div>
-                    <p className="item">
-                      <a href="#">125 Items</a>
-                    </p>
-                  </div>
-                </div>
-                <div className="col-lg-3 col-md-4 col-sm-6 col-12">
-                  <div className="single-brand-area-start">
-                    <div className="logo">
-                      <img
-                        src="/assets/images-dashboard/brand/08.png"
-                        alt="brand"
-                      />
-                    </div>
-                    <p className="item">
-                      <a href="#">26 Items</a>
-                    </p>
-                  </div>
-                </div>
-                <div className="col-lg-3 col-md-4 col-sm-6 col-12">
-                  <div className="single-brand-area-start">
-                    <div className="logo">
-                      <img
-                        src="/assets/images-dashboard/brand/10.png"
-                        alt="brand"
-                      />
-                    </div>
-                    <p className="item">
-                      <a href="#">302 Items</a>
-                    </p>
-                  </div>
-                </div>
-                <div className="col-lg-3 col-md-4 col-sm-6 col-12">
-                  <div className="single-brand-area-start">
-                    <div className="logo">
-                      <img
-                        src="/assets/images-dashboard/brand/11.png"
-                        alt="brand"
-                      />
-                    </div>
-                    <p className="item">
-                      <a href="#">116 Items</a>
-                    </p>
-                  </div>
-                </div>
-                <div className="col-lg-3 col-md-4 col-sm-6 col-12">
-                  <div className="single-brand-area-start">
-                    <div className="logo">
-                      <img
-                        src="/assets/images-dashboard/brand/08.png"
-                        alt="brand"
-                      />
-                    </div>
-                    <p className="item">
-                      <a href="#">120 Items</a>
-                    </p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
             {/* rts brand area end */}

@@ -1,27 +1,21 @@
 import { Pagination } from "./sharedTypes";
 
-export type SupCategory = {
-  _id: string;
-  name: string;
-  category: string;
-  slug: string;
-};
 
-export type Category = {
+
+export type Brands = {
   _id: string;
   name: string;
   image: string;
   createdAt: string;
   updatedAt: string;
   slug: string;
-  supCategories: SupCategory[];
   id: string;
 };
 
-export type CategoryResponse = {
+export type BrandResponse = {
   status: "success" | "error";
   results: number;
   pagination: Pagination;
-  data: Category[];
+  data: Brands[];
   hasMore: boolean;
 };

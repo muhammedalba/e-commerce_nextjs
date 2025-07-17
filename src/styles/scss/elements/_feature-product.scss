@@ -19,7 +19,7 @@
     }
     img {
       @media #{$large-mobile} {
-        max-width: 60%;
+        // max-width: 60%;
       }
     }
   }
@@ -36,7 +36,7 @@
       }
       img {
         @media #{$large-mobile} {
-          max-width: 60%;
+          // max-width: 60%;
         }
       }
     }
@@ -198,7 +198,7 @@
   .thumbnail {
     img {
       border-radius: 6px;
-      width: 100%;
+      // width: 100%;
     }
   }
 }

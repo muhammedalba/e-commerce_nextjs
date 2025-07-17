@@ -1,10 +1,12 @@
 // services/product.service.ts
-import api from '@/lib/axios';
+import api from "@/lib/axios";
 
 export const getProducts = async () => {
-  const { data } = await api.get('/products');
+  const { data } = await api.get("/products");
   return data;
 };
+
+
 
 export const getProductById = async (id: string) => {
   const { data } = await api.get(`/products/${id}`);
@@ -12,7 +14,7 @@ export const getProductById = async (id: string) => {
 };
 
 export const createProduct = async (product: any) => {
-  const { data } = await api.post('/products', product);
+  const { data } = await api.post("/products", product);
   return data;
 };
 

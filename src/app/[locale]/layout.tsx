@@ -8,7 +8,6 @@ import "../../../public/assets/css/plugins.css";
 // import "../../../public/assets/css/newStyle.css";
 import "../../styles/scss/style.scss";
 
-
 import { CartProvider } from "../../components/header/CartContext";
 import { WishlistProvider } from "../../components/header/WishlistContext";
 import { CompareProvider } from "../../components/header/CompareContext";
@@ -21,6 +20,8 @@ import Providers from "./providers";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -60,14 +61,14 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
-      <body >
-      {/* <body className={`${geistSans.variable} ${geistMono.variable}`}> */}
+      <body>
+        {/* <body className={`${geistSans.variable} ${geistMono.variable}`}> */}
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Providers>
             <CompareProvider>
               <WishlistProvider>
                 <CartProvider>
-                  {children}
+                  <Suspense fallback={<Loading />}>{children}</Suspense>
                   <ToastContainer position="top-right" autoClose={3000} />
                 </CartProvider>
               </WishlistProvider>

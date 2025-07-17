@@ -10,8 +10,6 @@ interface LanguagesProps {
 }
 
 function Languages({ activePopup }: LanguagesProps) {
-  console.log("activePopup", activePopup);
-
   const router = useRouter();
   const pathname = usePathname();
   // get leChange

@@ -13,12 +13,6 @@ export default function Home() {
     };
 
     return (
-        <div className="ekomart_dashboard">
-            <SideLeft collapsed={sidebarCollapsed} />
-            <div className={`right-area-body-content ${sidebarCollapsed ? 'collapsed' : ''}`}>
-                <Header onToggleSidebar={toggleSidebar} />
-                <DemoContent />
-            </div>
-        </div>
+       <DemoContent />
     );
 }

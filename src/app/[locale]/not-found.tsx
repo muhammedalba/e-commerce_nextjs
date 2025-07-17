@@ -3,7 +3,7 @@ import ShortService from "@/components/service/ShortService";
 
 import FooterOne from "@/components/footer/FooterOne";
 
-export default function Home() {
+export default function NotFound() {
   return (
     <div className="demo-one">
       <Header />

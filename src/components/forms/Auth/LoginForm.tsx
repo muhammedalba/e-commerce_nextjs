@@ -14,6 +14,10 @@ import SubmitButton from "../SubmitButton";
 import InputError from "@/components/common/InputError";
 import SocialAuthButtons from "./SocialAuthButtons";
 import { useMemo } from "react";
+import Cookies from "js-cookie";
+
+
+
 
 export default function LoginForm() {
   const t = useTranslations("Auth");
@@ -38,6 +42,7 @@ export default function LoginForm() {
         toast.success(data.message);
         localStorage.setItem("name", data.data.name);
         localStorage.setItem("avatar", data.data.avatar);
+        Cookies.set("name", data.data.name);
         router.replace("/");
       },
       onError(err) {

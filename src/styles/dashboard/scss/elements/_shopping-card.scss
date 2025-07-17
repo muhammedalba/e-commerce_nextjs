@@ -35,8 +35,8 @@
             height: auto;
         }
         img{
-            height: 130px;
-            width: 130px;   
+            // height: 130px;
+            // width: 130px;   
              @media #{$laptop-device} {
                 height: auto;
                 width: 100%;
@@ -146,7 +146,7 @@
             }
         }
         img{
-            width: 100%;
+            // width: 100%;
             transition: .3s;
             transform: scale(1.01);
         }
@@ -374,7 +374,7 @@
         .thumbnail-preview{
             border: none !important;
             img{
-                width: 100%;
+                // width: 100%;
                 transform: scale(1.01);
             }
         }
@@ -478,8 +478,8 @@
         .thumbnail{
             min-width: max-content;
             img{
-                max-width: max-content;
-                min-width: max-content;
+                // max-width: max-content;
+                // min-width: max-content;
             }
         }
         p{

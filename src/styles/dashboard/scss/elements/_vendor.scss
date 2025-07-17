@@ -45,8 +45,8 @@
     height: auto;
     margin-bottom: 20px;
     img {
-      max-width: max-content;
-      height: auto;
+      // max-width: max-content;
+      // height: auto;
       @media #{$large-mobile} {
         max-width: 110px;
       }
@@ -142,7 +142,7 @@
       td {
         padding: 20px 0;
         img {
-          max-width: 54px;
+          // max-width: 54px;
           cursor: pointer;
         }
         .itemside {
