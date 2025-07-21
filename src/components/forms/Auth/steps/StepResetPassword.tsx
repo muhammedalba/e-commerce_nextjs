@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { resetPasswordSchema } from "@/schemas/forgetPassSchema";
+import { resetPasswordSchema } from "@/schemas/Auth/forgetPassSchema";
 import { StepResetPasswordProps, ResetPasswordForm } from "@/types/auth";
 
 import FormInput from "../../FormInput";

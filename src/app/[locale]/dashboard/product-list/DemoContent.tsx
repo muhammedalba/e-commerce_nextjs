@@ -146,16 +146,16 @@ const ProductTable = () => {
     }
   }, [products]);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const isInside = Array.from(dropdownRefs.current.values()).some(
-        (ref) => ref && ref.contains(event.target as Node)
-      );
-      if (!isInside) setActiveDropdown(null);
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  // useEffect(() => {
+  //   const handleClickOutside = (event: MouseEvent) => {
+  //     const isInside = Array.from(dropdownRefs.current.values()).some(
+  //       (ref) => ref && ref.contains(event.target as Node)
+  //     );
+  //     if (!isInside) setActiveDropdown(null);
+  //   };
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => document.removeEventListener("mousedown", handleClickOutside);
+  // }, []);
 
   const handleEdit = (id: number) => {
     const productToEdit = products.find((p) => p.id === id);

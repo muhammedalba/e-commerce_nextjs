@@ -2,14 +2,14 @@
 import { useState } from "react";
 // import type { Metadata } from "next";
 // import { Geist, Geist_Mono, Tajawal } from "next/font/google";
-// import "../../../../public-dashboard/assets/css/plugins.css";
-// import "../../../../public-dashboard/assets/css/table.css";
-// import "../../../../public-dashboard/assets/css/style.css";
-import { Suspense } from "react";
-import "../../../styles/dashboard/scss/style.scss";
+import "../../../../public-dashboard/assets/css/plugins.css";
+import "../../../../public-dashboard/assets/css/table.css";
+import "../../../../public-dashboard/assets/css/style.css";
+
+// import "../../../styles/dashboard/scss/style.scss";
 import SideLeft from "./components/SideLeft";
 import Header from "./components/Header";
-import Loading from "../loading";
+import Cookies from "js-cookie";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -47,7 +47,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-
+  const locale = Cookies.get("NEXT_LOCALE") || "ar";
   const toggleSidebar = () => {
     setSidebarCollapsed(!sidebarCollapsed);
   };
@@ -59,14 +59,13 @@ export default function RootLayout({
       <SideLeft collapsed={sidebarCollapsed} />
       <div
         className={`right-area-body-content ${
-          sidebarCollapsed ? "collapsed" : ""
-        }`}
+          locale === "en" ? "ms-auto me-0" : "ms-0 me-auto"
+        } 
+ ${sidebarCollapsed ? "collapsed" : ""}`}
       >
         <Header onToggleSidebar={toggleSidebar} />
 
-     <Suspense fallback={<Loading />}>
         {children}
-      </Suspense>
       </div>
     </div>
   );

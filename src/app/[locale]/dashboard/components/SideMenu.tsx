@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
+import { useTranslations } from "next-intl";
 interface MenuItem {
   title: string;
   icon: string;
@@ -10,76 +10,90 @@ interface MenuItem {
   href?: string;
 }
 
-const menuItems: MenuItem[] = [
-  {
-    title: "Dashboard",
-    icon: "/assets/images-dashboard/icons/01.svg",
-    children: [{ title: "Main Demo", href: "/dashboard" }],
-  },
-  {
-    title: "Orders",
-    icon: "/assets/images-dashboard/icons/09.svg",
-    children: [
-      { title: "Orders", href: "/dashboard/order" },
-      { title: "Order Details", href: "/dashboard/order-details" },
-    ],
-  },
-  {
-    title: "Products",
-    icon: "/assets/images-dashboard/icons/02.svg",
-    children: [
-      { title: "Products List", href: "/dashboard/product-list" },
-      { title: "Add Product", href: "/dashboard/add-product" },
-    ],
-  },
-  {
-    title: "Vendor",
-    icon: "/assets/images-dashboard/icons/04.svg",
-    children: [
-      { title: "Vendor Grid", href: "/dashboard/vendor-grid" },
-      { title: "Vendor List", href: "/dashboard/vendor-list" },
-      { title: "Vendor Details", href: "/dashboard/vendor-details" },
-      { title: "Create Vendors", href: "/dashboard/create-vendors" },
-    ],
-  },
-  {
-    title: "Transactions",
-    icon: "/assets/images-dashboard/icons/06.svg",
-    href: "/dashboard/transaction",
-  },
-  {
-    title: "Reviews",
-    icon: "/assets/images-dashboard/icons/07.svg",
-    href: "/dashboard/review",
-  },
-  {
-    title: "Brands",
-    icon: "/assets/images-dashboard/icons/16.svg",
-    children: [
-      { title: "brands", href: "/dashboard/brand" },
-      { title: "brand details", href: "#" },
-    ],
-  },
-  {
-    title: "Payment",
-    icon: "/assets/images-dashboard/icons/17.svg",
-    href: "/dashboard/payment",
-  },
-  {
-    title: "User Profile",
-    icon: "/assets/images-dashboard/icons/05.svg",
-    children: [
-      { title: "Profile Setting", href: "/dashboard/profile-setting" },
-      { title: "Log In", href: "/dashboard/log-in" },
-      { title: "Registration", href: "/dashboard/registration" },
-    ],
-  },
-];
-
 const SidebarMenu = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0); // 0 means Dashboard open by default
+  const [openIndex, setOpenIndex] = useState<number | null>(0); 
   const pathname = usePathname();
-
+  const t = useTranslations("routes");
+  const menuItems: MenuItem[] = [
+    {
+      title: t("dashboardRoutes.dashboard"),
+      icon: "/assets/images-dashboard/icons/01.svg",
+      children: [{ title: t("dashboardRoutes.dashboard"), href: "/dashboard" }],
+    },
+    {
+      title: t("dashboardRoutes.orders"),
+      icon: "/assets/images-dashboard/icons/09.svg",
+      children: [
+        { title: t("dashboardRoutes.orders"), href: "/dashboard/order" },
+        { title: "Order Details", href: "/dashboard/order-details" },
+      ],
+    },
+    {
+      title: t("dashboardRoutes.products"),
+      icon: "/assets/images-dashboard/icons/02.svg",
+      children: [
+        { title: t("dashboardRoutes.products"), href: "/dashboard/product-list" },
+        { title: t("dashboardRoutes.addProduct"), href: "/dashboard/add-product" },
+      ],
+    },
+    {
+      title: "Vendor",
+      icon: "/assets/images-dashboard/icons/04.svg",
+      children: [
+        { title: "Vendor Grid", href: "/dashboard/vendor-grid" },
+        { title: "Vendor List", href: "/dashboard/vendor-list" },
+        { title: "Vendor Details", href: "/dashboard/vendor-details" },
+        { title: "Create Vendors", href: "/dashboard/create-vendors" },
+      ],
+    },
+    {
+      title: "Transactions",
+      icon: "/assets/images-dashboard/icons/06.svg",
+      href: "/dashboard/transaction",
+    },
+    {
+      title: "Reviews",
+      icon: "/assets/images-dashboard/icons/07.svg",
+      href: "/dashboard/review",
+    },
+    {
+      title: t("dashboardRoutes.categories"),
+      icon: "/assets/images-dashboard/icons/02.svg",
+      children: [
+        { title: t("dashboardRoutes.categories"), href: "/dashboard/categories" },
+        { title:  t("dashboardRoutes.addCategory"), href: "/dashboard/categories/addCategory" },
+      ],
+    },
+    {
+      title: t("dashboardRoutes.brands"),
+      icon: "/assets/images-dashboard/icons/16.svg",
+      children: [
+        { title:  t("dashboardRoutes.brands"), href: "/dashboard/brands" },
+        { title: t("dashboardRoutes.addBrand"), href: "/dashboard/brands/addBrand" },
+      ],
+    },
+    {
+      title: "Payment",
+      icon: "/assets/images-dashboard/icons/17.svg",
+      href: "/dashboard/payment",
+    },
+    {
+      title: t("dashboardRoutes.users"),
+      icon: "/assets/images-dashboard/icons/05.svg",
+      children: [
+        { title: t("dashboardRoutes.addUser"), href: "/dashboard/profile-setting" }
+      ],
+    },
+    {
+      title: "User Profile",
+      icon: "/assets/images-dashboard/icons/05.svg",
+      children: [
+        { title: "Profile Setting", href: "/dashboard/profile-setting" },
+        { title: "Log In", href: "/dashboard/log-in" },
+        { title: "Registration", href: "/dashboard/registration" },
+      ],
+    },
+  ];
   useEffect(() => {
     // Find the index of the menu item that has a child matching the current path
     const activeIndex = menuItems.findIndex((item) => {
@@ -117,7 +131,7 @@ const SidebarMenu = () => {
                   handleToggle(index);
                 }}
               >
-                <img src={item.icon} alt="icon" className="icon" />
+                <img src={item.icon} alt="icon" className="icon " />
                 <p>{item.title}</p>
               </Link>
             ) : (

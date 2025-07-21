@@ -9,5 +9,28 @@
       "profile": "my profile",
       "login": "Login",
       "register": "Register",
-      "dashboard": " dashboard"
+      "dashboard": " dashboard",
+      "dashboardRoutes":{
+            "dashboard":"dashboard",
+            "orders":"orders",
+            "products":"products",
+            "addProduct":"add Product",
+            "categories":"categories",
+            "addCategory":"add Category",
+            "brands":"brands",
+            "addBrand":"addBrand",
+            "users":"users",
+            "addUser":"add user",
+            "carousel":"carousel",
+            "addCarousel":"add Carousel",
+            "supplier":"supplier",
+            "addSupplier":"add Supplier",
+            "coupons":"coupons",
+            "addCoupon":"add Coupon",
+            "promoBanner":"promo Banner",
+            "addPromoBanner":"add Promo Banner"
+
+
+      }
+
 }

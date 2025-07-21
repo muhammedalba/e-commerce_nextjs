@@ -1,6 +1,6 @@
+import Link from "next/link";
 import Header from "@/components/header/Header";
 import ShortService from "@/components/service/ShortService";
-
 import FooterOne from "@/components/footer/FooterOne";
 
 export default function NotFound() {
@@ -22,9 +22,9 @@ export default function NotFound() {
                     Sorry, we couldn't find the page you where looking for. We
                     suggest that you return to homepage.
                   </p>
-                  <a href="index.html" className="rts-btn btn-primary">
+                  <Link href="/" className="rts-btn btn-primary">
                     Back To Homepage
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

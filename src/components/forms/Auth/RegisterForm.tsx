@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { useMemo, useState, useCallback } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { RegisterFormData, registerSchema } from "@/schemas/registerSchema";
+import { RegisterFormData, registerSchema } from "@/schemas/Auth/registerSchema";
 import { useRegister } from "@/hooks/useAuth";
 import FormInput from "../FormInput";
 import SubmitButton from "../SubmitButton";

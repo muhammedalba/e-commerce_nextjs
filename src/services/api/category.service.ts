@@ -1,12 +1,22 @@
 import axiosInstance from "@/lib/axios";
 
-export const getAllCategories = (page: number, limit: number) => axiosInstance.get(`/categories?page=${page}&limit=${limit}`);
+export const getAllCategories = async (
+  page: number,
+  limit: number,
+  keywords: string
+) =>
+  await axiosInstance.get(
+    `/categories?keywords=${keywords}&page=${page}&limit=${limit}`
+  );
 
-export const getCategoryById = (id: string) => axiosInstance.get(`/categories/${id}`);
+export const getCategoryById = async (slug: string) =>
+  await axiosInstance.get(`/categories/${slug}`);
 
-export const createCategory = (data: any) => axiosInstance.post("/categories", data);
+export const createCategory = async (data: FormData) =>
+  await axiosInstance.post("/categories", data);
 
-export const updateCategory = (id: string, data: any) =>
-  axiosInstance.patch(`/categories/${id}`, data);
+export const updateCategory = async (id: string, data: FormData) =>
+  await axiosInstance.patch(`/categories/${id}`, data);
 
-export const deleteCategory = (id: string) => axiosInstance.delete(`/categories/${id}`);
+export const deleteCategory = async (id: string) =>
+  await axiosInstance.delete(`/categories/${id}`);

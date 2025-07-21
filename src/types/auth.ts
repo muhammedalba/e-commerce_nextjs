@@ -4,8 +4,8 @@ import {
   forgetPassSchema,
   verifyCodeSchema,
   resetPasswordSchema,
-} from "@/schemas/forgetPassSchema";
-import { loginSchema } from "@/schemas/loginSchema";
+} from "@/schemas/Auth/forgetPassSchema";
+import { loginSchema } from "@/schemas/Auth/loginSchema";
 
 // ------------------------------
 // أنواع البيانات القادمة من النماذج (Forms)

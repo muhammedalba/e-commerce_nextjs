@@ -1,0 +1,14 @@
+{
+    "requiredName": "Name is required",
+    "shortName": "Name is too short (minimum 6 characters)",
+    "longName": "Name is too long (maximum 32 characters)",
+    "invalidEmail": "Invalid email address",
+    "requiredEmail": "Email is required",
+    "shortPassword": "Password is too short (minimum 6 characters)",
+    "longPassword": "Password is too long (maximum 32 characters)",
+    "requiredPassword": "Password is required",
+    "passwordMismatch": "Passwords do not match",
+    "requiredConfirmPassword": "Password confirmation is required",
+    "invalidAvatarType": "Unsupported image file type (only JPEG, PNG, WEBP allowed)",
+    "avatarUpload": "Drag and drop your image here, or click to select a file"
+  }

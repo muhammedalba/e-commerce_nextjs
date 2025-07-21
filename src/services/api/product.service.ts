@@ -1,29 +1,24 @@
-// services/product.service.ts
-import api from "@/lib/axios";
+import axiosInstance from "@/lib/axios";
 
-export const getProducts = async () => {
-  const { data } = await api.get("/products");
-  return data;
-};
-
-
+export const getProducts = (page: number, limit: number, keywords: string) =>
+  axiosInstance.get(`/products?keywords=${keywords}&page=${page}&limit=${limit}`);
 
 export const getProductById = async (id: string) => {
-  const { data } = await api.get(`/products/${id}`);
+  const { data } = await axiosInstance.get(`/products/${id}`);
   return data;
 };
 
 export const createProduct = async (product: any) => {
-  const { data } = await api.post("/products", product);
+  const { data } = await axiosInstance.post("/products", product);
   return data;
 };
 
 export const updateProduct = async (id: string, product: any) => {
-  const { data } = await api.put(`/products/${id}`, product);
+  const { data } = await axiosInstance.put(`/products/${id}`, product);
   return data;
 };
 
 export const deleteProduct = async (id: string) => {
-  const { data } = await api.delete(`/products/${id}`);
+  const { data } = await axiosInstance.delete(`/products/${id}`);
   return data;
 };

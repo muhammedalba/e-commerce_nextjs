@@ -1,8 +1,6 @@
 import { Pagination } from "./sharedTypes";
 
-
-
-export type Brands = {
+export type Brand = {
   _id: string;
   name: string;
   image: string;
@@ -12,10 +10,30 @@ export type Brands = {
   id: string;
 };
 
-export type BrandResponse = {
+export type BrandsResponse = {
   status: "success" | "error";
+  message: string;
   results: number;
   pagination: Pagination;
-  data: Brands[];
+  data: Brand[];
+  hasMore: boolean;
+};
+export type BrandResponse = {
+  status: "success" | "error";
+  message: string;
+  results: number;
+  pagination: Pagination;
+  data: {
+    _id: string;
+    name: {
+      ar: string;
+      en: string;
+    };
+    image: string;
+    createdAt: string;
+    updatedAt: string;
+    slug: string;
+    id: string;
+  };
   hasMore: boolean;
 };

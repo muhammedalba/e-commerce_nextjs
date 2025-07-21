@@ -10,7 +10,7 @@ interface SideLeftProps {
 
 function SideLeft({ collapsed }: SideLeftProps) {
   return (
-    <div className={`sidebar_left ${collapsed ? "collapsed" : ""}`}>
+    <div className={`sidebar_left overflow-auto ${collapsed ? "collapsed" : ""}`}>
       <Link href="/dashboard" className="logo m-auto">
         <Image
           src="/assets/images-dashboard/logo/fav.png"

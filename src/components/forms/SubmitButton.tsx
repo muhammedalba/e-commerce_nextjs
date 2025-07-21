@@ -11,7 +11,9 @@ export default function SubmitButton({
 }: SubmitButtonProps) {
   return (
     <motion.div
-      className="input-wrapper mb-3"
+      className="input-wrapper"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2 }}
@@ -21,7 +23,6 @@ export default function SubmitButton({
         type="submit"
         className={` ${className} ${loading ? "opacity-75" : ""}`}
         disabled={loading}
-        aria-busy={loading ? "true" : "false"}
         aria-label={label}
       >
         {loading ? loadingLabel || "..." : label}

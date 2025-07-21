@@ -22,7 +22,7 @@ export default function FormInput({
       exit={{ opacity: 0 }}
     >
       <div className="d-flex gap-3 align-items-center mb-4">
-        <i className={iconClass} />
+        <i className={`text-primary ${iconClass} `}/>
         <label className="m-0" htmlFor={id}>{label}</label>
       </div>
       <input

@@ -8,16 +8,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
-import { loginSchema } from "@/schemas/loginSchema";
+import { loginSchema } from "@/schemas/Auth/loginSchema";
 import FormInput from "../FormInput";
 import SubmitButton from "../SubmitButton";
 import InputError from "@/components/common/InputError";
 import SocialAuthButtons from "./SocialAuthButtons";
 import { useMemo } from "react";
 import Cookies from "js-cookie";
-
-
-
 
 export default function LoginForm() {
   const t = useTranslations("Auth");
@@ -79,14 +76,7 @@ export default function LoginForm() {
       />
       <InputError id="form-error" message={error?.message ?? undefined} />
 
-      {/* تسجيل بطرق أخرى */}
-      <motion.div
-        className="input-wrapper mb-3"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.2 }}
-        exit={{ opacity: 0 }}
-      >
+     
         <SocialAuthButtons
           title={t("login.orLoginWith")}
           haveAccountText={t("login.dontHaveAccount")}
@@ -96,7 +86,7 @@ export default function LoginForm() {
           forgetLink="forgotPassword"
           authLink="register"
         />
-      </motion.div>
+
     </form>
   );
 }

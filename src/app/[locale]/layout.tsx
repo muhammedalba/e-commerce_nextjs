@@ -57,6 +57,9 @@ export default async function RootLayout({
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
+  if (!children) {
+    notFound();
+  }
   const messages = await getMessages({ locale });
 
   return (
@@ -68,7 +71,8 @@ export default async function RootLayout({
             <CompareProvider>
               <WishlistProvider>
                 <CartProvider>
-                  <Suspense fallback={<Loading />}>{children}</Suspense>
+                  {/* <Suspense fallback={<Loading />}> {children}</Suspense> */}
+                  {children}
                   <ToastContainer position="top-right" autoClose={3000} />
                 </CartProvider>
               </WishlistProvider>

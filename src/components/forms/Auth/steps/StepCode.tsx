@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { verifyCodeSchema } from "@/schemas/forgetPassSchema";
+import { verifyCodeSchema } from "@/schemas/Auth/forgetPassSchema";
 import { StepCodeProps, VerifyCodeForm } from "@/types/auth";
 
 import FormInput from "../../FormInput";

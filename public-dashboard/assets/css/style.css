@@ -15114,7 +15114,7 @@ body {
 
 .ekomart_dashboard .right-area-body-content {
   width: calc(100% - 273px);
-  margin-left: auto;
+  /* margin-left: auto; */
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -15172,7 +15172,7 @@ body {
   position: absolute;
   content: "\f078";
   font-family: var(--font-three);
-  right: 25px;
+  inset-inline-end: 25px;
   top: 50%;
   transform: translateY(-50%);
   transition: 0.3s;

@@ -2,7 +2,8 @@
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Languages from "./Languages";
-
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useDebouncedCallback } from "use-debounce";
 interface HeaderProps {
   onToggleSidebar: () => void;
 }
@@ -11,6 +12,16 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
   const [activePopup, setActivePopup] = useState<string | null>(null);
   const popupRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const searchParams = useSearchParams();
+  const patName = usePathname();
+  const router = useRouter();
+
+  const handelSearch = useDebouncedCallback((query: any) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (query) params.set("query", query.target.value);
+    else params.delete("query");
+    router.replace(`${patName}?${params.toString()}`);
+  }, 1000);
 
   // Close popups when clicking outside
   useEffect(() => {
@@ -90,7 +101,8 @@ export default function Header({ onToggleSidebar }: HeaderProps) {
                 type="text"
                 placeholder="Search"
                 ref={searchInputRef}
-                onClick={(e) => e.stopPropagation()}
+                onChange={handelSearch}
+                defaultValue={searchParams.get("query") || ""}
               />
               <i className="fa-solid fa-magnifying-glass" />
             </div>
