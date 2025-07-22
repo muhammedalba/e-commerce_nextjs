@@ -2,7 +2,6 @@
 import { useSearchParams } from "next/navigation";
 import { useCallback, useMemo, useState, useTransition } from "react";
 import { toast } from "react-toastify";
-import Link from "next/link";
 import { SelectChangeEvent } from "@mui/material/Select";
 import Loading from "../../loading";
 import AlertDialogSlide from "../components/AlertDialogSlide";
@@ -11,6 +10,7 @@ import PaginationControls from "../components/PaginationControls";
 import { useTranslations } from "next-intl";
 import { useDeleteCategory, useGetAllCategories } from "@/hooks/useCategories";
 import PageStatus from "../components/PageStatus";
+import PageTitleWithAddButton from "../components/PageTitleWithAddButton";
 
 export default function Home() {
   const t = useTranslations("Categories");
@@ -95,7 +95,6 @@ export default function Home() {
   if (isError)
     return (
       <p>
-        {" "}
         {t("errorOccurred")}: {String(error)}
       </p>
     );
@@ -114,18 +113,11 @@ export default function Home() {
         isPending={isPending}
       />
 
-      <div className="title-right-actioin-btn-wrapper-product-list">
-        <h3 className="title">{t("title")}</h3>
-        <div className="button-wrapper">
-          <Link
-            href="/dashboard/categories/addCategory"
-            className="rts-btn btn-primary"
-          >
-            {t("addCategory")}
-          </Link>
-        </div>
-      </div>
-
+      <PageTitleWithAddButton
+        title={t("title")}
+        buttonLabel={t("addCategory")}
+        path="/dashboard/categories/addCategory"
+      />
       <PageStatus page={page} results={data?.results} t={t} />
 
       <div className="vendor-list-main-wrapper overflow-auto">

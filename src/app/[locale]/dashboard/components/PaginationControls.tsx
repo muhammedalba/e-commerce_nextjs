@@ -64,19 +64,29 @@ export default function PaginationControls({
       </FormControl>
 
       <Stack spacing={2}>
-        <Pagination  sx={{
-      '& .MuiPaginationItem-root': {
-        fontSize: '1.4rem', // حجم الخط
-      },
-  '& .Mui-selected': {
-    backgroundColor:'#1BA2DB',
-    color: '#fff',
-    fontWeight: 'bold',
-    '&:hover': {
-      backgroundColor: '#115293',
-    },
-  },
-    }}count={count} page={page} onChange={onPageChange} />
+        <Pagination
+          sx={{
+            "& .MuiPaginationItem-root": {
+              fontSize: "1.4rem", // حجم الخط
+              // backgroundColor: "var(--color-light)",
+              color: "var(--color-secondary)",
+            },
+            "& .Mui-selected": {
+              backgroundColor: "var(--color-primary)",
+              color: "#fff",
+              fontWeight: "bold",
+              "&:hover": {
+                // backgroundColor: '#115293',
+              },
+            },
+            "& .MuiPaginationItem-icon": {
+              fontSize: "2rem", // ⬅️ حجم السهم هنا
+            },
+          }}
+          count={count}
+          page={page}
+          onChange={onPageChange}
+        />
       </Stack>
 
       {isPending && <CircularProgress size={24} />}

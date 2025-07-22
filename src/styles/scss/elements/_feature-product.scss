@@ -1,5 +1,5 @@
 .feature-product-area-single {
-  background-image: url(/assets/images/feature/01.jpg);
+  background-image: url("/assets/images/feature/01.jpg");
   height: 255px;
   padding: 50px 60px;
   position: relative;
@@ -246,13 +246,13 @@
 }
 
 .feature-product-area-large-2 {
-  background-image: url(/assets/images/feature/02.jpg);
+  background-image: url("/assets/images/feature/02.jpg");
   height: 305px;
   border-radius: 6px;
   display: flex;
   align-items: center;
   &.bg_2 {
-    background-image: url(/assets/images/feature/03.jpg);
+    background-image: url("/assets/images/feature/03.jpg");
   }
   .inner-feature-product-content {
     padding-left: 60px;

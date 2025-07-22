@@ -2,8 +2,8 @@
 import { useState } from "react";
 // import type { Metadata } from "next";
 // import { Geist, Geist_Mono, Tajawal } from "next/font/google";
-import "../../../../public-dashboard/assets/css/plugins.css";
-import "../../../../public-dashboard/assets/css/table.css";
+// import "../../../../public-dashboard/assets/css/plugins.css";
+// import "../../../../public-dashboard/assets/css/table.css";
 import "../../../../public-dashboard/assets/css/style.css";
 
 // import "../../../styles/dashboard/scss/style.scss";
@@ -60,8 +60,7 @@ export default function RootLayout({
       <div
         className={`right-area-body-content ${
           locale === "en" ? "ms-auto me-0" : "ms-0 me-auto"
-        } 
- ${sidebarCollapsed ? "collapsed" : ""}`}
+        } ${sidebarCollapsed ? "collapsed" : ""}`}
       >
         <Header onToggleSidebar={toggleSidebar} />
 

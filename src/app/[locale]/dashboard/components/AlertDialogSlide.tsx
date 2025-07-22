@@ -23,10 +23,10 @@ const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children: React.ReactElement<any, any> },
   ref: React.Ref<unknown>
 ) {
-  return <Slide direction="up" ref={ref} {...props} />;
+  return <Slide  ref={ref} {...props} />;
 });
 
-// 👇 اسم واضح للمكون
+
 const AlertDialogSlide: React.FC<AlertDialogSlideProps> = ({
   open,
   title = "تأكيد العملية",
@@ -38,18 +38,22 @@ const AlertDialogSlide: React.FC<AlertDialogSlideProps> = ({
   isPending = false,
 }) => {
   return (
-    <Dialog 
+    <Dialog
       fullWidth
       open={open}
-      TransitionComponent={Transition}
+      slots={{ transition: Transition }}
+      slotProps={{ transition: { direction: "up" } }}
       keepMounted
       onClose={handleClose}
       aria-describedby="alert-dialog-slide-description"
     >
-      <DialogTitle className="fs-4 fw-bold">{title}</DialogTitle>
+      <DialogTitle className="fs-2 fw-bold">{title}</DialogTitle>
 
       <DialogContent>
-        <DialogContentText id="alert-dialog-slide-description" className="fs-5 fw-medium">
+        <DialogContentText
+          id="alert-dialog-slide-description"
+          className="fs-3 fw-medium w-100"
+        >
           {message}
         </DialogContentText>
       </DialogContent>

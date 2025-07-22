@@ -26,7 +26,7 @@
 25.blog-details
 26.footer
 27.search-input
-28./side-bar
+28.side-bar
 29.team
 30.testimonials
 31.faq
@@ -48,8 +48,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 :root {
-  --color-primary: #629D23;
-  --color-secondary: #1F1F25;
+  --color-primary: #0f7d9f;
+  --bgColor: #b8dce7;
+  /* --color-primary: #629D23; */
+  --color-secondary: #2f3645;
+  /* --color-secondary: #1F1F25; */
   --color-body: #6E777D;
   --color-heading-1: #2C3C28;
   --color-white: #fff;
@@ -9999,163 +10002,163 @@ Background Image
 }
 
 .bg_image--1 {
-  background-image: url(/assets/images/bg/bg-image-1.jpg);
+  background-image: url("/assets/images/bg/bg-image-1.jpg");
 }
 
 .bg_image--2 {
-  background-image: url(/assets/images/bg/bg-image-2.jpg);
+  background-image: url("/assets/images/bg/bg-image-2.jpg");
 }
 
 .bg_image--3 {
-  background-image: url(/assets/images/bg/bg-image-3.jpg);
+  background-image: url("/assets/images/bg/bg-image-3.jpg");
 }
 
 .bg_image--4 {
-  background-image: url(/assets/images/bg/bg-image-4.jpg);
+  background-image: url("/assets/images/bg/bg-image-4.jpg");
 }
 
 .bg_image--5 {
-  background-image: url(/assets/images/bg/bg-image-5.jpg);
+  background-image: url("/assets/images/bg/bg-image-5.jpg");
 }
 
 .bg_image--6 {
-  background-image: url(/assets/images/bg/bg-image-6.jpg);
+  background-image: url("/assets/images/bg/bg-image-6.jpg");
 }
 
 .bg_image--7 {
-  background-image: url(/assets/images/bg/bg-image-7.jpg);
+  background-image: url("/assets/images/bg/bg-image-7.jpg");
 }
 
 .bg_image--8 {
-  background-image: url(/assets/images/bg/bg-image-8.jpg);
+  background-image: url("/assets/images/bg/bg-image-8.jpg");
 }
 
 .bg_image--9 {
-  background-image: url(/assets/images/bg/bg-image-9.jpg);
+  background-image: url("/assets/images/bg/bg-image-9.jpg");
 }
 
 .bg_image--10 {
-  background-image: url(/assets/images/bg/bg-image-10.jpg);
+  background-image: url("/assets/images/bg/bg-image-10.jpg");
 }
 
 .bg_image--11 {
-  background-image: url(/assets/images/bg/bg-image-11.jpg);
+  background-image: url("/assets/images/bg/bg-image-11.jpg");
 }
 
 .bg_image--12 {
-  background-image: url(/assets/images/bg/bg-image-12.jpg);
+  background-image: url("/assets/images/bg/bg-image-12.jpg");
 }
 
 .bg_image--13 {
-  background-image: url(/assets/images/bg/bg-image-13.jpg);
+  background-image: url("/assets/images/bg/bg-image-13.jpg");
 }
 
 .bg_image--14 {
-  background-image: url(/assets/images/bg/bg-image-14.jpg);
+  background-image: url("/assets/images/bg/bg-image-14.jpg");
 }
 
 .bg_image--15 {
-  background-image: url(/assets/images/bg/bg-image-15.jpg);
+  background-image: url("/assets/images/bg/bg-image-15.jpg");
 }
 
 .bg_image--16 {
-  background-image: url(/assets/images/bg/bg-image-16.jpg);
+  background-image: url("/assets/images/bg/bg-image-16.jpg");
 }
 
 .bg_image--17 {
-  background-image: url(/assets/images/bg/bg-image-17.jpg);
+  background-image: url("/assets/images/bg/bg-image-17.jpg");
 }
 
 .bg_image--18 {
-  background-image: url(/assets/images/bg/bg-image-18.jpg);
+  background-image: url("/assets/images/bg/bg-image-18.jpg");
 }
 
 .bg_image--19 {
-  background-image: url(/assets/images/bg/bg-image-19.jpg);
+  background-image: url("/assets/images/bg/bg-image-19.jpg");
 }
 
 .bg_image--20 {
-  background-image: url(/assets/images/bg/bg-image-20.jpg);
+  background-image: url("/assets/images/bg/bg-image-20.jpg");
 }
 
 .bg_image--21 {
-  background-image: url(/assets/images/bg/bg-image-21.jpg);
+  background-image: url("/assets/images/bg/bg-image-21.jpg");
 }
 
 .bg_image--22 {
-  background-image: url(/assets/images/bg/bg-image-22.jpg);
+  background-image: url("/assets/images/bg/bg-image-22.jpg");
 }
 
 .bg_image--23 {
-  background-image: url(/assets/images/bg/bg-image-23.jpg);
+  background-image: url("/assets/images/bg/bg-image-23.jpg");
 }
 
 .bg_image--24 {
-  background-image: url(/assets/images/bg/bg-image-24.jpg);
+  background-image: url("/assets/images/bg/bg-image-24.jpg");
 }
 
 .bg_image--25 {
-  background-image: url(/assets/images/bg/bg-image-25.jpg);
+  background-image: url("/assets/images/bg/bg-image-25.jpg");
 }
 
 .bg_image--26 {
-  background-image: url(/assets/images/bg/bg-image-26.jpg);
+  background-image: url("/assets/images/bg/bg-image-26.jpg");
 }
 
 .bg_image--27 {
-  background-image: url(/assets/images/bg/bg-image-27.jpg);
+  background-image: url("/assets/images/bg/bg-image-27.jpg");
 }
 
 .bg_image--28 {
-  background-image: url(/assets/images/bg/bg-image-28.jpg);
+  background-image: url("/assets/images/bg/bg-image-28.jpg");
 }
 
 .bg_image--29 {
-  background-image: url(/assets/images/bg/bg-image-29.jpg);
+  background-image: url("/assets/images/bg/bg-image-29.jpg");
 }
 
 .bg_image--30 {
-  background-image: url(/assets/images/bg/bg-image-30.jpg);
+  background-image: url("/assets/images/bg/bg-image-30.jpg");
 }
 
 .bg_image--31 {
-  background-image: url(/assets/images/bg/bg-image-31.jpg);
+  background-image: url("/assets/images/bg/bg-image-31.jpg");
 }
 
 .bg_image--32 {
-  background-image: url(/assets/images/bg/bg-image-32.jpg);
+  background-image: url("/assets/images/bg/bg-image-32.jpg");
 }
 
 .bg_image--33 {
-  background-image: url(/assets/images/bg/bg-image-33.jpg);
+  background-image: url("/assets/images/bg/bg-image-33.jpg");
 }
 
 .bg_image--34 {
-  background-image: url(/assets/images/bg/bg-image-34.jpg);
+  background-image: url("/assets/images/bg/bg-image-34.jpg");
 }
 
 .bg_image--35 {
-  background-image: url(/assets/images/bg/bg-image-35.jpg);
+  background-image: url("/assets/images/bg/bg-image-35.jpg");
 }
 
 .bg_image--36 {
-  background-image: url(/assets/images/bg/bg-image-36.jpg);
+  background-image: url("/assets/images/bg/bg-image-36.jpg");
 }
 
 .bg_image--37 {
-  background-image: url(/assets/images/bg/bg-image-37.jpg);
+  background-image: url("/assets/images/bg/bg-image-37.jpg");
 }
 
 .bg_image--38 {
-  background-image: url(/assets/images/bg/bg-image-38.jpg);
+  background-image: url("/assets/images/bg/bg-image-38.jpg");
 }
 
 .bg_image--39 {
-  background-image: url(/assets/images/bg/bg-image-39.jpg);
+  background-image: url("/assets/images/bg/bg-image-39.jpg");
 }
 
 .bg_image--40 {
-  background-image: url(/assets/images/bg/bg-image-40.jpg);
+  background-image: url("/assets/images/bg/bg-image-40.jpg");
 }
 
 /* Height and width */
@@ -15114,7 +15117,7 @@ body {
 
 .ekomart_dashboard .right-area-body-content {
   width: calc(100% - 273px);
-  /* margin-left: auto; */
+
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -16567,7 +16570,7 @@ form.change-pass-form input,
 }
 
 .banner-vendor-details {
-  background-image: url(/assets/images/vendor/01.webp);
+  background-image: url("/assets/images/vendor/01.webp");
   height: 400px;
   border-radius: 6px;
   position: relative;
@@ -16668,7 +16671,7 @@ form.change-pass-form input,
   border-radius: 6px;
   margin-top: 30px;
   margin-left: 0;
-  background-image: url(/assets/images/vendor/02.webp);
+  background-image: url("/assets/images/vendor/02.webp");
 }
 
 .product-area-add-wrapper .title {
@@ -16977,7 +16980,7 @@ table.dataTable thead .sorting::after {
   content: "";
   right: auto;
   position: absolute;
-  background-image: url(/assets/images/form/01.png);
+  background-image: url("/assets/images/form/01.png");
   height: 19px;
   width: 19px;
   background-repeat: no-repeat;
@@ -16994,7 +16997,7 @@ table.dataTable thead .sorting_asc::after {
   content: "";
   right: auto;
   position: absolute;
-  background-image: url(/assets/images/form/01.png);
+  background-image: url("/assets/images/form/01.png");
   height: 19px;
   width: 19px;
   background-repeat: no-repeat;
@@ -17016,7 +17019,7 @@ table.dataTable thead .sorting_desc::after {
   content: "";
   right: 0;
   position: absolute;
-  background-image: url(/assets/images/form/02.png);
+  background-image: url("/assets/images/form/02.png");
   height: 19px;
   width: 19px;
   background-repeat: no-repeat;
@@ -17114,7 +17117,7 @@ table.dataTable thead .sorting_desc::after {
 }
 
 .rts-btn.btn-primary {
-  background: #629D23;
+  background: var(--color-primary);
   border-radius: 6px;
   display: block;
   max-width: max-content;
@@ -18779,7 +18782,7 @@ edit .quantity-edit button {
 }
 
 #anywhere-home {
-  cursor: url(/assets/images/banner/shape/close.png), auto;
+  cursor: url("/assets/images/banner/shape/close.png"), auto;
   background: #0e1013;
   position: fixed;
   width: 100%;
@@ -19043,7 +19046,7 @@ edit .quantity-edit button {
 }
 
 #anywhere-home {
-  cursor: url(/assets/images/banner/shape/close.png), auto;
+  cursor: url("/assets/images/banner/shape/close.png"), auto;
   background: #0e1013;
   position: fixed;
   width: 100%;

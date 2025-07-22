@@ -2,7 +2,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import React from "react";
 interface MenuItem {
   title: string;
   icon: string;
@@ -11,9 +12,11 @@ interface MenuItem {
 }
 
 const SidebarMenu = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0); 
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
   const pathname = usePathname();
   const t = useTranslations("routes");
+  console.log(pathname, "pathname");
+  const locale = useLocale();
   const menuItems: MenuItem[] = [
     {
       title: t("dashboardRoutes.dashboard"),
@@ -32,8 +35,14 @@ const SidebarMenu = () => {
       title: t("dashboardRoutes.products"),
       icon: "/assets/images-dashboard/icons/02.svg",
       children: [
-        { title: t("dashboardRoutes.products"), href: "/dashboard/product-list" },
-        { title: t("dashboardRoutes.addProduct"), href: "/dashboard/add-product" },
+        {
+          title: t("dashboardRoutes.products"),
+          href: "/dashboard/product-list",
+        },
+        {
+          title: t("dashboardRoutes.addProduct"),
+          href: "/dashboard/add-product",
+        },
       ],
     },
     {
@@ -60,16 +69,25 @@ const SidebarMenu = () => {
       title: t("dashboardRoutes.categories"),
       icon: "/assets/images-dashboard/icons/02.svg",
       children: [
-        { title: t("dashboardRoutes.categories"), href: "/dashboard/categories" },
-        { title:  t("dashboardRoutes.addCategory"), href: "/dashboard/categories/addCategory" },
+        {
+          title: t("dashboardRoutes.categories"),
+          href: "/dashboard/categories",
+        },
+        {
+          title: t("dashboardRoutes.addCategory"),
+          href: "/dashboard/categories/addCategory",
+        },
       ],
     },
     {
       title: t("dashboardRoutes.brands"),
       icon: "/assets/images-dashboard/icons/16.svg",
       children: [
-        { title:  t("dashboardRoutes.brands"), href: "/dashboard/brands" },
-        { title: t("dashboardRoutes.addBrand"), href: "/dashboard/brands/addBrand" },
+        { title: t("dashboardRoutes.brands"), href: "/dashboard/brands" },
+        {
+          title: t("dashboardRoutes.addBrand"),
+          href: "/dashboard/brands/addBrand",
+        },
       ],
     },
     {
@@ -81,7 +99,10 @@ const SidebarMenu = () => {
       title: t("dashboardRoutes.users"),
       icon: "/assets/images-dashboard/icons/05.svg",
       children: [
-        { title: t("dashboardRoutes.addUser"), href: "/dashboard/profile-setting" }
+        {
+          title: t("dashboardRoutes.addUser"),
+          href: "/dashboard/profile-setting",
+        },
       ],
     },
     {
@@ -99,8 +120,8 @@ const SidebarMenu = () => {
     const activeIndex = menuItems.findIndex((item) => {
       return item.children?.some((child) => {
         return (
-          pathname === child.href ||
-          (child.title === "Main Demo" && pathname === "/index")
+          pathname === `${locale}/dashboard${child.href} ` ||
+          (child.title === `${locale}/dashboard` && pathname === "/index")
         );
       });
     });
@@ -149,8 +170,8 @@ const SidebarMenu = () => {
               >
                 {item.children!.map((sub, subIndex) => {
                   const isActive =
-                    pathname === sub.href ||
-                    (sub.title === "Main Demo" && pathname === "/index");
+                    pathname === `${locale}/dashboard/${sub.href }`||
+                    (sub.title === "dashboard" && pathname === "/index");
                   return (
                     <li key={subIndex}>
                       <Link

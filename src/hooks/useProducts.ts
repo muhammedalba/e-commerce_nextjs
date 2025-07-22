@@ -1,5 +1,5 @@
 
-import { getProducts } from "@/services/api/product.service";
+import { deleteProduct, getProducts } from "@/services/api/product.service";
 import {  ProductsResponse } from "@/types";
 import {
   useQuery,
@@ -22,40 +22,40 @@ export function useGetAllProducts(
   });
 }
 
-// export function useDeleteBrand() {
-//   const queryClient = useQueryClient();
+export function useDeleteProduct() {
+  const queryClient = useQueryClient();
 
-//   return useMutation({
-//     mutationFn: deleteBrand,
-//     onMutate: async (id: string) => {
-//       await queryClient.cancelQueries({ queryKey: ["brands"] });
+  return useMutation({
+    mutationFn: deleteProduct,
+    onMutate: async (id: string) => {
+      await queryClient.cancelQueries({ queryKey: ["products"] });
 
-//       const previousData = queryClient.getQueryData<ProductsResponse>(["brands"]);
+      const previousData = queryClient.getQueryData<ProductsResponse>(["products"]);
 
-//       queryClient.setQueryData<ProductsResponse>(["brands"], (old) => {
-//         if (!old) return old;
-//         return {
-//           ...old,
-//           data: old.data.filter((brand) => brand._id !== id),
-//         };
-//       });
+      queryClient.setQueryData<ProductsResponse>(["products"], (old) => {
+        if (!old) return old;
+        return {
+          ...old,
+          data: old.data.filter((brand) => brand._id !== id),
+        };
+      });
 
-//       return { previousData };
-//     },
+      return { previousData };
+    },
 
-//     // ✅ استرجاع الحالة القديمة إذا فشل الحذف
-//     onError: (_err, _id, context) => {
-//       if (context?.previousData) {
-//         queryClient.setQueryData(["brands"], context.previousData);
-//       }
-//     },
+    // ✅ استرجاع الحالة القديمة إذا فشل الحذف
+    onError: (_err, _id, context) => {
+      if (context?.previousData) {
+        queryClient.setQueryData(["products"], context.previousData);
+      }
+    },
 
-//     // ✅ إعادة جلب البيانات للتأكيد
-//     onSettled: () => {
-//       queryClient.invalidateQueries({ queryKey: ["brands"] });
-//     },
-//   });
-// }
+    // ✅ إعادة جلب البيانات للتأكيد
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+    },
+  });
+}
 
 // export function useCreateBrand() {
 //   return useMutation<ProductsResponse, Error, FormData>({

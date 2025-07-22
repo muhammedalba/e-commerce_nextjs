@@ -10,26 +10,24 @@
   "login": "تسجيل الدخول",
   "register": "إنشاء حساب",
   "dashboard": "لوحة التحكم",
-  "dashboardRoutes":{
-    "dashboard":"لوحة التحكم",
-    "orders":"الطلبات",
-    "products":"المنتجات",
-    "addProduct":"اضافة منتج",
-    "categories":"الفئات",
-    "addCategory":"اضافة فئة",
-    "brands":"العلامات التجارية",
-    "addBrand":"اضافة علامة تجارية",
-    "users":"المستخدمين",
-    "addUser":"اضافة مستخدم",
-    "carousel":"صور الرئيسيه",
-    "addCarousel":"اضافة صورة",
-    "supplier":"الموردين",
-    "addSupplier":"اضافة مورد",
-    "coupons":"كوبونات الخصم",
-    "addCoupon":"اضافة كوبون",
-    "promoBanner":"اعلان المتجر",
-    "addPromoBanner":"اضافة اعلان متجر"
-
+  "dashboardRoutes": {
+    "dashboard": "لوحة التحكم",
+    "orders": "الطلبات",
+    "products": "المنتجات",
+    "addProduct": "اضافة منتج",
+    "categories": "الفئات",
+    "addCategory": "اضافة فئة",
+    "brands": "العلامات التجارية",
+    "addBrand": "اضافة علامة تجارية",
+    "users": "المستخدمين",
+    "addUser": "اضافة مستخدم",
+    "carousel": "صور الرئيسيه",
+    "addCarousel": "اضافة صورة",
+    "supplier": "الموردين",
+    "addSupplier": "اضافة مورد",
+    "coupons": "كوبونات الخصم",
+    "addCoupon": "اضافة كوبون",
+    "promoBanner": "اعلان المتجر",
+    "addPromoBanner": "اضافة اعلان متجر"
   }
-
 }

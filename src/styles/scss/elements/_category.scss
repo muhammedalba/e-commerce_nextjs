@@ -102,7 +102,7 @@
 }
 
 .single-feature-card {
-  background-image: url(/assets/images/category/01.jpg);
+  background-image: url("/assets/images/category/01.jpg");
   height: 400px;
   border-radius: 6px;
   background-repeat: no-repeat;
@@ -117,22 +117,22 @@
   }
   &.style-three {
     height: 350px;
-    background-image: url(/assets/images/category/05.jpg);
+    background-image: url("/assets/images/category/05.jpg");
     &.two {
-      background-image: url(/assets/images/category/06.jpg);
+      background-image: url("/assets/images/category/06.jpg");
     }
     &.three {
-      background-image: url(/assets/images/category/07.jpg);
+      background-image: url("/assets/images/category/07.jpg");
     }
   }
   &.two {
-    background-image: url(/assets/images/category/02.jpg);
+    background-image: url("/assets/images/category/02.jpg");
   }
   &.three {
-    background-image: url(/assets/images/category/03.jpg);
+    background-image: url("/assets/images/category/03.jpg");
   }
   &.four {
-    background-image: url(/assets/images/category/04.jpg);
+    background-image: url("/assets/images/category/04.jpg");
   }
   .rts-btn {
     margin-bottom: 15px;

@@ -18,7 +18,7 @@ export function generateStaticParams() {
 export default async function Home() {
 
   return (
-    <div className="">
+    <div className="home">
       <Header />
       <BannerOne />
       <FeatureOne />

@@ -4,12 +4,12 @@
   display: none;
 }
 .bg_one-banner {
-  background-image: url(/assets/images/banner/01.webp);
+  background-image: url("/assets/images/banner/01.webp");
 }
 .bg_one-banner {
-  background-image: url(/assets/images/banner/01.webp);
+  background-image: url("/assets/images/banner/01.webp");
   &.two {
-    background-image: url(/assets/images/banner/08.webp);
+    background-image: url("/assets/images/banner/08.webp");
   }
 }
 .category-area-main-wrapper-one {
@@ -41,7 +41,7 @@
 }
 
 .bg_banner-2 {
-  background-image: url(/assets/images/banner/02.jpg);
+  background-image: url("/assets/images/banner/02.jpg");
   height: 520px;
   border-radius: 6px;
 }
@@ -114,7 +114,7 @@
 }
 
 .banner-bg-full_1 {
-  background-image: url(/assets/images/banner/03.webp);
+  background-image: url("/assets/images/banner/03.webp");
   height: 600px;
   display: flex;
   align-items: flex-start;
@@ -123,7 +123,7 @@
   background-repeat: no-repeat;
   background-position: center;
   &.img-two {
-    background-image: url(/assets/images/banner/09.webp);
+    background-image: url("/assets/images/banner/09.webp");
   }
 }
 
@@ -178,7 +178,7 @@
 }
 
 .banner-bg_4 {
-  background-image: url(/assets/images/banner/04.jpg);
+  background-image: url("/assets/images/banner/04.jpg");
   height: 650px;
   overflow: hidden;
   position: relative;
@@ -271,7 +271,7 @@
 }
 
 .banner-left-five-area-start {
-  background-image: url(/assets/images/banner/05.jpg);
+  background-image: url("/assets/images/banner/05.jpg");
   height: 550px;
   display: flex;
   align-items: center;
@@ -317,7 +317,7 @@
   }
 }
 .banner-five-right-content {
-  background-image: url(/assets/images/banner/06.jpg);
+  background-image: url("/assets/images/banner/06.jpg");
   height: 550px;
   border-radius: 4px;
   position: relative;
@@ -342,7 +342,7 @@
 }
 
 .bg_store-banner {
-  background-image: url(/assets/images/banner/07.jpg);
+  background-image: url("/assets/images/banner/07.jpg");
 }
 
 .banner-content-store {

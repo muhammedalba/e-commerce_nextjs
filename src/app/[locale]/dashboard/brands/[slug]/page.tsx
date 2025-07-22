@@ -203,7 +203,6 @@ const page = () => {
                   >
                     {t("cancel")}
                   </motion.button>
-                  
                 </motion.div>
                 <InputError
                   id="form-error"

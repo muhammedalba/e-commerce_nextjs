@@ -1,27 +1,39 @@
 "use client";
-
-import { styled } from "@mui/material/styles";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
+import {
+  TableContainer,
+  Table,
+  TableHead,
+  TableRow,
+  TableBody,
+  Paper,
+  IconButton,
+  Tooltip,
+} from "@mui/material";
+import { SelectChangeEvent } from "@mui/material/Select";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { useGetAllProducts } from "@/hooks/useProducts";
-
+import { styled } from "@mui/material/styles";
+import { useRouter } from "next/navigation";
+import { useDeleteProduct, useGetAllProducts } from "@/hooks/useProducts";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useMemo, useState, useTransition } from "react";
-import { toast } from "react-toastify";
-import Link from "next/link";
-
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import PageStatus from "../components/PageStatus";
+import PageTitleWithAddButton from "../components/PageTitleWithAddButton";
+import React from "react";
+import Image from "next/image";
+import AlertDialogSlide from "../components/AlertDialogSlide";
+import { toast } from "react-toastify";
+import PaginationControls from "../components/PaginationControls";
+import formatDate from "@/lib/utils/formatDate";
+import { formatPrice } from "@/lib/utils/formatPrice";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    backgroundColor: "var(--color-primary)",
+    color: "var(--color-white)",
+    fontWeight: "bold",
+    fontSize: 16,
+    textAlign: "center",
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
@@ -32,91 +44,210 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
   },
-  // hide last border
+  "&:hover": {
+    backgroundColor: "#e3f2fd",
+    cursor: "pointer",
+  },
   "&:last-child td, &:last-child th": {
-    border: 0,
+    border: 1,
   },
 }));
 
-function createData(
-  name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number
-) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
-
-export default function CustomizedTables() {
-  const t = useTranslations();
+export default function ProductsPage() {
+  const t = useTranslations("Products");
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("query");
   const [isPendingTransition, startTransition] = useTransition();
-  //   const { mutate: deleteBrand, isPending } = useDeleteBrand();
+  const { mutate: deleteProduct, isPending } = useDeleteProduct();
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const [limit, setLimit] = useState("10");
   const [page, setPage] = useState(1);
-
+  const router = useRouter();
+  const locale = useLocale();
   const numericLimit = useMemo(() => Number(limit), [limit]);
   const { data, isError, error, isSuccess, isLoading } = useGetAllProducts(
     page,
     numericLimit,
     searchQuery?.toString()
   );
-  console.log(data);
+
+  const handleChange = useCallback((_: unknown, value: number) => {
+    startTransition(() => setPage(value));
+  }, []);
+
+  const handleChangeLimit = useCallback((event: SelectChangeEvent) => {
+    startTransition(() => setLimit(event.target.value));
+  }, []);
+
+  const handleEdit = (slug: string) => {
+    router.push(`/dashboard/products/${slug}`);
+  };
+
+  const handleClose = useCallback(() => {
+    setOpen(false);
+    setSelectedId(null);
+  }, []);
+
+  const handleAgree = useCallback(() => {
+    if (!selectedId) return;
+    deleteProduct(selectedId, {
+      onSuccess: () => {
+        toast.success(t("deleteSuccess"));
+        handleClose();
+      },
+      onError: (err) => {
+        toast.error(err.message || t("deleteError"));
+        handleClose();
+      },
+    });
+  }, [selectedId, deleteProduct, handleClose]);
+
+  const handleDeleteClick = useCallback((id: string) => {
+    setSelectedId(id);
+    setOpen(true);
+  }, []);
+
+  const TableRowData = [
+    t("TableRowData.image"),
+    t("TableRowData.title"),
+    t("TableRowData.brand"),
+    t("TableRowData.category"),
+    t("TableRowData.price"),
+    t("TableRowData.priceAfterDiscount"),
+    t("TableRowData.quantity"),
+    t("TableRowData.sold"),
+    // t("TableRowData.date"),
+    t("TableRowData.actions"),
+  ];
+
+  const TableRows = useMemo(
+    () =>
+      TableRowData.map((title, i) => (
+        <StyledTableCell
+          key={i}
+          colSpan={i === TableRowData.length - 1 ? 2 : 1}
+        >
+          {title}
+        </StyledTableCell>
+      )),
+    [TableRowData]
+  );
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell align="right">image</StyledTableCell>
-            <StyledTableCell>title</StyledTableCell>
-            <StyledTableCell align="right">brand </StyledTableCell>
-            <StyledTableCell align="right">category</StyledTableCell>
-            <StyledTableCell align="right">quantity</StyledTableCell>
-            <StyledTableCell align="right">price</StyledTableCell>
-            <StyledTableCell align="right">sold</StyledTableCell>
-            <StyledTableCell align="right">price After Discount</StyledTableCell>
-            <StyledTableCell align="right">createdAt</StyledTableCell>
-            <StyledTableCell align="right">delete</StyledTableCell>
-            <StyledTableCell align="right">edit</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data?.data.map((row) => (
-            <StyledTableRow key={row._id}>
-              <StyledTableCell align="right"><img src={row.imageCover} alt={row.title} /></StyledTableCell>
-              <StyledTableCell component="th" scope="row">
-                {row.title}
-              </StyledTableCell>
+    <div className="body-root-inner">
+      <AlertDialogSlide
+        open={open}
+        title={t("confirmDeleteTitle")}
+        message={t("confirmDeleteMessage")}
+        agreeLabel={t("deleteLabel")}
+        cancelLabel={t("cancelLabel")}
+        handleAgree={handleAgree}
+        handleClose={handleClose}
+        isPending={isPending}
+      />
 
-              <StyledTableCell align="right">{row.brand?.name||'--'}</StyledTableCell>
-              <StyledTableCell align="right">{row.category?.name||'--'}</StyledTableCell>
-              <StyledTableCell align="right">{row.quantity}</StyledTableCell>
-              <StyledTableCell align="right">{row.price}</StyledTableCell>
-              <StyledTableCell align="right">{row.sold}</StyledTableCell>
-              <StyledTableCell align="right">
-                {row.priceAfterDiscount}
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.createdAt}</StyledTableCell>
-              <StyledTableCell align="right">delete</StyledTableCell>
-              <StyledTableCell align="right">edit</StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+      <PageTitleWithAddButton
+        title={t("title")}
+        buttonLabel={t("addProduct")}
+        path="/dashboard/product/addProduct"
+      />
+
+      <div className="container mt-5">
+        <PageStatus
+          results={data?.results}
+          page={page}
+          t={t}
+          className="mb-4"
+        />
+        <TableContainer component={Paper}>
+          <Table
+            sx={{ minWidth: 700 }}
+            aria-label="customized table"
+          >
+            <TableHead>
+              <TableRow>{TableRows}</TableRow>
+            </TableHead>
+            <TableBody>
+              {data?.data.map((row) => (
+                <StyledTableRow key={row._id}>
+                  <StyledTableCell onClick={() => handleEdit(row._id)}>
+                    <Image
+                      src={row.imageCover}
+                      alt={row.title}
+                      width={50}
+                      height={50}
+                      style={{ borderRadius: "4px" }}
+                    />
+                  </StyledTableCell>
+                  <StyledTableCell>{row.title || "--"}</StyledTableCell>
+                  <StyledTableCell>{row.brand?.name || "--"}</StyledTableCell>
+                  <StyledTableCell>
+                    {row.category?.name || "--"}
+                  </StyledTableCell>
+                  <StyledTableCell>
+                    {row.price ? formatPrice(row.price) : "--"}
+                  </StyledTableCell>
+                  <StyledTableCell>
+                    {row.priceAfterDiscount
+                      ? formatPrice(row.priceAfterDiscount)
+                      : "--"}
+                  </StyledTableCell>
+                  <StyledTableCell>{row.quantity ?? "--"}</StyledTableCell>
+                  <StyledTableCell>{row.sold ?? "--"}</StyledTableCell>
+                  {/* <StyledTableCell>
+                    {formatDate(row.createdAt, locale)}
+                  </StyledTableCell> */}
+                  <StyledTableCell>
+                    <Tooltip
+                      title={t("deleteLabel")}
+                      slotProps={{
+                        tooltip: {
+                          sx: { fontSize: "1.3rem", padding: "8px" },
+                        },
+                      }}
+                    >
+                      <IconButton
+                        color="error"
+                        onClick={() => handleDeleteClick(row._id)}
+                      >
+                        <i className="fa-solid fa-trash-xmark fs-3"></i>
+                      </IconButton>
+                    </Tooltip>
+                  </StyledTableCell>
+                  <StyledTableCell>
+                    <Tooltip
+                      title={t("editProduct")}
+                      slotProps={{
+                        tooltip: {
+                          sx: { fontSize: "1.3rem", padding: "8px" },
+                        },
+                      }}
+                    >
+                      <IconButton
+                        color="primary"
+                        onClick={() => handleEdit(row._id)}
+                      >
+                        <i className="fa-regular fa-file-pen fs-3"></i>
+                      </IconButton>
+                    </Tooltip>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
+
+      <PaginationControls
+        limit={limit}
+        page={page}
+        count={data?.pagination.numberOfPages ?? 1}
+        isPending={isPendingTransition}
+        onLimitChange={handleChangeLimit}
+        onPageChange={handleChange}
+      />
+    </div>
   );
 }

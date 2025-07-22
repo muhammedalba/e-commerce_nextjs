@@ -417,7 +417,7 @@
 }
 
 .single-discount-with-bg {
-  background-image: url(/assets/images/discount-product/01.jpg);
+  background-image: url("/assets/images/discount-product/01.jpg");
   padding: 40px 50px;
   background-repeat: no-repeat;
   background-size: cover;
@@ -432,7 +432,7 @@
     margin-bottom: 0;
   }
   &.bg-2 {
-    background-image: url(/assets/images/discount-product/02.jpg);
+    background-image: url("/assets/images/discount-product/02.jpg");
   }
   .title {
     font-size: 24px;

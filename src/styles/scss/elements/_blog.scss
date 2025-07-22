@@ -290,7 +290,7 @@
   }
   &.with-add {
     position: relative;
-    background-image: url(/assets/images/blog/thumb/12.jpg);
+    background-image: url("/assets/images/blog/thumb/12.jpg");
     padding: 80px 40px;
     @media #{$large-mobile} {
       padding: 10px;
