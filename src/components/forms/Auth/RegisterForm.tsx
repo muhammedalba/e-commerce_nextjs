@@ -6,11 +6,14 @@ import { useTranslations } from "next-intl";
 import { useMemo, useState, useCallback } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { RegisterFormData, registerSchema } from "@/schemas/Auth/registerSchema";
+import {
+  RegisterFormData,
+  registerSchema,
+} from "@/schemas/Auth/registerSchema";
 import { useRegister } from "@/hooks/useAuth";
 import FormInput from "../FormInput";
 import SubmitButton from "../SubmitButton";
-import AvatarDropzone from "../AvatarDropzone";
+import ImageDropzone from "../../../lib/utils/ImageDropzone";
 import InputError from "../../common/InputError";
 import { motion } from "framer-motion";
 import SocialAuthButtons from "./SocialAuthButtons";
@@ -117,7 +120,7 @@ export default function RegisterForm() {
         error={errors.confirmPassword?.message}
       />
 
-      <AvatarDropzone
+      <ImageDropzone
         error={errors.avatar?.message as string}
         preview={avatarPreview}
         setPreview={setAvatarPreview}

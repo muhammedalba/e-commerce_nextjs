@@ -5,19 +5,27 @@ import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
-import AvatarDropzone from "@/components/forms/AvatarDropzone";
+import ImageDropzone from "@/lib/utils/ImageDropzone";
 import FormInput from "@/components/forms/FormInput";
 import SubmitButton from "@/components/forms/SubmitButton";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import InputError from "@/components/common/InputError";
 import { useCreateCategory } from "@/hooks/useCategories";
-import { CategoryFormData, categorySchema } from "@/schemas/dashboard/categorySchema";
+import {
+  CategoryFormData,
+  categorySchema,
+} from "@/schemas/dashboard/categorySchema";
 
 const AddProductPage = () => {
   const t = useTranslations("Categories");
   const router = useRouter();
-  const { mutate: CreateCategory, isPending, isSuccess, error } = useCreateCategory();
+  const {
+    mutate: CreateCategory,
+    isPending,
+    isSuccess,
+    error,
+  } = useCreateCategory();
 
   const schema = useMemo(() => categorySchema(t), [t]);
 
@@ -137,7 +145,7 @@ const AddProductPage = () => {
                 </motion.div>
 
                 <motion.div className="single-input" variants={imageVariants}>
-                  <AvatarDropzone
+                  <ImageDropzone
                     error={errors.image?.message as string}
                     preview={avatarPreview}
                     setPreview={setAvatarPreview}
@@ -174,13 +182,12 @@ const AddProductPage = () => {
                       {t("cancel")}
                     </Link>
                   </motion.div>
-                 
                 </motion.div>
-                 <InputError
-                    id="form-error"
-                    className="text-center fs-3 "
-                    message={error?.message ?? undefined}
-                  />
+                <InputError
+                  id="form-error"
+                  className="text-center fs-3 "
+                  message={error?.message ?? undefined}
+                />
               </form>
             </div>
           </div>

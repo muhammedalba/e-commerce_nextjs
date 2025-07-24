@@ -8,12 +8,12 @@ export const getProductById = async (id: string) => {
   return data;
 };
 
-export const createProduct = async (product: any) => {
+export const createProduct = async (product: FormData) => {
   const { data } = await axiosInstance.post("/products", product);
   return data;
 };
 
-export const updateProduct = async (id: string, product: any) => {
+export const updateProduct = async (id: string, product: FormData) => {
   const { data } = await axiosInstance.put(`/products/${id}`, product);
   return data;
 };

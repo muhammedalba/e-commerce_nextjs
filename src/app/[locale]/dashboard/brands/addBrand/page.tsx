@@ -7,7 +7,7 @@ import { BrandFormData, brandSchema } from "@/schemas/dashboard/brandSchema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
-import AvatarDropzone from "@/components/forms/AvatarDropzone";
+import ImageDropzone from "@/lib/utils/ImageDropzone";
 import FormInput from "@/components/forms/FormInput";
 import SubmitButton from "@/components/forms/SubmitButton";
 import Link from "next/link";
@@ -137,7 +137,7 @@ const AddProductPage = () => {
                 </motion.div>
 
                 <motion.div className="single-input" variants={imageVariants}>
-                  <AvatarDropzone
+                  <ImageDropzone
                     error={errors.image?.message as string}
                     preview={avatarPreview}
                     setPreview={setAvatarPreview}

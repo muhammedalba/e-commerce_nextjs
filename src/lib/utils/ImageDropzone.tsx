@@ -1,10 +1,12 @@
 "use client";
-
 import { useDropzone } from "react-dropzone";
 import { useCallback, useState, useEffect } from "react";
-import InputError from "../common/InputError";
+import InputError from "../../components/common/InputError";
 import { motion } from "framer-motion";
-interface AvatarDropzoneProps {
+import { Avatar } from "@mui/material";
+
+
+interface ImageDropzoneProps {
   error?: string;
   onFileSelect: (file: File | null) => void;
   preview: string | null;
@@ -13,14 +15,16 @@ interface AvatarDropzoneProps {
   removeLabel: string;
 }
 
-export default function AvatarDropzone({
+
+
+export default function ImageDropzone({
   error,
   onFileSelect,
   preview,
   setPreview,
   label,
   removeLabel,
-}: AvatarDropzoneProps) {
+}: ImageDropzoneProps) {
   const [loading, setLoading] = useState(false);
 
   const handleAvatarChange = useCallback(
@@ -80,13 +84,21 @@ export default function AvatarDropzone({
               <span className="visually-hidden">Loading...</span>
             </div>
           ) : preview ? (
-            <img
-              src={preview}
-              alt="avatar preview"
-              width={300}
-              height={160}
-              className="m-auto d-block"
-            />
+             <Avatar
+          src={preview || undefined}
+          alt={label || "image"}
+          sx={{
+            width: 300,
+            height: 150,
+            margin: "auto",
+            borderRadius: 1,
+            bgcolor: "primary",
+            fontWeight: "bold",
+          }}
+        >
+          {/* fallback text if image fails to load */}
+          {(label || "--").substring(0, 3).toUpperCase()}
+        </Avatar>
           ) : (
             <p className="m-0" style={{ color: "#555" }}>
               {label}

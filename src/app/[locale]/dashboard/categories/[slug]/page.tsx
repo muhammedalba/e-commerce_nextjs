@@ -7,7 +7,7 @@ import { useRouter, useParams } from "next/navigation";
 import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
 import FormInput from "@/components/forms/FormInput";
-import AvatarDropzone from "@/components/forms/AvatarDropzone";
+import ImageDropzone from "@/lib/utils/ImageDropzone";
 import { useGetBrand, useUpdateBrand } from "@/hooks/useBrands";
 import SubmitButton from "@/components/forms/SubmitButton";
 import { motion } from "framer-motion";
@@ -172,7 +172,7 @@ const page = () => {
                 </motion.div>
 
                 <motion.div className="single-input" variants={imageVariants}>
-                  <AvatarDropzone
+                  <ImageDropzone
                     error={errors.image?.message as string}
                     preview={avatarPreview}
                     setPreview={setAvatarPreview}

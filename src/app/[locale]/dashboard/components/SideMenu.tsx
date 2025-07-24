@@ -15,7 +15,6 @@ const SidebarMenu = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const pathname = usePathname();
   const t = useTranslations("routes");
-  console.log(pathname, "pathname");
   const locale = useLocale();
   const menuItems: MenuItem[] = [
     {
@@ -37,11 +36,11 @@ const SidebarMenu = () => {
       children: [
         {
           title: t("dashboardRoutes.products"),
-          href: "/dashboard/product-list",
+          href: "/dashboard/products",
         },
         {
           title: t("dashboardRoutes.addProduct"),
-          href: "/dashboard/add-product",
+          href: "/dashboard/products/addProduct",
         },
       ],
     },

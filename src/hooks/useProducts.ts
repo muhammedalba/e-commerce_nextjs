@@ -1,12 +1,12 @@
-
-import { deleteProduct, getProducts } from "@/services/api/product.service";
-import {  ProductsResponse } from "@/types";
 import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
-
+  createProduct,
+  deleteProduct,
+  getProductById,
+  getProducts,
+  updateProduct,
+} from "@/services/api/product.service";
+import { ProductResponse, ProductsResponse } from "@/types";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function useGetAllProducts(
   page: number = 1,
@@ -30,7 +30,9 @@ export function useDeleteProduct() {
     onMutate: async (id: string) => {
       await queryClient.cancelQueries({ queryKey: ["products"] });
 
-      const previousData = queryClient.getQueryData<ProductsResponse>(["products"]);
+      const previousData = queryClient.getQueryData<ProductsResponse>([
+        "products",
+      ]);
 
       queryClient.setQueryData<ProductsResponse>(["products"], (old) => {
         if (!old) return old;
@@ -57,37 +59,37 @@ export function useDeleteProduct() {
   });
 }
 
-// export function useCreateBrand() {
-//   return useMutation<ProductsResponse, Error, FormData>({
-//     mutationFn: async (data) => {
-//       const response = await createBrand(data);
-//       return response.data;
-//     },
-//   });
-// }
+export function useCreateProduct() {
+  return useMutation<ProductResponse, Error, FormData>({
+    mutationFn: async (data) => {
+      const response = await createProduct(data);
+      return response.data;
+    },
+  });
+}
 
-// export const useUpdateBrand = () => {
-//   return useMutation({
-//     mutationFn: async ({
-//       id,
-//       formData,
-//     }: {
-//       id: string;
-//       formData: FormData;
-//     }) => {
-//       const response = await updateBrand(id, formData);
-//       return response.data;
-//     },
-//   });
-// };
+export const useUpdateProduct = () => {
+  return useMutation({
+    mutationFn: async ({
+      id,
+      formData,
+    }: {
+      id: string;
+      formData: FormData;
+    }) => {
+      const response = await updateProduct(id, formData);
+      return response.data;
+    },
+  });
+};
 
-// export const useGetBrand = (slug: string) => {
-//   return useQuery<BrandResponse, Error>({
-//     queryKey: ["brand", slug],
-//     queryFn: async () => {
-//       const response = await getBrandById(slug);
-//       return response.data;
-//     },
-//     enabled: !!slug, // Only run the query if id is provided
-//   });
-// };
+export const useGetProduct = (slug: string) => {
+  return useQuery<ProductResponse, Error>({
+    queryKey: ["products", slug],
+    queryFn: async () => {
+      const response = await getProductById(slug);
+      return response;
+    },
+    enabled: !!slug, // Only run the query if id is provided
+  });
+};
