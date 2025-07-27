@@ -1,23 +1,25 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import { useCallback, useMemo, useState, useTransition } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { toast } from "react-toastify";
-import { SelectChangeEvent } from "@mui/material/Select";
-import Loading from "../../loading";
+
 import AlertDialogSlide from "../components/AlertDialogSlide";
 import { BrandCard } from "../components/BrandCard";
 import PaginationControls from "../components/PaginationControls";
 import { useTranslations } from "next-intl";
-import { useDeleteCategory, useGetAllCategories } from "@/hooks/useCategories";
+import {
+  useDeleteCategory,
+  useGetAllCategories,
+} from "@/lib/abi/hooks/useCategories";
 import PageStatus from "../components/PageStatus";
 import PageTitleWithAddButton from "../components/PageTitleWithAddButton";
+import SkeletonGrid from "../components/SkeletonGrid";
 
 export default function Home() {
   const t = useTranslations("Categories");
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("query");
-  const [isPendingTransition, startTransition] = useTransition();
-  const { mutate: deleteBrand, isPending } = useDeleteCategory();
+  const { mutate: deleteCategory, isPending } = useDeleteCategory();
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
@@ -32,41 +34,14 @@ export default function Home() {
     searchQuery?.toString()
   );
 
-  const handleClose = useCallback(() => {
-    setOpen(false);
-    setSelectedId(null);
-  }, []);
 
-  const handleAgree = useCallback(() => {
-    if (!selectedId) return;
-    deleteBrand(selectedId, {
-      onSuccess: () => {
-        toast.success(t("deleteSuccess"));
-        handleClose();
-      },
-      onError: (err) => {
-        toast.error(err.message || t("deleteError"));
-        handleClose();
-      },
-    });
-  }, [selectedId, deleteBrand, handleClose]);
 
   const handleDeleteClick = useCallback((id: string) => {
     setSelectedId(id);
     setOpen(true);
   }, []);
 
-  const handleChange = useCallback((_: unknown, value: number) => {
-    startTransition(() => {
-      setPage(value);
-    });
-  }, []);
 
-  const handleChangeLimit = useCallback((event: SelectChangeEvent) => {
-    startTransition(() => {
-      setLimit(event.target.value);
-    });
-  }, []);
 
   const isEmpty = useMemo(
     () => isSuccess && data?.data.length === 0,
@@ -91,7 +66,8 @@ export default function Home() {
     [data?.data, handleDeleteClick, isPending, selectedId]
   );
 
-  if (isLoading || isPendingTransition) return <Loading />;
+  if (isLoading)
+    return <SkeletonGrid count={12} width={150} height={150} />;
   if (isError)
     return (
       <p>
@@ -103,16 +79,18 @@ export default function Home() {
   return (
     <div className="body-root-inner">
       <AlertDialogSlide
+        setOpen={setOpen}
         open={open}
         title={t("confirmDeleteTitle")}
         message={t("confirmDeleteMessage")}
         agreeLabel={t("deleteLabel")}
         cancelLabel={t("cancelLabel")}
-        handleAgree={handleAgree}
-        handleClose={handleClose}
         isPending={isPending}
+        setSelectedId={setSelectedId}
+        selectedId={selectedId}
+        deleteFn={deleteCategory}
+        t={t}
       />
-
       <PageTitleWithAddButton
         title={t("title")}
         buttonLabel={t("addCategory")}
@@ -129,12 +107,11 @@ export default function Home() {
       </div>
 
       <PaginationControls
+        setPage={setPage}
+        setLimit={setLimit}
         limit={limit}
         page={page}
         count={data?.pagination.numberOfPages ?? 1}
-        isPending={isPendingTransition}
-        onLimitChange={handleChangeLimit}
-        onPageChange={handleChange}
       />
     </div>
   );

@@ -90,6 +90,17 @@ const SidebarMenu = () => {
       ],
     },
     {
+      title:"Suppliers",
+      icon: "/assets/images-dashboard/icons/16.svg",
+      children: [
+        { title: "Supplier", href: "/dashboard/suppliers" },
+        {
+          title: t("dashboardRoutes.addSupplier"),
+          href: "/dashboard/brands/addSupplier",
+        },
+      ],
+    },
+    {
       title: "Payment",
       icon: "/assets/images-dashboard/icons/17.svg",
       href: "/dashboard/payment",
@@ -169,7 +180,7 @@ const SidebarMenu = () => {
               >
                 {item.children!.map((sub, subIndex) => {
                   const isActive =
-                    pathname === `${locale}/dashboard/${sub.href }`||
+                    pathname === `${locale}/dashboard/${sub.href}` ||
                     (sub.title === "dashboard" && pathname === "/index");
                   return (
                     <li key={subIndex}>

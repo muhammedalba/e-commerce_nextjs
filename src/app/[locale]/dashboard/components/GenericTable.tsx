@@ -11,6 +11,9 @@ import {
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import { styled } from "@mui/material/styles";
 import Skeleton from "@mui/material/Skeleton";
+import ExportButtons from "./ExportButtons";
+
+// ========== Styled Components ==========
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: "var(--color-primary)",
@@ -37,15 +40,13 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-// Column type
+// ========== Types ==========
 export type Column<T> = {
-  key: string;
+  key: keyof T | string;
   label: string;
   colSpan?: number;
-  //   render?: (row: T) => React.ReactNode;
 };
 
-// Props
 type GenericTableProps<T> = {
   data: T[];
   columns: Column<T>[];
@@ -60,9 +61,13 @@ type GenericTableProps<T> = {
     onEdit: () => void;
     t: (key: string) => string;
   }>;
+  skeletonRowsCount?: number;
 };
 
-export default function GenericTable<T extends { slug: string; _id: string }>({
+// ========== Component ==========
+export default function GenericTable<
+  T extends { slug: string; _id: string; }
+>({
   data,
   columns,
   noDataText = "No Data",
@@ -71,56 +76,60 @@ export default function GenericTable<T extends { slug: string; _id: string }>({
   handleDeleteClick,
   handleEdit,
   Row,
+  skeletonRowsCount = 5,
 }: GenericTableProps<T>) {
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }}>
-        <TableHead>
-          <TableRow>
-            {columns.map((col) => (
-              <StyledTableCell key={col.key} colSpan={col.colSpan}>
-                {col.label}
-              </StyledTableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {isLoading ? (
-            <StyledTableRow>
-              {columns.map((i) => {
-                return (
-                  <StyledTableCell key={i.key} align="center">
-                    <Skeleton
-                      variant="rounded"
-                      sx={{ width: "100%" }}
-                      height={40}
-                    />
-                  </StyledTableCell>
-                );
-              })}
-            </StyledTableRow>
-          ) : (
-            !isLoading &&
-            (!data?.length ? (
+    <>
+      {/* Export Buttons */}
+      <ExportButtons data={data} columns={columns} />
+
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 700 }}>
+          <TableHead>
+            <TableRow>
+              {columns.map((col) => (
+                <StyledTableCell key={String(col.key)} colSpan={col.colSpan}>
+                  {col.label}
+                </StyledTableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+
+          <TableBody>
+            {isLoading ? (
+              [...Array(skeletonRowsCount)].map((_, i) => (
+                <StyledTableRow key={`skeleton-${i}`}>
+                  {columns.map((col) => (
+                    <StyledTableCell key={String(col.key)} align="center">
+                      <Skeleton
+                        variant="rounded"
+                        sx={{ width: "100%" }}
+                        height={40}
+                      />
+                    </StyledTableCell>
+                  ))}
+                </StyledTableRow>
+              ))
+            ) : data.length === 0 ? (
               <StyledTableRow>
                 <StyledTableCell colSpan={columns.length} align="center">
                   {noDataText}
                 </StyledTableCell>
               </StyledTableRow>
             ) : (
-              data?.map((row, i) => (
+              data.map((row) => (
                 <Row
-                  key={i}
+                  key={row._id}
                   row={row}
                   onDelete={() => handleDeleteClick(row._id)}
                   onEdit={() => handleEdit(row.slug)}
                   t={t}
                 />
               ))
-            ))
-          )}
-        </TableBody>
-      </Table>
-    </TableContainer>
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 }

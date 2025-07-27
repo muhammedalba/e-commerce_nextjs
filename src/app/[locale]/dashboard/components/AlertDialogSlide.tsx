@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useCallback } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -7,25 +7,28 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import { TransitionProps } from "@mui/material/transitions";
+import { toast } from "react-toastify";
 
 interface AlertDialogSlideProps {
   open: boolean;
-  isPending: boolean;
+  setOpen: (val: boolean) => void;
+  selectedId: string | null;
+  setSelectedId: (val: string | null) => void;
   title?: string;
   message?: string;
   agreeLabel?: string;
   cancelLabel?: string;
-  handleAgree: () => void;
-  handleClose: () => void;
+  deleteFn: (id: string, {}) => void;
+  t: (key: string) => string;
+  isPending: boolean;
 }
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & { children: React.ReactElement<any, any> },
   ref: React.Ref<unknown>
 ) {
-  return <Slide  ref={ref} {...props} />;
+  return <Slide ref={ref} {...props} />;
 });
-
 
 const AlertDialogSlide: React.FC<AlertDialogSlideProps> = ({
   open,
@@ -33,10 +36,37 @@ const AlertDialogSlide: React.FC<AlertDialogSlideProps> = ({
   message = "هل أنت متأكد أنك تريد تنفيذ هذا الإجراء؟",
   agreeLabel = "نعم",
   cancelLabel = "إلغاء",
-  handleAgree,
-  handleClose,
+  deleteFn,
+  t,
+  setSelectedId,
+  selectedId,
   isPending = false,
+  setOpen
 }) => {
+
+
+  const handleClose = useCallback(() => {
+    setOpen(false);
+    setSelectedId(null);
+  }, []);
+
+  const handleAgree = useCallback(() => {
+    if (!selectedId) return;
+    deleteFn(selectedId, {
+      onSuccess: () => {
+        toast.success(t("deleteSuccess"));
+        handleClose();
+      },
+      onError: (err: unknown) => {
+         if (err instanceof Error) {
+          toast.error(err.message || t("deleteError"));
+        }
+        toast.error("حدث خطأ غير متوقع");
+        handleClose();
+      },
+    });
+  }, [selectedId, deleteFn, handleClose]);
+
   return (
     <Dialog
       fullWidth

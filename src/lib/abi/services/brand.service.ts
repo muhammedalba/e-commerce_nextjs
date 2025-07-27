@@ -1,4 +1,4 @@
-import axiosInstance from "@/lib/axios";
+import axiosInstance from "@/lib/abi/axios";
 
 export const getAllBrands = (page: number, limit: number, keywords: string) =>
   axiosInstance.get(`/brands?keywords=${keywords}&page=${page}&limit=${limit}`);

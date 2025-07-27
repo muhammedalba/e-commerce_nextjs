@@ -4,7 +4,7 @@ import {
   getAllBrands,
   getBrandById,
   updateBrand,
-} from "@/services/api/brand.service";
+} from "@/lib/abi/services/brand.service";
 import { BrandResponse, BrandsResponse } from "@/types";
 import {
   useQuery,

@@ -11,7 +11,7 @@ export const registerSchema = (t: any) =>
       email: z
         .string({ message: t("Validation.requiredEmail") })
         .min(1, t("Validation.requiredEmail"))
-        .email(t("Validation.invalidEmail")),
+        .email({ message: t("Validation.invalidEmail") }),
       password: z
         .string({ message: t("Validation.requiredPassword") })
         .min(1, t("Validation.requiredPassword"))

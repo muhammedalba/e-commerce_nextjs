@@ -8,7 +8,7 @@ import {
   useForgotPassword,
   useVerifyCode,
   useResetPassword,
-} from "@/hooks/useAuth";
+} from "@/lib/abi/hooks/useAuth";
 import StepEmail from "./steps/StepEmail";
 import StepCode from "./steps/StepCode";
 import StepResetPassword from "./steps/StepResetPassword";

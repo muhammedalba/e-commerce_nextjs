@@ -1,6 +1,6 @@
 "use client";
 import type { Category } from "@/types";
-import { useGetAllCategories } from "@/hooks/useCategories";
+import { useGetAllCategories } from "@/lib/abi/hooks/useCategories";
 import React, { useState } from "react";
 import CategoryItem from "./CategoryItem";
 

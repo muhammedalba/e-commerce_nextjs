@@ -1,15 +1,13 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-
-
 import Tooltip from "@mui/material/Tooltip";
 import { Brand } from "@/types";
 interface BrandCardProps {
   data: Brand
   onDelete: (id: string) => void;
   isPending: boolean;
-  selectedId: string | null;
+  selectedId?: string | null;
   editBrand?: string;
   deleteBrand?: string;
   loadingDelete?: string;
@@ -26,18 +24,19 @@ const BrandCardComponent = ({
   loadingDelete,
   module
 }: BrandCardProps) => {
-  const isDeleting = isPending && selectedId === data._id;
+  const isDeleting = isPending;
 
   return (
     <div className="col-lg-3 col-md-4 col-sm-6 col-12">
       <div className="single-brand-area-start">
-        <Link href={`/dashboard/${module}/${data.slug}`} className="logo">
+        <Link href={`/dashboard/${module}/${data.slug}`} className="logo ">
           <Image
             width={150}
             height={150}
             src={data.image}
             alt={data.name}
             className="img-fluid"
+            style={{objectFit:"cover"}}
           />
         </Link>
         <p className="item pt-4">{data.name}</p>

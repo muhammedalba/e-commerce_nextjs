@@ -1,11 +1,7 @@
 "use client";
 import React, { useCallback, useMemo, useState } from "react";
-
+import { SelectChangeEvent } from "@mui/material";
 import { useRouter } from "next/navigation";
-import {
-  useDeleteProduct,
-  useGetAllProducts,
-} from "@/lib/abi/hooks/useProducts";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import PageStatus from "../components/PageStatus";
@@ -14,13 +10,17 @@ import AlertDialogSlide from "../components/AlertDialogSlide";
 import { toast } from "react-toastify";
 import PaginationControls from "../components/PaginationControls";
 import GenericTable from "../components/GenericTable";
-import ProductRow from "./ProductRow";
+import {
+  useGetAllSuppliers,
+  useDeleteSupplier,
+} from "@/lib/abi/hooks/useSupplier";
+import SupplierRow from "./SupplierstRow";
 
-export default function ProductsPage() {
+export default function SuppliersPage() {
   const t = useTranslations("Products");
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("query");
-  const { mutate: deleteProduct, isPending } = useDeleteProduct();
+  const { mutate: deleteSupplier, isPending } = useDeleteSupplier();
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
@@ -29,30 +29,33 @@ export default function ProductsPage() {
   const router = useRouter();
 
   const numericLimit = useMemo(() => Number(itemsPerPage), [itemsPerPage]);
-  const { data, error, isLoading } = useGetAllProducts(
+  const { data, error, isLoading } = useGetAllSuppliers(
     page,
     numericLimit,
     searchQuery?.toString()
   );
-  // console.log(data);
+  console.log("data", data);
+  console.log("error", error);
 
   const columns = useMemo(
     () => [
-      { key: "imageCover", label: t("TableRowData.image"), colSpan: 1 },
-      { key: "title", label: t("TableRowData.title"), colSpan: 1 },
-      { key: "brand", label: t("TableRowData.brand"), colSpan: 1 },
-      { key: "category", label: t("TableRowData.category"), colSpan: 1 },
-      { key: "price", label: t("TableRowData.price"), colSpan: 1 },
-      { key: "quantity", label: t("TableRowData.quantity"), colSpan: 1 },
-      { key: "sold", label: t("TableRowData.sold"), colSpan: 1 },
+      { key: "avatar", label: t("TableRowData.image"), colSpan: 1 },
+      { key: "name", label: t("TableRowData.title"), colSpan: 1 },
+      { key: "contactName", label: t("TableRowData.brand"), colSpan: 1 },
+      { key: "address", label: t("TableRowData.category"), colSpan: 1 },
+      { key: "email", label: t("TableRowData.price"), colSpan: 1 },
+      { key: "phone", label: t("TableRowData.quantity"), colSpan: 1 },
+      { key: "status", label: t("TableRowData.sold"), colSpan: 1 },
+      { key: "website", label: t("TableRowData.actions"), colSpan: 1 },
       { key: "actions", label: t("TableRowData.actions"), colSpan: 2 },
     ],
     [t]
   );
 
+
   const handleEdit = useCallback(
     (slug: string) => {
-      router.push(`/dashboard/products/${slug}`);
+      router.push(`/dashboard/suppliers/${slug}`);
     },
     [router]
   );
@@ -75,14 +78,13 @@ export default function ProductsPage() {
         isPending={isPending}
         setSelectedId={setSelectedId}
         selectedId={selectedId}
-        deleteFn={deleteProduct}
+        deleteFn={deleteSupplier}
         t={t}
       />
-
       <PageTitleWithAddButton
         title={t("title")}
         buttonLabel={t("addProduct")}
-        path="/dashboard/product/addProduct"
+        path="/dashboard/supplier/addSupplier"
       />
 
       <div className="container mt-5">
@@ -100,7 +102,7 @@ export default function ProductsPage() {
           t={t}
           handleDeleteClick={handleDeleteClick}
           handleEdit={handleEdit}
-          Row={ProductRow}
+          Row={SupplierRow}
           noDataText={t("noProducts")}
         />
       </div>

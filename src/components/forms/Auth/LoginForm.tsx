@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useLogin } from "@/hooks/useAuth";
+import { useLogin } from "@/lib/abi/hooks/useAuth";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -76,17 +76,15 @@ export default function LoginForm() {
       />
       <InputError id="form-error" message={error?.message ?? undefined} />
 
-     
-        <SocialAuthButtons
-          title={t("login.orLoginWith")}
-          haveAccountText={t("login.dontHaveAccount")}
-          goLoginText={t("login.goRegister")}
-          forgotPassword={t("login.forgotPassword")}
-          forgetText={t("login.resetLink")}
-          forgetLink="forgotPassword"
-          authLink="register"
-        />
-
+      <SocialAuthButtons
+        title={t("login.orLoginWith")}
+        haveAccountText={t("login.dontHaveAccount")}
+        goLoginText={t("login.goRegister")}
+        forgotPassword={t("login.forgotPassword")}
+        forgetText={t("login.resetLink")}
+        forgetLink="forgotPassword"
+        authLink="register"
+      />
     </form>
   );
 }

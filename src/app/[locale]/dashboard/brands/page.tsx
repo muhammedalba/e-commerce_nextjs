@@ -1,72 +1,42 @@
 "use client";
-import { useDeleteBrand, useGetAllBrands } from "@/hooks/useBrands";
+import { useDeleteBrand, useGetAllBrands } from "@/lib/abi/hooks/useBrands";
 import { useSearchParams } from "next/navigation";
-import { useCallback, useMemo, useState, useTransition } from "react";
-import { toast } from "react-toastify";
-import { SelectChangeEvent } from "@mui/material/Select";
-import Loading from "../../loading";
+import { useCallback, useMemo, useState } from "react";
+
 import AlertDialogSlide from "../components/AlertDialogSlide";
 import { BrandCard } from "../components/BrandCard";
 import PaginationControls from "../components/PaginationControls";
 import { useTranslations } from "next-intl";
 import PageStatus from "../components/PageStatus";
 import PageTitleWithAddButton from "../components/PageTitleWithAddButton";
+import SkeletonGrid from "../components/SkeletonGrid";
 
 export default function Home() {
   const t = useTranslations("Brands");
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("query");
-  const [isPendingTransition, startTransition] = useTransition();
-  const { mutate: deleteBrand, isPending } = useDeleteBrand();
 
+  
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const [limit, setLimit] = useState("10");
   const [page, setPage] = useState(1);
-
   const numericLimit = useMemo(() => Number(limit), [limit]);
-
+  
+  
+  const { mutate: deleteBrand, isPending } = useDeleteBrand();
   const { data, isError, error, isSuccess, isLoading } = useGetAllBrands(
     page,
     numericLimit,
     searchQuery?.toString()
   );
 
-  const handleClose = useCallback(() => {
-    setOpen(false);
-    setSelectedId(null);
-  }, []);
-
-  const handleAgree = useCallback(() => {
-    if (!selectedId) return;
-    deleteBrand(selectedId, {
-      onSuccess: () => {
-        toast.success(t("deleteSuccess"));
-        handleClose();
-      },
-      onError: (err) => {
-        toast.error(err.message || t("deleteError"));
-        handleClose();
-      },
-    });
-  }, [selectedId, deleteBrand, handleClose]);
 
   const handleDeleteClick = useCallback((id: string) => {
     setSelectedId(id);
     setOpen(true);
   }, []);
 
-  const handleChange = useCallback((_: unknown, value: number) => {
-    startTransition(() => {
-      setPage(value);
-    });
-  }, []);
-
-  const handleChangeLimit = useCallback((event: SelectChangeEvent) => {
-    startTransition(() => {
-      setLimit(event.target.value);
-    });
-  }, []);
 
   const isEmpty = useMemo(
     () => isSuccess && data?.data.length === 0,
@@ -91,7 +61,9 @@ export default function Home() {
     [data?.data, handleDeleteClick, isPending, selectedId]
   );
 
-  if (isLoading || isPendingTransition) return <Loading />;
+  if (isLoading) {
+    return <SkeletonGrid count={12} width={150} height={150} />;
+  }
   if (isError)
     return (
       <p>
@@ -103,14 +75,17 @@ export default function Home() {
   return (
     <div className="body-root-inner">
       <AlertDialogSlide
+        setOpen={setOpen}
         open={open}
         title={t("confirmDeleteTitle")}
         message={t("confirmDeleteMessage")}
         agreeLabel={t("deleteLabel")}
         cancelLabel={t("cancelLabel")}
-        handleAgree={handleAgree}
-        handleClose={handleClose}
         isPending={isPending}
+        setSelectedId={setSelectedId}
+        selectedId={selectedId}
+        deleteFn={deleteBrand}
+        t={t}
       />
 
       <PageTitleWithAddButton
@@ -129,12 +104,12 @@ export default function Home() {
       </div>
 
       <PaginationControls
+        setPage={setPage}
+        setLimit={setLimit}
         limit={limit}
         page={page}
         count={data?.pagination.numberOfPages ?? 1}
-        isPending={isPendingTransition}
-        onLimitChange={handleChangeLimit}
-        onPageChange={handleChange}
+ 
       />
     </div>
   );

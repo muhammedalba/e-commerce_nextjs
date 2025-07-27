@@ -1,7 +1,9 @@
-import axiosInstance from "@/lib/axios";
+import axiosInstance from "@/lib/abi/axios";
 
 export const getProducts = (page: number, limit: number, keywords: string) =>
-  axiosInstance.get(`/products?keywords=${keywords}&page=${page}&limit=${limit}`);
+  axiosInstance.get(
+    `/products?keywords=${keywords}&page=${page}&limit=${limit}`
+  );
 
 export const getProductById = async (id: string) => {
   const { data } = await axiosInstance.get(`/products/${id}`);

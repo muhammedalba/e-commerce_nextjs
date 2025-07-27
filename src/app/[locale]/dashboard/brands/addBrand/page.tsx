@@ -2,7 +2,7 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useCreateBrand } from "@/hooks/useBrands";
+import { useCreateBrand } from "@/lib/abi/hooks/useBrands";
 import { BrandFormData, brandSchema } from "@/schemas/dashboard/brandSchema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";

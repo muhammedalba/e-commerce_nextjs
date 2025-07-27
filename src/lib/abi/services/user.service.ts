@@ -1,4 +1,4 @@
-import api from "@/lib/axios";
+import api from "@/lib/abi/axios";
 
 export const getAllUsers = () => api.get("/users");
 

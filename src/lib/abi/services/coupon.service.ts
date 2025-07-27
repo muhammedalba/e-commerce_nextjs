@@ -1,8 +1,9 @@
-import api from "@/lib/axios";
+import api from "@/lib/abi/axios";
 
 export const getAllCoupons = () => api.get("/coupons");
 
-export const applyCoupon = (code: string) => api.post("/coupons/apply", { code });
+export const applyCoupon = (code: string) =>
+  api.post("/coupons/apply", { code });
 
 export const createCoupon = (data: any) => api.post("/coupons", data);
 

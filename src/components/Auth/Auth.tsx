@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useCallback, useMemo, memo } from "react";
 import Link from "next/link";
 import Cookies from "js-cookie";
-import { useLogout } from "@/hooks/useAuth";
+import { useLogout } from "@/lib/abi/hooks/useAuth";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "use-intl";

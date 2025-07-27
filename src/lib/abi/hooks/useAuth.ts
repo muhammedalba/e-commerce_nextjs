@@ -6,7 +6,7 @@ import {
   verifyCode,
   resetPassword,
   logout,
-} from "@/services/api/auth.service";
+} from "@/lib/abi/services/auth.service";
 
 import type {
   LoginCredentials,
@@ -59,8 +59,6 @@ export function useResetPassword() {
       return response.data;
     },
   });
-
-
 }
 export function useLogout() {
   return useMutation<AuthResponse, Error>({
@@ -68,5 +66,5 @@ export function useLogout() {
       const response = await logout();
       return response.data;
     },
-  });}
-  
+  });
+}

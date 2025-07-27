@@ -11,7 +11,7 @@ import SubmitButton from "@/components/forms/SubmitButton";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import InputError from "@/components/common/InputError";
-import { useCreateCategory } from "@/hooks/useCategories";
+import { useCreateCategory } from "@/lib/abi/hooks/useCategories";
 import {
   CategoryFormData,
   categorySchema,

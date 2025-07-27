@@ -1,6 +1,17 @@
-import { createCategory, deleteCategory, getAllCategories, getCategoryById, updateCategory } from "@/services/api/category.service";
+import {
+  createCategory,
+  deleteCategory,
+  getAllCategories,
+  getCategoryById,
+  updateCategory,
+} from "@/lib/abi/services/category.service";
 import { CategoriesResponse, CategoryResponse } from "@/types";
-import { useQuery, keepPreviousData, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  useQuery,
+  keepPreviousData,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query";
 /**
  * Custom hook to fetch all categories with pagination.
  * @param {number} page - The current page number.
@@ -30,7 +41,9 @@ export function useDeleteCategory() {
     onMutate: async (id: string) => {
       await queryClient.cancelQueries({ queryKey: ["categories"] });
 
-      const previousData = queryClient.getQueryData<CategoriesResponse>(["categories"]);
+      const previousData = queryClient.getQueryData<CategoriesResponse>([
+        "categories",
+      ]);
 
       queryClient.setQueryData<CategoriesResponse>(["categories"], (old) => {
         if (!old) return old;

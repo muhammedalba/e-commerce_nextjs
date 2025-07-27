@@ -1,6 +1,5 @@
 "use client";
-
-import React, { useMemo, useCallback } from "react";
+import React, { useMemo, useCallback, useTransition } from "react";
 import {
   Box,
   CircularProgress,
@@ -15,21 +14,21 @@ import {
 
 interface Props {
   limit: string;
+  setPage: (value: number) => void;
+  setLimit: (value: string) => void;
   page: number;
   count: number;
-  isPending: boolean;
-  onLimitChange: (event: SelectChangeEvent) => void;
-  onPageChange: (_: unknown, value: number) => void;
 }
 
 export default function PaginationControls({
   limit,
   page,
   count,
-  isPending,
-  onLimitChange,
-  onPageChange,
+  setPage,
+  setLimit,
 }: Props) {
+  const [isPendingTransition, startTransition] = useTransition();
+
   const menuItems = useMemo(() => {
     const limits = [10, 20, 50];
     return limits.map((value) => (
@@ -38,7 +37,17 @@ export default function PaginationControls({
       </MenuItem>
     ));
   }, []);
-
+  const handleChange = useCallback((_: unknown, value: number) => {
+    startTransition(() => {
+      setPage(value);
+    });
+  }, []);
+  const handleChangeLimit = useCallback((event: SelectChangeEvent) => {
+    startTransition(() => {
+      setLimit(event.target.value);
+      setPage(1);
+    });
+  }, []);
   return (
     <Box
       sx={{
@@ -57,7 +66,7 @@ export default function PaginationControls({
           id="limit"
           value={limit}
           label="Limit"
-          onChange={onLimitChange}
+          onChange={handleChangeLimit}
         >
           {menuItems}
         </Select>
@@ -85,11 +94,11 @@ export default function PaginationControls({
           }}
           count={count}
           page={page}
-          onChange={onPageChange}
+          onChange={handleChange}
         />
       </Stack>
 
-      {isPending && <CircularProgress size={24} />}
+      {isPendingTransition && <CircularProgress size={24} />}
     </Box>
   );
 }
