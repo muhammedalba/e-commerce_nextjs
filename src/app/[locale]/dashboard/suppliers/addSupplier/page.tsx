@@ -9,9 +9,8 @@ import { useRouter } from "next/navigation";
 
 import MenuItem from "@mui/material/MenuItem";
 
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 
-import { motion } from "framer-motion";
 import FormInput from "@/components/forms/FormInput";
 import ImageDropzone from "@/lib/utils/ImageDropzone";
 import SubmitButton from "@/components/forms/SubmitButton";

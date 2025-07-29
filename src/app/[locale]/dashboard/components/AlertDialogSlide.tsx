@@ -57,11 +57,8 @@ const AlertDialogSlide: React.FC<AlertDialogSlideProps> = ({
         toast.success(t("deleteSuccess"));
         handleClose();
       },
-      onError: (err: unknown) => {
-         if (err instanceof Error) {
-          toast.error(err.message || t("deleteError"));
-        }
-        toast.error("حدث خطأ غير متوقع");
+      onError: (err: Error) => {     
+        toast.error(err.message || t("deleteError"));
         handleClose();
       },
     });

@@ -17,6 +17,8 @@
             "addProduct": "add Product",
             "categories": "categories",
             "addCategory": "add Category",
+            "supCategories":"sup Categories",
+            "addSupCategories":"add sup Categories",
             "brands": "brands",
             "addBrand": "addBrand",
             "users": "users",

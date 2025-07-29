@@ -49,7 +49,7 @@ export type Column<T> = {
 
 type GenericTableProps<T> = {
   data: T[];
-  error?: any;
+  error?: string;
   columns: Column<T>[];
   noDataText?: string;
   isLoading?: boolean;

@@ -79,6 +79,20 @@ const SidebarMenu = () => {
       ],
     },
     {
+      title: t("dashboardRoutes.supCategories"),
+      icon: "/assets/images-dashboard/icons/02.svg",
+      children: [
+        {
+          title: t("dashboardRoutes.supCategories"),
+          href: "/dashboard/supCategories",
+        },
+        {
+          title: t("dashboardRoutes.addSupCategories"),
+          href: "/dashboard/categories/addSupCategory",
+        },
+      ],
+    },
+    {
       title: t("dashboardRoutes.brands"),
       icon: "/assets/images-dashboard/icons/16.svg",
       children: [
@@ -90,7 +104,7 @@ const SidebarMenu = () => {
       ],
     },
     {
-      title:"Suppliers",
+      title: "Suppliers",
       icon: "/assets/images-dashboard/icons/16.svg",
       children: [
         { title: "Supplier", href: "/dashboard/suppliers" },

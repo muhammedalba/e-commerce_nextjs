@@ -4,13 +4,13 @@ import Link from "next/link";
 import Tooltip from "@mui/material/Tooltip";
 import { Brand } from "@/types";
 interface BrandCardProps {
-  data: Brand
+  data: Brand ;
   onDelete: (id: string) => void;
   isPending: boolean;
   editBrand?: string;
   deleteBrand?: string;
   loadingDelete?: string;
-  module:string
+  module: string;
 }
 
 const BrandCardComponent = ({
@@ -20,7 +20,7 @@ const BrandCardComponent = ({
   editBrand,
   deleteBrand,
   loadingDelete,
-  module
+  module,
 }: BrandCardProps) => {
   const isDeleting = isPending;
 
@@ -31,10 +31,10 @@ const BrandCardComponent = ({
           <Image
             width={150}
             height={150}
-            src={data.image}
-            alt={data.name}
+            src={data?.image || ""}
+            alt={data?.name}
             className="img-fluid"
-            style={{objectFit:"cover"}}
+            style={{ objectFit: "cover" }}
           />
         </Link>
         <p className="item pt-4">{data.name}</p>

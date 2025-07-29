@@ -6,6 +6,7 @@ export async function loadMessages(locale: string) {
     import(`./${locale}/Categories.json`),
     import(`./${locale}/Products.json`),
     import(`./${locale}/Supplier.json`),
+    import(`./${locale}/SupCategories.json`),
   ]);
 
   return {
@@ -15,5 +16,6 @@ export async function loadMessages(locale: string) {
     Categories: modules[3].default,
     Products: modules[4].default,
     Supplier: modules[5].default,
+    SupCategories: modules[6].default,
   };
 }

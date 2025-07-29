@@ -15,7 +15,7 @@ interface TableRowProps<T> {
 
 interface Props<T> {
   data: T[];
-  error?: any;
+  error?: string;
   columns: {
     key: string;
     label: string;

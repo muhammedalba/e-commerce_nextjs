@@ -17,6 +17,8 @@
     "addProduct": "اضافة منتج",
     "categories": "الفئات",
     "addCategory": "اضافة فئة",
+    "supCategories":"الفئات الفرعيه",
+    "addSupCategories":"اضف فئة فرعيه",
     "brands": "العلامات التجارية",
     "addBrand": "اضافة علامة تجارية",
     "users": "المستخدمين",

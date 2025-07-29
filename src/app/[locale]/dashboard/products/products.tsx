@@ -45,9 +45,15 @@ export default function ProductsPage() {
     ],
     [t]
   );
+
+
+  
 useEffect(()=>{
   if(error) toast.error(error.message)
 },[error])
+
+
+
   return (
     <div className="body-root-inner">
       <PageTitleWithAddButton

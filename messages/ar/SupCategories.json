@@ -1,0 +1,42 @@
+{
+      "TableRowData": {
+            "image": "صورة الفئة الرئيسيه",
+            "name": "الفئة الفرعية",
+            "categoryName": "اسم الفئة الرئيسيه",
+            "actions": "action"
+      },
+      "title": "الفئات الفرعيه",
+      "addSupCategory": "+  إضافة فئة فرعيه",
+      "page": "الصفحة",
+      "result": "النتائج",
+      "confirmDeleteTitle": " تأكيد حذف الفئة الفرعيه؟",
+      "confirmDeleteMessage": "هل أنت متأكد أنك تريد حذف هذه الفئة الفرعيه؟",
+      "deleteLabel": "حذف",
+      "cancelLabel": "إلغاء",
+      "deleteSuccess": "تم حذف الفئة  الفرعيه بنجاح",
+      "deleteError": "حدث خطأ أثناء الحذف",
+      "errorOccurred": "حدث خطأ",
+      "noSupCategories": "لا توجد فئات الفرعيه متاحة.",
+      "loadingDelete": "جارٍ الحذف...",
+      "deleteٍSupCategory": "حذف الفئة الفرعيه",
+      "editSupCategory": " تعديل الفئة الفرعيه",
+      "addSupCategorySubtitle": "أدخل المعلومات لإضافة فئة فرعيه جديدة",
+      "nameAr": "اسم الفئة  الفرعيه (بالعربية)",
+      "nameEn": "اسم الفئة الفرعيه (بالإنجليزية)",
+      "save": "حفظ",
+      "cancel": "إلغاء",
+      "success": "تمت إضافة الفئة الفرعيه بنجاح",
+      "error": " حدث خطأ أثناء إضافة الفئة الفرعيه",
+      "editCategoryTitle": " تعديل الفئة الفرعيه",
+      "editCategoryDescription": "قم بتحديث معلومات الفئة  الفرعيه حسب الحاجة.",
+      "CategoryNotFound": " لم يتم العثور على الفئة الفرعيه",
+      "updateSuccess": "تم تحديث الفئة الفرعيه بنجاح",
+      "loadingUpdate": "جارٍ التحديث...",
+      "loading": "جارٍ التحميل...",
+      "loadingAddSupCategory": "... جارٍ إضافة الفئة الفرعيه",
+      "Validation": {
+            "requiredName": "الاسم مطلوب",
+            "shortName": "الاسم قصير جدًا (الحد الأدنى 3 أحرف)",
+            "longName": "الاسم طويل جدًا (الحد الأقصى 32 حرفًا)"
+      }
+}

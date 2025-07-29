@@ -8,7 +8,6 @@ import {
 import { CategoriesResponse, CategoryResponse } from "@/types";
 import {
   useQuery,
-  keepPreviousData,
   useMutation,
   useQueryClient,
 } from "@tanstack/react-query";
@@ -96,7 +95,7 @@ export const useUpdateCategory = () => {
 
 export const useGetCategory = (slug: string) => {
   return useQuery<CategoryResponse, Error>({
-    queryKey: ["brand", slug],
+    queryKey: ["categories", slug],
     queryFn: async () => {
       const response = await getCategoryById(slug);
       return response.data;

@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import AlertDialogSlide from "./AlertDialogSlide";
 import { Brand, Category } from "@/types";
 interface Props {
-  data: Category[] | Brand[] ; 
+  data: Category[] | Brand[] ;
   module: string;
   title: string;
   message: string;

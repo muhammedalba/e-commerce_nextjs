@@ -1,0 +1,44 @@
+{
+  "TableRowData": {
+    "image": "category image",
+    "name": "title",
+    "categoryName": "category Name",
+    "actions": "action"
+  },
+  "title": "Our SupCategories",
+  "addSupCategory": "+ Add SupCategory",
+  "page": "Page",
+  "result": "Result",
+  "confirmDeleteTitle": "Confirm Delete SupCategory?",
+  "confirmDeleteMessage": "Are you sure you want to delete this SupCategory?",
+  "deleteLabel": "Delete",
+  "cancelLabel": "Cancel",
+  "deleteSuccess": "SupCategory deleted successfully",
+  "deleteError": "An error occurred while deleting",
+  "errorOccurred": "An error occurred",
+  "noSupCategories": "No SupCategorys available.",
+  "loadingDelete": "Deleting...",
+  "deleteSupCategory": "Delete SupCategory",
+  "editSupCategory": "Edit SupCategory",
+  "addSupCategorySubtitle": "Enter the information to add a new SupCategory",
+  "nameAr": "SupCategory Name (Arabic)",
+  "nameEn": "SupCategory Name (English)",
+  "save": "save",
+
+  "cancel": "Cancel",
+  "success": "SupCategory added successfully",
+  "error": "An error occurred while adding the SupCategory",
+  "editSupCategoryTitle": "Edit SupCategory",
+  "editSupCategoryDescription": "Update SupCategory information as needed.",
+  "SupCategoryNotFound": "SupCategory not found",
+  "updateSuccess": "SupCategory updated successfully",
+  "loadingUpdate": "Updating...",
+  "loading": "Loading...",
+  "loadingAddSupCategory": "Adding SupCategory...",
+  "Validation": {
+    "requiredName": "Name is required",
+    "shortName": "Name is too short (minimum 3 characters)",
+    "longName": "Name is too long (maximum 32 characters)",
+    "invalidImageType": "Unsupported image file type (only JPEG, PNG, WEBP allowed)"
+  }
+}
