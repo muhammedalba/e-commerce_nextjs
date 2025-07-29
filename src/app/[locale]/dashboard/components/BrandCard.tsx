@@ -7,7 +7,6 @@ interface BrandCardProps {
   data: Brand
   onDelete: (id: string) => void;
   isPending: boolean;
-  selectedId?: string | null;
   editBrand?: string;
   deleteBrand?: string;
   loadingDelete?: string;
@@ -18,7 +17,6 @@ const BrandCardComponent = ({
   data,
   onDelete,
   isPending,
-  selectedId,
   editBrand,
   deleteBrand,
   loadingDelete,

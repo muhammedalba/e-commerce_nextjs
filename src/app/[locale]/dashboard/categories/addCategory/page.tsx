@@ -29,6 +29,7 @@ const AddProductPage = () => {
 
   const schema = useMemo(() => categorySchema(t), [t]);
 
+
   const {
     register,
     handleSubmit,

@@ -49,6 +49,7 @@ export type Column<T> = {
 
 type GenericTableProps<T> = {
   data: T[];
+  error?: any;
   columns: Column<T>[];
   noDataText?: string;
   isLoading?: boolean;
@@ -57,6 +58,7 @@ type GenericTableProps<T> = {
   handleEdit: (slug: string) => void;
   Row: React.FC<{
     row: T;
+    isLoading?: boolean;
     onDelete: () => void;
     onEdit: () => void;
     t: (key: string) => string;
@@ -65,9 +67,7 @@ type GenericTableProps<T> = {
 };
 
 // ========== Component ==========
-export default function GenericTable<
-  T extends { slug: string; _id: string; }
->({
+export default function GenericTable<T extends { slug: string; _id: string }>({
   data,
   columns,
   noDataText = "No Data",
@@ -77,6 +77,7 @@ export default function GenericTable<
   handleEdit,
   Row,
   skeletonRowsCount = 5,
+  error,
 }: GenericTableProps<T>) {
   return (
     <>
@@ -85,6 +86,7 @@ export default function GenericTable<
 
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }}>
+          {/* Table Head  */}
           <TableHead>
             <TableRow>
               {columns.map((col) => (
@@ -94,7 +96,7 @@ export default function GenericTable<
               ))}
             </TableRow>
           </TableHead>
-
+          {/* table body */}
           <TableBody>
             {isLoading ? (
               [...Array(skeletonRowsCount)].map((_, i) => (
@@ -110,19 +112,30 @@ export default function GenericTable<
                   ))}
                 </StyledTableRow>
               ))
-            ) : data.length === 0 ? (
+            ) : data.length === 0 && !error ? (
               <StyledTableRow>
                 <StyledTableCell colSpan={columns.length} align="center">
                   {noDataText}
                 </StyledTableCell>
               </StyledTableRow>
+            ) : error ? (
+              <StyledTableRow>
+                <StyledTableCell
+                  style={{ color: "red" }}
+                  colSpan={columns.length}
+                  align="center"
+                >
+                  {error}
+                </StyledTableCell>
+              </StyledTableRow>
             ) : (
-              data.map((row) => (
+              data.map((data) => (
                 <Row
-                  key={row._id}
-                  row={row}
-                  onDelete={() => handleDeleteClick(row._id)}
-                  onEdit={() => handleEdit(row.slug)}
+                  key={data._id}
+                  row={data}
+                  isLoading={isLoading}
+                  onDelete={() => handleDeleteClick(data._id)}
+                  onEdit={() => handleEdit(data.slug)}
                   t={t}
                 />
               ))

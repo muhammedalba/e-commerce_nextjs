@@ -30,22 +30,6 @@ export type SupplierResponse = {
   message: string;
   results: number;
   pagination: Pagination;
-  data: {
-    _id: string;
-    name: {
-      ar: string;
-      en: string;
-    };
-    avatar: string;
-    createdAt: string;
-    updatedAt: string;
-    slug: string;
-    id: string;
-    website: string;
-    address: string;
-    email: string;
-    phone: string;
-    status: string;
-  };
+  data:SupplierType;
   hasMore: boolean;
 };

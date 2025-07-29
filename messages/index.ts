@@ -5,6 +5,7 @@ export async function loadMessages(locale: string) {
     import(`./${locale}/Brands.json`),
     import(`./${locale}/Categories.json`),
     import(`./${locale}/Products.json`),
+    import(`./${locale}/Supplier.json`),
   ]);
 
   return {
@@ -13,5 +14,6 @@ export async function loadMessages(locale: string) {
     Brands: modules[2].default,
     Categories: modules[3].default,
     Products: modules[4].default,
+    Supplier: modules[5].default,
   };
 }

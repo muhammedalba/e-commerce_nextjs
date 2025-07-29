@@ -96,7 +96,7 @@ const SidebarMenu = () => {
         { title: "Supplier", href: "/dashboard/suppliers" },
         {
           title: t("dashboardRoutes.addSupplier"),
-          href: "/dashboard/brands/addSupplier",
+          href: "/dashboard/suppliers/addSupplier",
         },
       ],
     },

@@ -66,7 +66,8 @@ bg_light-1
   /* --color-primary: #629D23; */
   /* --color-secondary: #2f3645; */
   --color-secondary: #1F1F25;
-  --color-body: #6E777D;
+  --color-body: #7d6e71;
+  /* --color-body: #6E777D; */
   --color-heading-1: #2C3C28;
   --color-white: #fff;
   --color-success: #3EB75E;
@@ -9561,6 +9562,7 @@ input[type=email],
 input[type=number],
 input[type=tel],
 textarea {
+  
   font-size: var(--font-size-b2);
   font-weight: 400;
   height: auto;
@@ -9895,7 +9897,7 @@ input[type=radio]~label::after {
   font-size: var(--font-size-b2);
   transition: var(--transition);
   padding: 0 20px;
-  background-color: var(--color-lightest);
+  /* background-color: var(--color-lightest); */
   border: 1px solid transparent;
   transition: var(--transition);
 }

@@ -1,12 +1,17 @@
 "use client";
+
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
-import { useMemo, useState, useCallback, useEffect } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { toast } from "react-toastify";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+
 import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
+
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+
+import { motion } from "framer-motion";
 import FormInput from "@/components/forms/FormInput";
 import ImageDropzone from "@/lib/utils/ImageDropzone";
 import SubmitButton from "@/components/forms/SubmitButton";
@@ -15,30 +20,23 @@ import {
   SupplierFormData,
   supplierSchema,
 } from "@/schemas/dashboard/supplierSchema";
-import { useGetSupplier, useUpdateSupplier } from "@/lib/abi/hooks/useSupplier";
+import { useCreateSupplier } from "@/lib/abi/hooks/useSupplier";
 
 export default function page() {
   const t = useTranslations("Supplier");
   const router = useRouter();
-  const { slug } = useParams<{ slug: string }>();
   const {
-    data: SupplierData,
-    isLoading,
-    error: errorSupplier,
-  } = useGetSupplier(slug);
-
-  const {
-    mutate: updateSupplier,
+    mutate: createSupplier,
     isPending,
     error,
     isSuccess,
-  } = useUpdateSupplier();
+  } = useCreateSupplier();
 
   const schema = useMemo(() => supplierSchema(t), [t]);
+  console.log(error);
 
   const {
     register,
-    reset,
     control,
     handleSubmit,
     setValue,
@@ -56,24 +54,6 @@ export default function page() {
       avatar: null,
     },
   });
-  useEffect(() => {
-    if (SupplierData) {
-      reset({
-        name: SupplierData.data?.name,
-        avatar: null,
-        email: SupplierData.data?.email,
-        address: SupplierData.data?.address,
-        contactName: SupplierData.data?.contactName,
-        website: SupplierData.data?.website,
-        status: SupplierData.data?.status === "active" ? "active" : "inactive",
-        phone: SupplierData.data?.phone,
-      });
-      setAvatarPreview(SupplierData.data?.avatar || null);
-    }
-    if (errorSupplier) {
-      toast.error(errorSupplier.message);
-    }
-  }, [SupplierData, reset]);
 
   const onSubmit = useCallback(
     (values: SupplierFormData) => {
@@ -87,26 +67,23 @@ export default function page() {
       formData.append("status", values.status);
       formData.append("phone", values.phone);
       if (values.avatar) formData.append("avatar", values.avatar);
-      if (SupplierData?.data?._id) {
-        updateSupplier(
-          { id: SupplierData?.data?._id, formData },
-          {
-            onSuccess(data) {
-              toast.success(data.message);
-              router.replace("/dashboard/suppliers");
-            },
-            onError(err) {
-              const message = err.message || t("error");
-              const messages = message.split(",");
-              messages.forEach((msg) => {
-                if (msg.trim()) toast.error(msg.trim());
-              });
-            },
-          }
-        );
-      }
+
+      createSupplier(formData, {
+        onSuccess(data) {
+          toast.success(data.message);
+          router.replace("/dashboard/suppliers");
+          console.log(data);
+        },
+        onError(err) {
+          const message = err.message || t("error");
+          const messages = message.split(",");
+          messages.forEach((msg) => {
+            if (msg.trim()) toast.error(msg.trim());
+          });
+        },
+      });
     },
-    [updateSupplier, router, t, SupplierData]
+    [createSupplier, router, t]
   );
 
   const handleFileSelect = useCallback(
@@ -127,11 +104,10 @@ export default function page() {
           <div className="card-body table-product-select">
             <div className="header-two show right-collups-add-product">
               <div className="right-collups-area-top my-5">
-                <h6 className="title fs-1">
-                  {t("editTitle")}
-                  {SupplierData?.data?.name || ""}
+                <h6 className="title fs-1" >
+                  {t("addSupplier")}
                 </h6>
-                <p>{t("editSupplierSubtitle")}</p>
+                <p>{t("addSupplierSubtitle")}</p>
               </div>
 
               <form
@@ -141,7 +117,6 @@ export default function page() {
                 <div className=" d-flex flex-wrap align-items-center gap-3 justify-content-between">
                   <div className="flex-grow-1">
                     <FormInput
-                      isLoading={isLoading}
                       id="name"
                       type="text"
                       label={`${t("name")}`}
@@ -152,7 +127,6 @@ export default function page() {
                   </div>
                   <div className="flex-grow-1">
                     <FormInput
-                      isLoading={isLoading}
                       id="contactName"
                       type="text"
                       label={`${t("TableRowData.contactName")}`}
@@ -164,7 +138,6 @@ export default function page() {
                 </div>
 
                 <FormInput
-                  isLoading={isLoading}
                   id="email"
                   type="email"
                   label={`${t("TableRowData.email")}`}
@@ -174,7 +147,6 @@ export default function page() {
                 />
 
                 <FormInput
-                  isLoading={isLoading}
                   id="phone"
                   type="text"
                   label={`${t("TableRowData.phone")}`}
@@ -184,7 +156,6 @@ export default function page() {
                 />
 
                 <FormInput
-                  isLoading={isLoading}
                   id="address"
                   type="text"
                   label={`${t("TableRowData.address")}`}
@@ -193,7 +164,6 @@ export default function page() {
                   error={errors.address?.message}
                 />
                 <FormInput
-                  isLoading={isLoading}
                   id="website"
                   type="url"
                   label={`${t("TableRowData.website")}`}
@@ -208,8 +178,8 @@ export default function page() {
                     render={({ field }) => (
                       <Select
                         labelId="status-label"
-                        label={t("status.label")}
-                        {...field}
+                        label={t('status.label')}
+                        {...field} 
                       >
                         <MenuItem value="active">{t("status.active")}</MenuItem>
                         <MenuItem value="inactive">
@@ -230,9 +200,9 @@ export default function page() {
                 />
 
                 <SubmitButton
-                  loading={isPending || isSuccess || isLoading}
-                  label={t("editSupplier")}
-                  loadingLabel={t("loadingUpdate")}
+                  loading={isPending || isSuccess}
+                  label={t("addSupplier")}
+                  loadingLabel={t("loadingAddSupplier")}
                   className="rts-btn btn-primary my-3 w-100"
                 />
 

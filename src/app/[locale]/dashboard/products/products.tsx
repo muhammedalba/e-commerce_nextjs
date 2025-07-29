@@ -1,7 +1,6 @@
 "use client";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
-import { useRouter } from "next/navigation";
 import {
   useDeleteProduct,
   useGetAllProducts,
@@ -10,11 +9,12 @@ import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import PageStatus from "../components/PageStatus";
 import PageTitleWithAddButton from "../components/PageTitleWithAddButton";
-import AlertDialogSlide from "../components/AlertDialogSlide";
-import { toast } from "react-toastify";
+
 import PaginationControls from "../components/PaginationControls";
-import GenericTable from "../components/GenericTable";
+
 import ProductRow from "./ProductRow";
+import GenericTableWithDelete from "../components/GenericTableWithDelete";
+import { toast } from "react-toastify";
 
 export default function ProductsPage() {
   const t = useTranslations("Products");
@@ -22,11 +22,8 @@ export default function ProductsPage() {
   const searchQuery = searchParams.get("query");
   const { mutate: deleteProduct, isPending } = useDeleteProduct();
 
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [open, setOpen] = useState(false);
   const [itemsPerPage, setItemsPerPage] = useState("10");
   const [page, setPage] = useState(1);
-  const router = useRouter();
 
   const numericLimit = useMemo(() => Number(itemsPerPage), [itemsPerPage]);
   const { data, error, isLoading } = useGetAllProducts(
@@ -34,7 +31,6 @@ export default function ProductsPage() {
     numericLimit,
     searchQuery?.toString()
   );
-  // console.log(data);
 
   const columns = useMemo(
     () => [
@@ -49,36 +45,11 @@ export default function ProductsPage() {
     ],
     [t]
   );
-
-  const handleEdit = useCallback(
-    (slug: string) => {
-      router.push(`/dashboard/products/${slug}`);
-    },
-    [router]
-  );
-
-
-  const handleDeleteClick = useCallback((id: string) => {
-    setSelectedId(id);
-    setOpen(true);
-  }, []);
-
+useEffect(()=>{
+  if(error) toast.error(error.message)
+},[error])
   return (
     <div className="body-root-inner">
-      <AlertDialogSlide
-        setOpen={setOpen}
-        open={open}
-        title={t("confirmDeleteTitle")}
-        message={t("confirmDeleteMessage")}
-        agreeLabel={t("deleteLabel")}
-        cancelLabel={t("cancelLabel")}
-        isPending={isPending}
-        setSelectedId={setSelectedId}
-        selectedId={selectedId}
-        deleteFn={deleteProduct}
-        t={t}
-      />
-
       <PageTitleWithAddButton
         title={t("title")}
         buttonLabel={t("addProduct")}
@@ -93,15 +64,21 @@ export default function ProductsPage() {
           className="mb-4"
         />
 
-        <GenericTable
+        <GenericTableWithDelete
           data={data?.data || []}
+          error={error?.message}
           columns={columns}
           isLoading={isLoading}
           t={t}
-          handleDeleteClick={handleDeleteClick}
-          handleEdit={handleEdit}
+          title={t("confirmDeleteTitle")}
           Row={ProductRow}
           noDataText={t("noProducts")}
+          message={t("confirmDeleteMessage")}
+          agreeLabel={t("deleteLabel")}
+          cancelLabel={t("cancelLabel")}
+          isPending={isPending}
+          deleteData={deleteProduct}
+          path="/dashboard/products"
         />
       </div>
 

@@ -1,15 +1,15 @@
 import { SupplierType } from "@/types/supplier";
 import {
   TableRow,
-  IconButton,
-  Tooltip,
   TableCell,
   tableCellClasses,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Image from "next/image";
-import Link from "next/link";
 
+import IconTooltipButton from "../components/IconTooltipButton";
+
+// ========== Styled Components ==========
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: "var(--color-primary)",
@@ -35,13 +35,14 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 type Props = {
+  isLoading?: boolean;
   row: SupplierType;
   onDelete: () => void;
   onEdit: () => void;
   t: (key: string) => string;
 };
 
-export default function SupplierRow({ row, onDelete, onEdit, t }: Props) {
+export default function SupplierRow({isLoading, row, onDelete, onEdit, t }: Props) {
   return (
     <StyledTableRow>
       <StyledTableCell onClick={onEdit}>
@@ -60,32 +61,48 @@ export default function SupplierRow({ row, onDelete, onEdit, t }: Props) {
 
       <StyledTableCell>{row.email || "--"}</StyledTableCell>
 
-      <StyledTableCell>{row.phone || "--"}</StyledTableCell>
-      <StyledTableCell sx={{ color: row.status === "active" ? "green" : "red" }}>{row.status || "--"}</StyledTableCell>
       <StyledTableCell>
-        <Link href={row.website}>website</Link>
+        <IconTooltipButton
+          tooltip={t("callWithePhone")}
+          iconClass="fa-light fa-phone-arrow-up-right"
+          href={`tel:${row.phone}`}
+        />
+      </StyledTableCell>
+      <StyledTableCell
+        sx={{ color: row.status === "active" ? "green" : "red" }}
+      >
+        {row.status || "--"}
+      </StyledTableCell>
+      <StyledTableCell>
+        {row.website ? (
+          <IconTooltipButton
+            tooltip={t("TableRowData.website")}
+            iconClass="fa-solid fa-globe"
+            href={row.website}
+          />
+        ) : (
+          "--"
+        )}
       </StyledTableCell>
 
       <StyledTableCell>
-        <Tooltip
-          title={t("deleteLabel")}
-          slotProps={{ tooltip: { sx: { fontSize: "1.3rem", p: 1 } } }}
-        >
-          <IconButton color="error" onClick={onDelete}>
-            <i className="fa-solid fa-trash-xmark fs-3" />
-          </IconButton>
-        </Tooltip>
+        <IconTooltipButton
+          tooltip={t("deleteLabel")}
+          iconClass="fa-solid fa-trash "
+          onClick={onDelete}
+          disabled={isLoading}
+          color="error"
+        />
       </StyledTableCell>
 
       <StyledTableCell>
-        <Tooltip
-          title={t("editProduct")}
-          slotProps={{ tooltip: { sx: { fontSize: "1.3rem", p: 1 } } }}
-        >
-          <IconButton color="primary" onClick={onEdit}>
-            <i className="fa-regular fa-file-pen fs-3" />
-          </IconButton>
-        </Tooltip>
+        <IconTooltipButton
+          tooltip={t("editSupplierTitle")}
+          iconClass="fa-regular fa-file-pen "
+          onClick={onEdit}
+          color="primary"
+          disabled={isLoading}
+        />
       </StyledTableCell>
     </StyledTableRow>
   );
