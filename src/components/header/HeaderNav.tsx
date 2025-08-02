@@ -78,7 +78,7 @@ function ComponentName() {
                   </div>
                   <Auth />
                   {/* wishlistItems  start*/}
-                    <WishList />
+                    {/* <WishList /> */}
                   {/* wishlistItems end */}
                   {/* cart start */}
                    <CartDropdown />
