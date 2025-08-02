@@ -2,8 +2,8 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { verifyCodeSchema } from "@/schemas/Auth/forgetPassSchema";
-import { StepCodeProps, VerifyCodeForm } from "@/types/auth";
+import { VerifyCodeForm, verifyCodeSchema } from "@/schemas/Auth/forgetPassSchema";
+import { StepCodeProps } from "@/types/auth";
 
 import FormInput from "../../FormInput";
 import InputError from "@/components/common/InputError";
