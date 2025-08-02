@@ -37,7 +37,7 @@ interface CarouselFormProps {
     }
   ) => void;
   isPending: boolean;
-  isLoading: boolean;
+  isLoading?: boolean;
   t: any;
 }
 
