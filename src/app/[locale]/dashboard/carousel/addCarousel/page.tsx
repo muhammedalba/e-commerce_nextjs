@@ -8,8 +8,7 @@ export default function Page() {
   const { mutate:createCarousel, isPending } = useCreateCarousel();
 
   return (
-    <CarouselFo
-    rm
+    <CarouselForm
       formType="create"
       onCreate={createCarousel} // from useCreateCarousel().mutate
       onUpdate={() => {}}
