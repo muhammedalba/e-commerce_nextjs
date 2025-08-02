@@ -7,7 +7,15 @@ interface IconTooltipButtonProps {
   iconClass: string;
   onClick?: () => void;
   href?: string;
-  color?: "primary" | "secondary" | "default" | "inherit" | "error" | "info" | "success" | "warning";
+  color?:
+    | "primary"
+    | "secondary"
+    | "default"
+    | "inherit"
+    | "error"
+    | "info"
+    | "success"
+    | "warning";
   tooltipSx?: object;
   buttonProps?: React.ComponentProps<typeof IconButton>;
 }
@@ -31,12 +39,12 @@ const IconTooltipButton: React.FC<IconTooltipButtonProps> = ({
         color={color}
         onClick={onClick}
         component={isLink ? "a" : "button"}
-        href={href}
+        {...(isLink ? { href } : {})}
         disabled={disabled}
         aria-label={tooltip}
         {...buttonProps}
       >
-        <i className={iconClass} />
+        <i className={`${iconClass} fs-2`} />
       </IconButton>
     </Tooltip>
   );

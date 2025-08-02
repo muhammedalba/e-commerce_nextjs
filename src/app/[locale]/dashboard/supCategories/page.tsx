@@ -10,13 +10,17 @@ import GenericTableWithDelete from "../components/GenericTableWithDelete";
 import {
   useDeleteSupCategory,
   useGetAllSupCategories,
-} from "@/lib/abi/hooks/useSupCategories";
+} from "@/lib/API/hooks/useSupCategories";
 import SupCategoryRow from "./SupCategoryRow";
 export default function Home() {
   const t = useTranslations("SupCategories");
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("query");
-  const { mutate: deleteSupCategory, isPending ,error:deleteError} = useDeleteSupCategory();
+  const {
+    mutate: deleteSupCategory,
+    isPending,
+    error: deleteError,
+  } = useDeleteSupCategory();
 
   const [limit, setLimit] = useState("10");
   const [page, setPage] = useState(1);
@@ -28,10 +32,6 @@ export default function Home() {
     numericLimit,
     searchQuery?.toString()
   );
-
-
-  console.log(data, "console.log(data)");
-  console.log(deleteError, "deleteError");
 
   const columns = useMemo(
     () => [
@@ -58,6 +58,7 @@ export default function Home() {
         {t("errorOccurred")}: {String(error)}
       </p>
     );
+
   if (isEmpty) return <p> {t("noSupCategories")} </p>;
 
   return (
@@ -75,7 +76,7 @@ export default function Home() {
       {/* card data   */}
       <GenericTableWithDelete
         data={data?.data || []}
-        error={error|| undefined}
+        error={error || undefined}
         columns={columns}
         isLoading={isLoading}
         t={t}

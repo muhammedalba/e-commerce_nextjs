@@ -4,7 +4,7 @@ import {
   getProductById,
   getProducts,
   updateProduct,
-} from "@/lib/abi/services/product.service";
+} from "@/lib/API/services/product.service";
 import { ProductResponse, ProductsResponse } from "@/types";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 

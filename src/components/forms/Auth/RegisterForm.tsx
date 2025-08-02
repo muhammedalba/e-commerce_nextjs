@@ -10,7 +10,7 @@ import {
   RegisterFormData,
   registerSchema,
 } from "@/schemas/Auth/registerSchema";
-import { useRegister } from "@/lib/abi/hooks/useAuth";
+import { useRegister } from "@/lib/API/hooks/useAuth";
 import FormInput from "../FormInput";
 import SubmitButton from "../SubmitButton";
 import ImageDropzone from "../../../lib/utils/ImageDropzone";

@@ -66,6 +66,8 @@ axiosInstance.interceptors.response.use(
         // if (typeof window !== "undefined") {
         //   window.location.href = "/login";
         // }
+        console.log("error data 1", error.response?.data);
+        console.log("error 1", error);
         return Promise.reject(err);
       } finally {
         isRefreshing = false;
@@ -76,7 +78,12 @@ axiosInstance.interceptors.response.use(
     const message =
       error.response?.data?.message ||
       error?.response?.data?.messages ||
+      error?.message ||
       "حدث خطأ في الاتصال بالخادم";
+
+    console.log("error data", error.response?.data);
+    console.log("error", error?.message);
+
     return Promise.reject(new Error(message));
   }
 );

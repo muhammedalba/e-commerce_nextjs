@@ -1,9 +1,5 @@
 import { SupplierType } from "@/types/supplier";
-import {
-  TableRow,
-  TableCell,
-  tableCellClasses,
-} from "@mui/material";
+import { TableRow, TableCell, tableCellClasses, Tooltip } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Image from "next/image";
 
@@ -42,7 +38,13 @@ type Props = {
   t: (key: string) => string;
 };
 
-export default function SupplierRow({isLoading, row, onDelete, onEdit, t }: Props) {
+export default function SupplierRow({
+  isLoading,
+  row,
+  onDelete,
+  onEdit,
+  t,
+}: Props) {
   return (
     <StyledTableRow>
       <StyledTableCell onClick={onEdit}>
@@ -55,11 +57,27 @@ export default function SupplierRow({isLoading, row, onDelete, onEdit, t }: Prop
         />
       </StyledTableCell>
 
-      <StyledTableCell>{row.name || "--"}</StyledTableCell>
-      <StyledTableCell>{row.contactName || "--"}</StyledTableCell>
-      <StyledTableCell>{row.address || "--"}</StyledTableCell>
+      <Tooltip
+        title={row.name}
+        slotProps={{ tooltip: { sx: { fontSize: "1.3rem",} } }}
+      >
+        <StyledTableCell>{row.contactName || "--"}</StyledTableCell>
+      </Tooltip>
+      <Tooltip
+        title={row.address}
+        slotProps={{ tooltip: { sx: { fontSize: "1.3rem",} } }}
+      >
+       <StyledTableCell>{row.address.slice(1,20) + "..." || "--"}</StyledTableCell>
+      </Tooltip>
+      
 
-      <StyledTableCell>{row.email || "--"}</StyledTableCell>
+      <StyledTableCell>
+        <IconTooltipButton
+          tooltip={row.email || "--"}
+          iconClass="fa-light fa-envelope"
+          href={`mailto:${row.email}`}
+        />
+      </StyledTableCell>
 
       <StyledTableCell>
         <IconTooltipButton

@@ -16,7 +16,7 @@ import {
   productSchema,
   ProductFormData,
 } from "@/schemas/dashboard/productSchema";
-import { useGetProduct, useUpdateProduct } from "@/lib/abi/hooks/useProducts";
+import { useGetProduct, useUpdateProduct } from "@/lib/API/hooks/useProducts";
 import MultipleImageDropzone from "@/lib/utils/FileDropzone";
 import BdfUploader from "@/lib/utils/BdfUploader";
 

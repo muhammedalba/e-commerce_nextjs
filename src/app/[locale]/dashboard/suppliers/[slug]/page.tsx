@@ -15,7 +15,7 @@ import {
   SupplierFormData,
   supplierSchema,
 } from "@/schemas/dashboard/supplierSchema";
-import { useGetSupplier, useUpdateSupplier } from "@/lib/abi/hooks/useSupplier";
+import { useGetSupplier, useUpdateSupplier } from "@/lib/API/hooks/useSupplier";
 
 export default function page() {
   const t = useTranslations("Supplier");

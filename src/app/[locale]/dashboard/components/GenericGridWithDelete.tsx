@@ -32,12 +32,15 @@ export default function GenericGridWithDelete({
   deleteData,
   loadingDelete,
 }: Props) {
+  
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
+
   const handleDeleteClick = useCallback((id: string) => {
     setSelectedId(id);
     setOpen(true);
   }, []);
+
   const dataList = useMemo(
     () =>
       data?.map((category) => (

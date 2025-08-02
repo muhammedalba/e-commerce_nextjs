@@ -1,4 +1,4 @@
-import api from "@/lib/abi/axios";
+import api from "@/lib/API/axios";
 
 export const getAllCoupons = () => api.get("/coupons");
 

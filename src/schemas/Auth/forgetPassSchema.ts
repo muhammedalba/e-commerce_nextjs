@@ -33,4 +33,6 @@ export const resetPasswordSchema = (t: any) =>
       path: ["confirmPassword"],
     });
 
-export type LoginFormData = z.infer<ReturnType<typeof forgetPassSchema>>;
+export type ForgetPasswordForm = z.infer<ReturnType<typeof forgetPassSchema>>;
+export type VerifyCodeForm = z.infer<ReturnType<typeof verifyCodeSchema>>;
+export type ResetPasswordForm = z.infer<ReturnType<typeof resetPasswordSchema>>;

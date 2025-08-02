@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
 import FormInput from "@/components/forms/FormInput";
 import ImageDropzone from "@/lib/utils/ImageDropzone";
-import { useGetBrand, useUpdateBrand } from "@/lib/abi/hooks/useBrands";
+import { useGetBrand, useUpdateBrand } from "@/lib/API/hooks/useBrands";
 import SubmitButton from "@/components/forms/SubmitButton";
 import { motion } from "framer-motion";
 import InputError from "@/components/common/InputError";
@@ -19,7 +19,7 @@ import {
 import {
   useGetCategory,
   useUpdateCategory,
-} from "@/lib/abi/hooks/useCategories";
+} from "@/lib/API/hooks/useCategories";
 
 const page = () => {
   const t = useTranslations("Categories");

@@ -4,13 +4,9 @@ import {
   getAllCategories,
   getCategoryById,
   updateCategory,
-} from "@/lib/abi/services/category.service";
+} from "@/lib/API/services/category.service";
 import { CategoriesResponse, CategoryResponse } from "@/types";
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 /**
  * Custom hook to fetch all categories with pagination.
  * @param {number} page - The current page number.

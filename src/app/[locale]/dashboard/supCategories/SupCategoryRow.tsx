@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Image from "next/image";
+import IconTooltipButton from "../components/IconTooltipButton";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -38,47 +39,43 @@ type Props = {
   onDelete: () => void;
   onEdit: () => void;
   t: (key: string) => string;
+  isLoading?: boolean;
 };
 
-export default function SupCategoryRow({ row, onDelete, onEdit, t }: Props) {
-
+export default function SupCategoryRow({ row, onDelete, onEdit, t, isLoading }: Props) {
   return (
     <StyledTableRow>
-
-
       <StyledTableCell>{row.name || "--"}</StyledTableCell>
-    
+
       <StyledTableCell>{row.category?.name || "--"}</StyledTableCell>
 
       <StyledTableCell onClick={onEdit}>
         <Image
           src={row.category?.image || "/placeholder.png"}
-          alt={row.category?.name|| "product"}
+          alt={row.category?.name || "product"}
           width={50}
           height={50}
           style={{ borderRadius: 4 }}
         />
       </StyledTableCell>
       <StyledTableCell>
-        <Tooltip
-          title={t("deleteLabel")}
-          slotProps={{ tooltip: { sx: { fontSize: "1.3rem", p: 1 } } }}
-        >
-          <IconButton color="error" onClick={onDelete}>
-            <i className="fa-solid fa-trash-xmark fs-3" />
-          </IconButton>
-        </Tooltip>
+        <IconTooltipButton
+          tooltip={t("deleteLabel")}
+          iconClass="fa-solid fa-trash-xmark fs-3"
+          onClick={onDelete}
+          color="error"
+          disabled={isLoading}
+        />
       </StyledTableCell>
 
       <StyledTableCell>
-        <Tooltip
-          title={t("editSupCategory")}
-          slotProps={{ tooltip: { sx: { fontSize: "1.3rem", p: 1 } } }}
-        >
-          <IconButton color="primary" onClick={onEdit}>
-            <i className="fa-regular fa-file-pen fs-3" />
-          </IconButton>
-        </Tooltip>
+        <IconTooltipButton
+          tooltip={t("editSupCategory")}
+          iconClass="fa-regular fa-file-pen fs-3"
+          onClick={onEdit}
+          color="primary"
+          disabled={isLoading}
+        />
       </StyledTableCell>
     </StyledTableRow>
   );

@@ -2,13 +2,12 @@ import { formatPrice } from "@/lib/utils/formatPrice";
 import { ProductType } from "@/types";
 import {
   TableRow,
-  IconButton,
-  Tooltip,
   TableCell,
   tableCellClasses,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Image from "next/image";
+import IconTooltipButton from "../components/IconTooltipButton";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -36,12 +35,19 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 type Props = {
   row: ProductType;
+  isLoading?: boolean;
   onDelete: () => void;
   onEdit: () => void;
   t: (key: string) => string;
 };
 
-export default function ProductRow({ row, onDelete, onEdit, t }: Props) {
+export default function ProductRow({
+  row,
+  onDelete,
+  onEdit,
+  t,
+  isLoading,
+}: Props) {
   const displayedPrice = row.priceAfterDiscount ?? row.price;
 
   return (
@@ -68,25 +74,23 @@ export default function ProductRow({ row, onDelete, onEdit, t }: Props) {
       <StyledTableCell>{row.sold ?? "--"}</StyledTableCell>
 
       <StyledTableCell>
-        <Tooltip
-          title={t("deleteLabel")}
-          slotProps={{ tooltip: { sx: { fontSize: "1.3rem", p: 1 } } }}
-        >
-          <IconButton color="error" onClick={onDelete}>
-            <i className="fa-solid fa-trash-xmark fs-3" />
-          </IconButton>
-        </Tooltip>
+        <IconTooltipButton
+          tooltip={t("deleteLabel")}
+          iconClass="fa-solid fa-trash-xmark fs-3"
+          onClick={onDelete}
+          color="error"
+          disabled={isLoading}
+        />
       </StyledTableCell>
 
       <StyledTableCell>
-        <Tooltip
-          title={t("editProduct")}
-          slotProps={{ tooltip: { sx: { fontSize: "1.3rem", p: 1 } } }}
-        >
-          <IconButton color="primary" onClick={onEdit}>
-            <i className="fa-regular fa-file-pen fs-3" />
-          </IconButton>
-        </Tooltip>
+        <IconTooltipButton
+          tooltip={t("editProduct")}
+          iconClass="fa-regular fa-file-pen fs-3"
+          onClick={onEdit}
+          color="primary"
+          disabled={isLoading}
+        />
       </StyledTableCell>
     </StyledTableRow>
   );

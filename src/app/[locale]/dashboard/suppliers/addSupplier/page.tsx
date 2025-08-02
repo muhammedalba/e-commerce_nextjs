@@ -19,7 +19,7 @@ import {
   SupplierFormData,
   supplierSchema,
 } from "@/schemas/dashboard/supplierSchema";
-import { useCreateSupplier } from "@/lib/abi/hooks/useSupplier";
+import { useCreateSupplier } from "@/lib/API/hooks/useSupplier";
 
 export default function page() {
   const t = useTranslations("Supplier");
@@ -103,9 +103,7 @@ export default function page() {
           <div className="card-body table-product-select">
             <div className="header-two show right-collups-add-product">
               <div className="right-collups-area-top my-5">
-                <h6 className="title fs-1" >
-                  {t("addSupplier")}
-                </h6>
+                <h6 className="title fs-1">{t("addSupplier")}</h6>
                 <p>{t("addSupplierSubtitle")}</p>
               </div>
 
@@ -177,8 +175,8 @@ export default function page() {
                     render={({ field }) => (
                       <Select
                         labelId="status-label"
-                        label={t('status.label')}
-                        {...field} 
+                        label={t("status.label")}
+                        {...field}
                       >
                         <MenuItem value="active">{t("status.active")}</MenuItem>
                         <MenuItem value="inactive">

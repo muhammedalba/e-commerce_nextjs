@@ -1,105 +1,107 @@
 "use client";
-
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter, useParams } from "next/navigation";
-import { toast } from "react-toastify";
+import React, { useCallback, useEffect, useMemo } from "react";
+import { useParams, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "react-toastify";
 import FormInput from "@/components/forms/FormInput";
-import ImageDropzone from "@/lib/utils/ImageDropzone";
 import SubmitButton from "@/components/forms/SubmitButton";
+import Link from "next/link";
 import { motion } from "framer-motion";
+import InputLabel from "@mui/material/InputLabel";
 import InputError from "@/components/common/InputError";
+import {
+  useUpdateSupCategory,
+  useGetSupCategory,
+} from "@/lib/API/hooks/useSupCategories";
+import { useGetAllCategories } from "@/lib/API/hooks/useCategories";
 import {
   SupCategoryFormData,
   supCategorySchema,
 } from "@/schemas/dashboard/supCategorySchema";
-import {
-  useGetSupCategory,
-  useUpdateSupCategory,
-} from "@/lib/abi/hooks/useSupCategories";
 
-const page = () => {
+const AddSupCategoryPage = () => {
   const t = useTranslations("SupCategories");
   const router = useRouter();
   const { slug } = useParams<{ slug: string }>();
-
+  const { data: SupCategoryData, isLoading: loadingSupCategory } =
+    useGetSupCategory(slug);
   const schema = useMemo(() => supCategorySchema(t), [t]);
+  const {
+    data,
+    isError,
+    error: errorCate,
+    isLoading,
+  } = useGetAllCategories(1, 1000);
+
+  const {
+    mutate: UpdateSupCategory,
+    isPending,
+    isSuccess,
+    error,
+  } = useUpdateSupCategory();
+  // console.log(error, "error");
+  // console.log(data, "data cate");
+  // console.log("SupCategoryData?.data ",SupCategoryData?.data );
 
   const {
     register,
-    handleSubmit,
-    setValue,
     reset,
+    control,
+    handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
     defaultValues: {
-      name: { ar: "", en: "" },
-      image: null,
+      name: {
+        ar: "",
+        en: "",
+      },
+      category: "",
     },
   });
 
-  const { data: supCategoryData, isLoading } = useGetSupCategory(slug);
-  const { mutate: updateSupCategory, isPending, error } = useUpdateSupCategory();
-
-  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
-
   useEffect(() => {
-    if (supCategoryData) {
+    if (SupCategoryData) {
       reset({
         name: {
-          ar: supCategoryData.data?.name.ar,
-          en: supCategoryData.data?.name.en,
+          ar: SupCategoryData.data?.name.ar,
+          en: SupCategoryData.data?.name.en,
         },
-        image: null,
+        category: SupCategoryData.data?.category,
       });
-      setAvatarPreview(supCategoryData.data?.image || null);
     }
-  }, [supCategoryData, reset]);
+  }, [SupCategoryData, reset]);
 
   const onSubmit = useCallback(
     (values: SupCategoryFormData) => {
-      const formData = new FormData();
-      formData.append("name[ar]", values.name.ar);
-      formData.append("name[en]", values.name.en);
-      if (values.image) formData.append("image", values.image);
-      if (supCategoryData?.data._id) {
-        updateSupCategory(
-          { id: supCategoryData?.data._id, formData },
+      console.log("SupCategoryData?.data._id", SupCategoryData?.data._id);
+
+      if (SupCategoryData?.data._id) {
+        UpdateSupCategory(
+          {
+            id: SupCategoryData?.data._id,
+            Data: values,
+          },
           {
             onSuccess(data) {
-              toast.success(data.message || t("updateSuccess"));
+              toast.success(data?.message || t("success"));
               router.push("/dashboard/supCategories");
             },
             onError(err) {
               const message = err.message || t("error");
-              const messages = message.split(",");
-              messages.forEach((msg) => {
-                if (msg.trim()) toast.error(msg.trim());
-              });
+              message.split(",").forEach((msg) => toast.error(msg.trim()));
             },
           }
         );
-      } else {
-        toast.error(t("SupCategoryNotFound"));
-        return;
       }
     },
-    [updateSupCategory, supCategoryData, router, t]
+    [UpdateSupCategory, router, t, SupCategoryData]
   );
-
-  const handleFileSelect = useCallback(
-    (file: File | null) => {
-      setValue("image", file, { shouldValidate: true });
-    },
-    [setValue]
-  );
-
-  const handleCancel = () => {
-    router.back();
-  };
 
   const containerVariants = {
     hidden: { opacity: 0, y: 30 },
@@ -118,12 +120,13 @@ const page = () => {
     visible: { opacity: 1, y: 0 },
   };
 
-  const imageVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.4 } },
-  };
-
-  if (isLoading) return <p>Loading...</p>;
+  const MenuItems = data?.data.map((item) => {
+    return (
+      <MenuItem key={item.id} value={item.id}>
+        {item.name}
+      </MenuItem>
+    );
+  });
 
   return (
     <motion.div
@@ -137,15 +140,11 @@ const page = () => {
           <div className="card-body table-product-select">
             <div className="header-two show right-collups-add-product">
               <div className="right-collups-area-top">
-                <motion.h6
-                  className="title"
-                  style={{ fontSize: "32px" }}
-                  variants={itemVariants}
-                >
-                  {t("editSupCategoryTitle")}
+                <motion.h6 className="title fs-1" variants={itemVariants}>
+                  {t("addSupCategory")}
                 </motion.h6>
                 <motion.p variants={itemVariants}>
-                  {t("editSupCategoryDescription")}
+                  {t("addSupCategorySubtitle")}
                 </motion.p>
               </div>
 
@@ -162,7 +161,6 @@ const page = () => {
                     error={errors.name?.ar?.message}
                   />
                 </motion.div>
-
                 <motion.div className="single-input" variants={itemVariants}>
                   <FormInput
                     id="name.en"
@@ -172,20 +170,29 @@ const page = () => {
                     error={errors.name?.en?.message}
                   />
                 </motion.div>
+                <motion.div className="single-input" variants={itemVariants}>
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">
+                      {t("TableRowData.categoryName")}
+                    </InputLabel>
 
-                <motion.div className="single-input" variants={imageVariants}>
-                  <ImageDropzone
-                    error={errors.image?.message as string}
-                    preview={avatarPreview}
-                    setPreview={setAvatarPreview}
-                    onFileSelect={handleFileSelect}
-                    label={t("uploadImage")}
-                    removeLabel={t("removeImage")}
-                  />
+                    <Controller
+                      name="category"
+                      control={control}
+                      render={({ field }) => (
+                        <Select
+                          labelId="status-label"
+                          label={t("TableRowData.categoryName")}
+                          {...field}
+                        >
+                          {MenuItems}
+                        </Select>
+                      )}
+                    />
+                  </FormControl>
                 </motion.div>
-
                 <motion.div
-                  className="button-area-botton-wrapper-p-list justify-content-between"
+                  className="button-area-botton-wrapper-p-list justify-content-between mt-5"
                   variants={itemVariants}
                 >
                   <motion.div
@@ -193,22 +200,24 @@ const page = () => {
                     whileTap={{ scale: 0.95 }}
                   >
                     <SubmitButton
-                      loading={isPending || isLoading}
-                      label={t("save")}
-                      loadingLabel={t("loadingUpdate")}
-                      className="rts-btn btn-primary"
+                      loading={isPending || isSuccess}
+                      label={t("addSupCategory")}
+                      loadingLabel={t("loadingAddSupCategory")}
+                      className="rts-btn btn-primary mb-0"
                     />
                   </motion.div>
 
-                  <motion.button
-                    type="button"
-                    className="rts-btn btn-primary bg-transparent"
-                    onClick={handleCancel}
+                  <motion.div
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    {t("cancel")}
-                  </motion.button>
+                    <Link
+                      href="/dashboard/supCategories"
+                      className="rts-btn btn-danger rounded rounded-5 mb-0"
+                    >
+                      {t("cancel")}
+                    </Link>
+                  </motion.div>
                 </motion.div>
                 <InputError
                   id="form-error"
@@ -224,4 +233,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default AddSupCategoryPage;

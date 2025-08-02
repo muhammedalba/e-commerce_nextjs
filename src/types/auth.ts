@@ -1,25 +1,9 @@
-// types/auth.ts
-import { z } from "zod";
 import {
-  forgetPassSchema,
-  verifyCodeSchema,
-  resetPasswordSchema,
+  ForgetPasswordForm,
+  VerifyCodeForm,
+  ResetPasswordForm,
 } from "@/schemas/Auth/forgetPassSchema";
-import { loginSchema } from "@/schemas/Auth/loginSchema";
 
-// ------------------------------
-// أنواع البيانات القادمة من النماذج (Forms)
-// ------------------------------
-export type ForgetPasswordForm = z.infer<ReturnType<typeof forgetPassSchema>>;
-export type VerifyCodeForm = z.infer<ReturnType<typeof verifyCodeSchema>>;
-export type ResetPasswordForm = z.infer<ReturnType<typeof resetPasswordSchema>>;
-export type LoginFormData = z.infer<ReturnType<typeof loginSchema>>;
-
-// إضافة أنواع بيانات الإدخال الخاصة بالـ hooks (ممكن تستخدم نفس أسماء الأنواع مع اختلاف في التسمية لو تحب)
-export type LoginCredentials = LoginFormData;
-export type ForgotCredentials = ForgetPasswordForm;
-export type VerifyCodeCredentials = VerifyCodeForm;
-export type ResetPasswordCredentials = LoginFormData;
 
 // ------------------------------
 // Props مشتركة بين المكونات

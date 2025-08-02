@@ -11,7 +11,7 @@ import SubmitButton from "@/components/forms/SubmitButton";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import InputError from "@/components/common/InputError";
-import { useCreateCategory } from "@/lib/abi/hooks/useCategories";
+import { useCreateCategory } from "@/lib/API/hooks/useCategories";
 import {
   CategoryFormData,
   categorySchema,
@@ -28,7 +28,6 @@ const AddProductPage = () => {
   } = useCreateCategory();
 
   const schema = useMemo(() => categorySchema(t), [t]);
-
 
   const {
     register,

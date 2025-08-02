@@ -6,18 +6,18 @@ import {
   verifyCode,
   resetPassword,
   logout,
-} from "@/lib/abi/services/auth.service";
+} from "@/lib/API/services/auth.service";
 
-import type {
-  LoginCredentials,
-  ForgotCredentials,
-  VerifyCodeCredentials,
-  ResetPasswordCredentials,
-  AuthResponse,
-} from "@/types/auth";
+import type { AuthResponse } from "@/types/auth";
+
+import { LoginFormData } from "@/schemas/Auth/loginSchema";
+import {
+  ForgetPasswordForm,
+  VerifyCodeForm,
+} from "@/schemas/Auth/forgetPassSchema";
 
 export function useLogin() {
-  return useMutation<AuthResponse, Error, LoginCredentials>({
+  return useMutation<AuthResponse, Error, LoginFormData>({
     mutationFn: async (data) => {
       const response = await login(data);
       return response.data;
@@ -35,7 +35,7 @@ export function useRegister() {
 }
 
 export function useForgotPassword() {
-  return useMutation<AuthResponse, Error, ForgotCredentials>({
+  return useMutation<AuthResponse, Error, ForgetPasswordForm>({
     mutationFn: async (data) => {
       const response = await forgotPassword(data);
       return response.data;
@@ -44,7 +44,7 @@ export function useForgotPassword() {
 }
 
 export function useVerifyCode() {
-  return useMutation<AuthResponse, Error, VerifyCodeCredentials>({
+  return useMutation<AuthResponse, Error, VerifyCodeForm>({
     mutationFn: async (data) => {
       const response = await verifyCode(data);
       return response.data;
@@ -53,7 +53,7 @@ export function useVerifyCode() {
 }
 
 export function useResetPassword() {
-  return useMutation<AuthResponse, Error, ResetPasswordCredentials>({
+  return useMutation<AuthResponse, Error, LoginFormData>({
     mutationFn: async (data) => {
       const response = await resetPassword(data);
       return response.data;

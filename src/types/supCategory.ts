@@ -11,7 +11,6 @@ export type SupCategoryType = {
   slug: string;
 };
 
-
 export type SupCategoriesResponse = {
   status: "success" | "error";
   message: string;
@@ -27,6 +26,7 @@ export type SupCategoryResponse = {
   data: {
     _id: string;
     name: { ar: string; en: string };
+    category: string;
     createdAt: string;
     updatedAt: string;
     slug: string;

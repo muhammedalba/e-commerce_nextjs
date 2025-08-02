@@ -86,7 +86,7 @@ function ComponentName() {
                 </div>
                 {/* search start */}
                 <div className="actions-area flex-row-reverse">
-                  <div
+                  {/* <div
                     className="search-btn"
                     id="search"
                     onClick={handleSearchOpen}
@@ -103,7 +103,7 @@ function ComponentName() {
                         fill="#1F1F25"
                       />
                     </svg>
-                  </div>
+                  </div> */}
                   <div className="actions-area w-auto px-3">
                     <LanguageToggle />
                   </div>

@@ -1,4 +1,4 @@
-import axiosInstance from "@/lib/abi/axios";
+import axiosInstance from "@/lib/API/axios";
 
 export const getAllCategories = async (
   page: number,

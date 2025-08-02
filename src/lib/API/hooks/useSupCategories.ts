@@ -6,8 +6,9 @@ import {
   updateSupCategory,
   createSupCategory,
   deleteSupCategory,
-} from "@/lib/abi/services/supCategory.service";
+} from "@/lib/API/services/supCategory.service";
 import { SupCategoryFormData } from "@/schemas/dashboard/supCategorySchema";
+
 export function useGetAllSupCategories(
   page: number = 1,
   limit: number = 10,
@@ -78,7 +79,7 @@ export const useUpdateSupCategory = () => {
       Data,
     }: {
       id: string;
-      Data: { name: { ar: string; en: string }; category: string };
+      Data: SupCategoryFormData;
     }) => {
       const response = await updateSupCategory(id, Data);
       return response.data;

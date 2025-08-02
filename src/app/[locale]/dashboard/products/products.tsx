@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import {
   useDeleteProduct,
   useGetAllProducts,
-} from "@/lib/abi/hooks/useProducts";
+} from "@/lib/API/hooks/useProducts";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import PageStatus from "../components/PageStatus";
@@ -46,13 +46,9 @@ export default function ProductsPage() {
     [t]
   );
 
-
-  
-useEffect(()=>{
-  if(error) toast.error(error.message)
-},[error])
-
-
+  useEffect(() => {
+    if (error) toast.error(error.message);
+  }, [error]);
 
   return (
     <div className="body-root-inner">

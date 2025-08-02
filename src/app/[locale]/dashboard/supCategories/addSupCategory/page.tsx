@@ -14,8 +14,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import InputLabel from "@mui/material/InputLabel";
 import InputError from "@/components/common/InputError";
-import { useCreateSupCategory } from "@/lib/abi/hooks/useSupCategories";
-import { useGetAllCategories } from "@/lib/abi/hooks/useCategories";
+import { useCreateSupCategory } from "@/lib/API/hooks/useSupCategories";
+import { useGetAllCategories } from "@/lib/API/hooks/useCategories";
 import {
   SupCategoryFormData,
   supCategorySchema,
@@ -91,7 +91,11 @@ const AddSupCategoryPage = () => {
   };
 
   const MenuItems = data?.data.map((item) => {
-    return <MenuItem value={item.id}>{item.name}</MenuItem>;
+    return (
+      <MenuItem key={item.id} value={item.id}>
+        {item.name}
+      </MenuItem>
+    );
   });
 
   return (
@@ -137,14 +141,16 @@ const AddSupCategoryPage = () => {
                   />
                 </motion.div>
                 <motion.div className="single-input" variants={itemVariants}>
-                  <FormControl fullWidth >
-                    <InputLabel id="demo-simple-select-label">{t("TableRowData.categoryName")}</InputLabel>
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">
+                      {t("TableRowData.categoryName")}
+                    </InputLabel>
 
-                    <Controller 
+                    <Controller
                       name="category"
                       control={control}
                       render={({ field }) => (
-                        <Select 
+                        <Select
                           labelId="status-label"
                           label={t("TableRowData.categoryName")}
                           {...field}

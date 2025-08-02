@@ -8,14 +8,10 @@ import PaginationControls from "../components/PaginationControls";
 import {
   useGetAllSuppliers,
   useDeleteSupplier,
-} from "@/lib/abi/hooks/useSupplier";
+} from "@/lib/API/hooks/useSupplier";
 import SupplierRow from "./SupplierstRow";
 import GenericTableWithDelete from "../components/GenericTableWithDelete";
 import { toast } from "react-toastify";
-
-
-
-
 
 export default function SuppliersPage() {
   const t = useTranslations("Supplier");
@@ -39,7 +35,6 @@ export default function SuppliersPage() {
   const columns = useMemo(
     () => [
       { key: "avatar", label: t("TableRowData.avatar"), colSpan: 1 },
-      { key: "name", label: t("TableRowData.name"), colSpan: 1 },
       { key: "contactName", label: t("TableRowData.contactName"), colSpan: 1 },
       { key: "address", label: t("TableRowData.address"), colSpan: 1 },
       { key: "email", label: t("TableRowData.email"), colSpan: 1 },

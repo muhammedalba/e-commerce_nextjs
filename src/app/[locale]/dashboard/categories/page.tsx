@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import {
   useDeleteCategory,
   useGetAllCategories,
-} from "@/lib/abi/hooks/useCategories";
+} from "@/lib/API/hooks/useCategories";
 import PageStatus from "../components/PageStatus";
 import PageTitleWithAddButton from "../components/PageTitleWithAddButton";
 import SkeletonGrid from "../components/SkeletonGrid";

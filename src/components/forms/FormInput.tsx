@@ -15,6 +15,7 @@ export default function FormInput({
   register,
   disabled = false,
 }: FormInputProps) {
+  const { onChange, onBlur, name, ref } = register || {};
   return (
     <motion.div
       className="input-wrapper mb-3"
@@ -36,7 +37,10 @@ export default function FormInput({
         <input
           id={id}
           type={type}
-          {...register}
+          onChange={onChange}
+          onBlur={onBlur}
+          name={name}
+          ref={ref}
           placeholder={label}
           className={`form-control ${error ? "is-invalid " : ""}`}
           aria-describedby={`${id}-error`}

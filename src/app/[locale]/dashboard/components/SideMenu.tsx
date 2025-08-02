@@ -138,6 +138,14 @@ const SidebarMenu = () => {
         { title: "Registration", href: "/dashboard/registration" },
       ],
     },
+    {
+      title: "carousel",
+      icon: "/assets/images-dashboard/icons/05.svg",
+      children: [
+        { title: "carousel", href: "/dashboard/carousel" },
+        { title: "add carousel", href: "/dashboard/addCarousel" },
+      ],
+    },
   ];
   useEffect(() => {
     // Find the index of the menu item that has a child matching the current path

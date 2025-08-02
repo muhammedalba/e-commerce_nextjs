@@ -4,7 +4,7 @@ import Link from "next/link";
 import Tooltip from "@mui/material/Tooltip";
 import { Brand } from "@/types";
 interface BrandCardProps {
-  data: Brand ;
+  data: Brand;
   onDelete: (id: string) => void;
   isPending: boolean;
   editBrand?: string;
@@ -39,6 +39,13 @@ const BrandCardComponent = ({
         </Link>
         <p className="item pt-4">{data.name}</p>
         <div className="d-flex align-item-center justify-content-between">
+          {/* <IconTooltipButton
+            tooltip={t("deleteLabel")}
+            iconClass="fa-solid fa-trash-xmark fs-3"
+            onClick={onDelete}
+            color="error"
+            disabled={isLoading}
+          /> */}
           <Tooltip
             title={isDeleting ? loadingDelete : deleteBrand || "حذف"}
             slotProps={{

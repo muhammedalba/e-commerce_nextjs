@@ -1,5 +1,5 @@
 "use client";
-import { useDeleteBrand, useGetAllBrands } from "@/lib/abi/hooks/useBrands";
+import { useDeleteBrand, useGetAllBrands } from "@/lib/API/hooks/useBrands";
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
