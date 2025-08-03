@@ -16,6 +16,7 @@ export default function FormInput({
   disabled = false,
 }: FormInputProps) {
   const { onChange, onBlur, name, ref } = register || {};
+
   return (
     <motion.div
       className="input-wrapper mb-3"

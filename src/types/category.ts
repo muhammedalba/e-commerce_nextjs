@@ -2,7 +2,7 @@ import { Pagination } from "./sharedTypes";
 import { SupCategoryType } from "./supCategory";
 
 
-export type Category = {
+export type CategoryType = {
   _id: string;
   name: string;
   image: string;
@@ -18,7 +18,7 @@ export type CategoriesResponse = {
   message: string;
   results: number;
   pagination: Pagination;
-  data: Category[];
+  data: CategoryType[];
   hasMore: boolean;
 };
 export type CategoryResponse = {

@@ -6,11 +6,14 @@ import CarouselForm from "../../components/CarouselForm";
 
 export default function Page() {
   const t = useTranslations("Carousel");
-  const { slug } = useParams();
-  const { data, isError, error, isLoading } = useGetCarousel(slug as string);
-  const { mutate: updateCarousel, isPending } = useUpdateCarousel();
- console.log(data);
-  if (isLoading) return <p>{t("loading")}</p>;
+  const { slug } = useParams<{ slug: string }>();
+  const { data, isError, error, isLoading } = useGetCarousel(slug);
+  const {
+    mutate: updateCarousel,
+    isPending,
+    error: updateError,
+  } = useUpdateCarousel();
+
   if (isError) return <p>{t("errorOccurred") + ": " + error.message}</p>;
 
   return (
@@ -19,9 +22,10 @@ export default function Page() {
       initialData={data}
       onCreate={() => {}}
       onUpdate={updateCarousel}
-      isPending={isPending }
-      isLoading={isLoading }
+      isPending={isPending}
+      isLoading={isLoading}
       t={t}
+      error={updateError || error}
     />
   );
 }

@@ -1,6 +1,6 @@
 import { Pagination } from "./sharedTypes";
 
-export type Brand = {
+export type BrandType = {
   _id: string;
   name: string;
   image: string;
@@ -15,7 +15,7 @@ export type BrandsResponse = {
   message: string;
   results: number;
   pagination: Pagination;
-  data: Brand[];
+  data: BrandType[];
   hasMore: boolean;
 };
 export type BrandResponse = {

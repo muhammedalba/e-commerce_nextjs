@@ -3,3 +3,5 @@ export * from './brands';
 export * from './product';
 export * from './sharedTypes';
 export * from './supCategory';
+export * from './carousel';
+export * from './supplier';

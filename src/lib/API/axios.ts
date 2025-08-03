@@ -69,7 +69,7 @@ axiosInstance.interceptors.response.use(
       }
     }
 
-    // 🧼 أي خطأ آخر
+    //  أي خطأ آخر
     const message =
       error.response?.data?.message ||
       error.response?.data?.messages ||

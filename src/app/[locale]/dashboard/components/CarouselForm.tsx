@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
@@ -22,6 +22,7 @@ import { InputLabel, MenuItem } from "@mui/material";
 interface CarouselFormProps {
   initialData?: CarouselResponse;
   formType: "create" | "update";
+  error?: any;
   onCreate: (
     formData: FormData,
     options?: {
@@ -49,6 +50,7 @@ const CarouselForm: React.FC<CarouselFormProps> = ({
   isLoading,
   t,
   formType,
+  error,
 }) => {
   const router = useRouter();
   const isEdit = formType === "update";
@@ -59,6 +61,7 @@ const CarouselForm: React.FC<CarouselFormProps> = ({
     control,
     handleSubmit,
     setValue,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
@@ -73,6 +76,33 @@ const CarouselForm: React.FC<CarouselFormProps> = ({
       carouselLg: null,
     },
   });
+  useEffect(() => {
+    if (isEdit && initialData?.data) {
+      setPreviewSm(initialData?.data?.carouselSm || null);
+      setPreviewMd(initialData?.data?.carouselMd || null);
+      setPreviewLg(initialData?.data?.carouselLg || null);
+      reset({
+        description: {
+          ar: initialData?.data?.description.ar,
+          en: initialData?.data?.description.en,
+        },
+        isActive: initialData?.data?.isActive,
+        carouselSm: null,
+        carouselMd: null,
+        carouselLg: null,
+      });
+    }
+  }, [initialData?.data, reset, isEdit]);
+
+  const [previewSm, setPreviewSm] = useState<string | null>(
+    initialData?.data?.carouselSm || null
+  );
+  const [previewMd, setPreviewMd] = useState<string | null>(
+    initialData?.data?.carouselMd || null
+  );
+  const [previewLg, setPreviewLg] = useState<string | null>(
+    initialData?.data?.carouselLg || null
+  );
 
   const handleFormSubmit = useCallback(
     (values: CarouselFormData) => {
@@ -86,7 +116,7 @@ const CarouselForm: React.FC<CarouselFormProps> = ({
       if (values.carouselLg) formData.append("carouselLg", values.carouselLg);
 
       const commonOptions = {
-        onSuccess(data: any) {
+        onSuccess(data:CarouselResponse) {
           toast.success(data?.message || t("success"));
           router.push("/dashboard/carousel");
         },
@@ -110,16 +140,6 @@ const CarouselForm: React.FC<CarouselFormProps> = ({
       setValue(name, file ?? null, { shouldValidate: true });
     },
     [setValue]
-  );
-
-  const [previewSm, setPreviewSm] = useState<string | null>(
-    initialData?.data?.carouselSm || null
-  );
-  const [previewMd, setPreviewMd] = useState<string | null>(
-    initialData?.data?.carouselMd || null
-  );
-  const [previewLg, setPreviewLg] = useState<string | null>(
-    initialData?.data?.carouselLg || null
   );
 
   const containerVariants = {
@@ -161,12 +181,10 @@ const CarouselForm: React.FC<CarouselFormProps> = ({
                   style={{ fontSize: "32px" }}
                   variants={itemVariants}
                 >
-                  {formType === "create"
-                    ? t("addCarousel")
-                    : t("updateCarousel")}
+                  {!isEdit ? t("addCarousel") : t("updateCarousel")}
                 </motion.h6>
                 <motion.p variants={itemVariants}>
-                  {formType === "create"
+                  {!isEdit
                     ? t("addCarouselSubtitle")
                     : t("updateCarouselSubtitle")}
                 </motion.p>
@@ -270,13 +288,9 @@ const CarouselForm: React.FC<CarouselFormProps> = ({
                   >
                     <SubmitButton
                       loading={isPending}
-                      label={
-                        formType === "create"
-                          ? t("addCarousel")
-                          : t("updateCarousel")
-                      }
+                      label={!isEdit ? t("addCarousel") : t("updateCarousel")}
                       loadingLabel={
-                        formType === "create"
+                        !isEdit
                           ? t("loadingAddCarousel")
                           : t("loadingUpdateCarousel")
                       }
@@ -299,7 +313,9 @@ const CarouselForm: React.FC<CarouselFormProps> = ({
                 <InputError
                   id="form-error"
                   className="text-center fs-3 "
-                  message={errors.root?.message ?? undefined}
+                  message={
+                    (errors.root?.message || error?.message) ?? undefined
+                  }
                 />
               </form>
             </div>

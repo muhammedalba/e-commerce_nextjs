@@ -5,7 +5,7 @@ import CarouselForm from "../../components/CarouselForm";
 
 export default function Page() {
   const t = useTranslations("Carousel");
-  const { mutate:createCarousel, isPending } = useCreateCarousel();
+  const { mutate:createCarousel, isPending, error } = useCreateCarousel();
 
   return (
     <CarouselForm
@@ -13,6 +13,7 @@ export default function Page() {
       onCreate={createCarousel} // from useCreateCarousel().mutate
       onUpdate={() => {}}
       isPending={isPending}
+      error={error}
       
       t={t}
     />

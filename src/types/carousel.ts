@@ -4,9 +4,9 @@ export type CarouselType = {
   _id: string;
   isActive: boolean;
   description: string;
-  carouselSm?: string;
-  carouselMd?: string;
-  carouselLg?: string;
+  carouselSm: string;
+  carouselMd: string;
+  carouselLg: string;
   createdAt: string;
   updatedAt: string;
   slug?: string;

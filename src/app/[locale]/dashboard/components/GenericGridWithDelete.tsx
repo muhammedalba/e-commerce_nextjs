@@ -1,11 +1,11 @@
 "use client";
 import { useCallback, useMemo, useState } from "react";
-import { BrandCard } from "./BrandCard";
+import { GenericGridCard } from "./GenericGridCard";
 import { useTranslations } from "next-intl";
 import AlertDialogSlide from "./AlertDialogSlide";
-import { Brand, Category } from "@/types";
+import { BrandType, CarouselType, CategoryType } from "@/types";
 interface Props {
-  data: Category[] | Brand[] ;
+  data: CategoryType[] | BrandType[] | CarouselType[];
   module: string;
   title: string;
   message: string;
@@ -17,6 +17,8 @@ interface Props {
   t: ReturnType<typeof useTranslations>;
   isPending: boolean;
   deleteFn: (id: string, {}) => void;
+  inactive?: string;
+  active?: string;
 }
 export default function GenericGridWithDelete({
   data,
@@ -31,8 +33,9 @@ export default function GenericGridWithDelete({
   editData,
   deleteData,
   loadingDelete,
+  inactive,
+  active,
 }: Props) {
-  
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
 
@@ -43,16 +46,18 @@ export default function GenericGridWithDelete({
 
   const dataList = useMemo(
     () =>
-      data?.map((category) => (
-        <BrandCard
-          key={category._id}
-          data={category}
+      data?.map((data) => (
+        <GenericGridCard
+          key={data._id}
+          data={data}
           module={module}
           onDelete={handleDeleteClick}
           isPending={isPending}
           editBrand={editData}
           deleteBrand={deleteData}
           loadingDelete={loadingDelete}
+          inactive={inactive}
+          active={active}
         />
       )),
     [data, handleDeleteClick, isPending, selectedId]
