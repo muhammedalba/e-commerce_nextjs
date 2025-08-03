@@ -1,104 +1,83 @@
-import axios from "axios";
-import Cookies from "js-cookie";
-const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
-  withCredentials: true,
+type QueueItem = {
+  resolve: (value?: unknown) => void;
+  reject: (reason?: any) => void;
+};
+
+const axiosInstance = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL, // مثال: https://api.example.com
+  withCredentials: true, // لإرسال الكوكيز مع كل طلب
 });
 
-// ✅ Interceptor لإضافة Authorization header
+// ✅ Inject language header (e.g., for next-intl)
 axiosInstance.interceptors.request.use(
   (config) => {
-    // const token = Cookies.get("access_token");
-    const language = Cookies.get("NEXT_LOCALE") || "ar";
-    config.headers["Accept-Language"] = language;
-    // if (token) {
-    //   config.headers["Authorization"] = `Bearer ${token}`;
-    // }
+    const lang = Cookies.get('NEXT_LOCALE') || 'ar';
+    config.headers['Accept-Language'] = lang;
+
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
-// refresh token logic
+// 🔄 Refresh token logic
 let isRefreshing = false;
-let failedQueue: any[] = [];
+let failedQueue: QueueItem[] = [];
 
-const processQueue = (error: any, token: string | null = null) => {
-  failedQueue.forEach((prom) => {
-    if (error) {
-      prom.reject(error);
-    } else {
-      prom.resolve(token);
-    }
+const processQueue = (error: any, token?: string | null) => {
+  failedQueue.forEach(({ resolve, reject }) => {
+    error ? reject(error) : resolve(token);
   });
-
   failedQueue = [];
 };
 
-//  Interceptor request to handle token refresh
 axiosInstance.interceptors.response.use(
   (response) => response,
-
   async (error) => {
     const originalRequest = error.config;
-    // if unsuccessful response is 401 and the request has not been retried yet
-    if (error.response?.status === 401 && !originalRequest._retry) {
+
+    // 🔐 Check if access token expired
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry &&
+      !originalRequest.url.includes('/auth/refresh-token')
+    ) {
+      originalRequest._retry = true;
+
       if (isRefreshing) {
-        // if another request is already refreshing the token, wait for it
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
-        })
-          .then(() => axiosInstance(originalRequest))
-          .catch((err) => Promise.reject(err));
+        }).then(() => axiosInstance(originalRequest));
       }
 
-      originalRequest._retry = true;
       isRefreshing = true;
 
       try {
-        await axiosInstance.get("/auth/refresh-token"); // هذا يُعيد Set-Cookie فقط
+        await axiosInstance.get('/auth/refresh-token'); // الباك يعيد Set-Cookie فقط
         processQueue(null);
-        return axiosInstance(originalRequest); // أعد إرسال الطلب
-      } catch (err) {
-        processQueue(err, null);
-        // redirect to login page or handle the error
-        // if (typeof window !== "undefined") {
-        //   window.location.href = "/login";
-        // }
-        console.log("error data 1", error.response?.data);
-        console.log("error 1", error);
-        return Promise.reject(err);
+        return axiosInstance(originalRequest); // أعد إرسال الطلب الأصلي
+      } catch (refreshError) {
+        processQueue(refreshError, null);
+        if (typeof window !== 'undefined') {
+          window.location.href = '/login'; // إعادة توجيه عند فشل التحديث
+        }
+        return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;
       }
     }
 
-    // إذا لم يكن الخطأ 401
+    // 🧼 أي خطأ آخر
     const message =
       error.response?.data?.message ||
-      error?.response?.data?.messages ||
-      error?.message ||
-      "حدث خطأ في الاتصال بالخادم";
-
-    console.log("error data", error.response?.data);
-    console.log("error", error?.message);
+      error.response?.data?.messages ||
+      error.message ||
+      'حدث خطأ في الاتصال بالخادم';
 
     return Promise.reject(new Error(message));
-  }
+  },
 );
-//  Interceptor to handle errors globally
-// axiosInstance.interceptors.response.use(
-//   (response) => response,
-//   (error) => {
-//     const message =
-//       error.response?.data?.message ||
-//       error?.response?.data.messages ||
-//       "حدث خطأ في الاتصال بالخادم";
-//     // console.error("Axios error:", error.response?.data || error);
-
-//     return Promise.reject(new Error(message));
-//   }
-// );
 
 export default axiosInstance;
