@@ -13,6 +13,7 @@
       "dashboardRoutes": {
             "dashboard": "dashboard",
             "orders": "orders",
+            "addOrders": "add Orders",
             "products": "products",
             "addProduct": "add Product",
             "categories": "categories",
@@ -25,7 +26,7 @@
             "addUser": "add user",
             "carousel": "carousel",
             "addCarousel": "add Carousel",
-            "supplier": "supplier",
+            "suppliers": "suppliers",
             "addSupplier": "add Supplier",
             "coupons": "coupons",
             "addCoupon": "add Coupon",

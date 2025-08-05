@@ -13,6 +13,7 @@
   "dashboardRoutes": {
     "dashboard": "لوحة التحكم",
     "orders": "الطلبات",
+    "addOrders": "اضافة طلب",
     "products": "المنتجات",
     "addProduct": "اضافة منتج",
     "categories": "الفئات",
@@ -25,7 +26,7 @@
     "addUser": "اضافة مستخدم",
     "carousel": "صور الرئيسيه",
     "addCarousel": "اضافة صورة",
-    "supplier": "الموردين",
+    "suppliers": "الموردين",
     "addSupplier": "اضافة مورد",
     "coupons": "كوبونات الخصم",
     "addCoupon": "اضافة كوبون",

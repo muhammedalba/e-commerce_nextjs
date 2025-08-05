@@ -65,7 +65,7 @@ export default function ImageDropzone({
       exit={{ opacity: 0 }}
     >
       <div className="d-flex gap-3 align-items-center mb-4 mt-5">
-        <i className={`text-primary fa-solid fa-pencil fs-3 `} />
+        <i className={`text-primary  fa-solid  fa-images fs-3 `} />
         <label className="m-0" htmlFor={"imageUpload"}>
           {label}
         </label>

@@ -27,6 +27,7 @@ const SidebarMenu = () => {
       icon: "/assets/images-dashboard/icons/09.svg",
       children: [
         { title: t("dashboardRoutes.orders"), href: "/dashboard/order" },
+        { title: t("dashboardRoutes.addOrders"), href: "/dashboard/addOrders" },
         { title: "Order Details", href: "/dashboard/order-details" },
       ],
     },
@@ -104,10 +105,10 @@ const SidebarMenu = () => {
       ],
     },
     {
-      title: "Suppliers",
+      title: t("dashboardRoutes.suppliers"),
       icon: "/assets/images-dashboard/icons/16.svg",
       children: [
-        { title: "Supplier", href: "/dashboard/suppliers" },
+        { title: t("dashboardRoutes.suppliers"), href: "/dashboard/suppliers" },
         {
           title: t("dashboardRoutes.addSupplier"),
           href: "/dashboard/suppliers/addSupplier",
@@ -139,11 +140,19 @@ const SidebarMenu = () => {
       ],
     },
     {
-      title: "carousel",
+      title: t("dashboardRoutes.carousel"),
       icon: "/assets/images-dashboard/icons/05.svg",
       children: [
-        { title: "carousel", href: "/dashboard/carousel" },
-        { title: "add carousel", href: "/dashboard/addCarousel" },
+        { title: t("dashboardRoutes.carousel"), href: "/dashboard/carousel" },
+        { title: t("dashboardRoutes.addCarousel"), href: "/dashboard/addCarousel" },
+      ],
+    },
+    {
+      title: t("dashboardRoutes.users"),
+      icon: "/assets/images-dashboard/icons/05.svg",
+      children: [
+        { title: t("dashboardRoutes.users"), href: "/dashboard/users" },
+        { title: t("dashboardRoutes.addUser"), href: "/dashboard/users/addUser" },
       ],
     },
   ];

@@ -1,10 +1,22 @@
-import api from "@/lib/API/axios";
+import axiosInstance from "@/lib/API/axios";
 
-export const getAllUsers = () => api.get("/users");
+export const getAllUsers = async (
+  page: number,
+  limit: number,
+  keywords: string
+) =>
+  await axiosInstance.get(
+    `/users?keywords=${keywords}&page=${page}&limit=${limit}`
+  );
 
-export const getUserById = (id: string) => api.get(`/users/${id}`);
+export const getUserById = async (id: string) =>
+  await axiosInstance.get(`/users/${id}`);
 
-export const updateUser = (id: string, data: any) =>
-  api.patch(`/users/${id}`, data);
+export const createUser = async (data: FormData) =>
+  await axiosInstance.post(`/users`, data);
 
-export const deleteUser = (id: string) => api.delete(`/users/${id}`);
+export const updateUser = async (id: string, data: FormData) =>
+  await axiosInstance.patch(`/users/${id}`, data);
+
+export const deleteUser = async (id: string) =>
+  await axiosInstance.delete(`/users/${id}`);

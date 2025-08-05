@@ -8,6 +8,7 @@ export async function loadMessages(locale: string) {
     import(`./${locale}/Supplier.json`),
     import(`./${locale}/SupCategories.json`),
     import(`./${locale}/Carousel.json`),
+    import(`./${locale}/Users.json`),
   ]);
 
   return {
@@ -19,5 +20,6 @@ export async function loadMessages(locale: string) {
     Supplier: modules[5].default,
     SupCategories: modules[6].default,
     Carousel: modules[7].default,
+    Users: modules[8].default,
   };
 }
